@@ -7,7 +7,8 @@
 
 (defconst hamlet/package '(clojure-mode
 			   cider
-			   auto-complete))
+			   auto-complete
+			   rainbow-delimiters))
 
 (dolist (pkg hamlet/package)
   (when (not (package-installed-p pkg))
@@ -29,3 +30,8 @@
 
 ;;view-stytle
 (setq indent-tabs-mode nil) ; tab -> space
+
+;;rainbow-delemiters
+(add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
