@@ -1,7 +1,9 @@
 (require-package 'rainbow-delimiters)
 
 (defun lisp-setup ()
-  (rainbow-delimiters-mode t))
+  (rainbow-delimiters-mode t)
+  (enable-paredit-mode)
+  (turn-on-eldoc-mode))
 
 (defconst elispy-modes
   '(emacs-lisp-mode ielm-mode)
