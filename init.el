@@ -3,8 +3,10 @@
 (require 'init-elpa)
 (require 'init-defaults)
 
+(require 'init-ido)
 (require 'init-auto-complete)
-(require 'init-paredit)
+(require 'init-edit)
+
 (require 'init-lisp)
 (require 'init-clojure)
 
