@@ -9,5 +9,6 @@
 
 (require 'init-lisp)
 (require 'init-clojure)
+(require 'init-python)
 
 (provide 'init)
