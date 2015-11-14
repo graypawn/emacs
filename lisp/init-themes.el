@@ -574,8 +574,8 @@
      `(web-mode-keyword-face ((,class (:foreground ,keyword))))
      `(web-mode-string-face ((,class (:foreground ,str))))
      `(web-mode-type-face ((,class (:inherit ,font-lock-type-face))))
-     `(web-mode-warning-face ((,class (:inherit ,font-lock-warning-face)))))))
-
+     `(web-mode-warning-face ((,class (:inherit ,font-lock-warning-face))))
+     `(highlight-indentation-face ((,class (:background ,bg2)))))))
 
 ;;;###autoload
 (when load-file-name

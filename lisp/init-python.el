@@ -1,4 +1,4 @@
-(setq python-shell-interpreter "ipython")
+(setq  python-shell-interpreter "ipython")
 
 ;;jedi
 (require-package 'jedi)
@@ -16,7 +16,8 @@
 (setq jedi:complete-on-dot t)
 
 (add-hook 'python-mode-hook 'autopair-mode)
-(add-hook 'python-mode-hook 'indent-guide-mode)
+(require-package 'highlight-indentation)
+(add-hook 'python-mode-hook 'highlight-indentation-mode)
 
 (provide 'init-python)
 
