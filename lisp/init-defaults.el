@@ -1,3 +1,7 @@
+;;Font
+(set-default-font "Hack-12" t)
+(set-fontset-font "fontset-default" 'hangul '("NanumGothic" . "iso10646-1"))
+
 ;;Dont't use UI
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
