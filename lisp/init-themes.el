@@ -49,8 +49,8 @@
   "Font size 130%"
   :type 'number
   :group 'majapahit-theme)
-			
-(defun create-majapahit-theme (variant theme-name)
+
+(defun create-majapahit-theme ()
   (let ((class '((class color) (min-colors 89)))
         (base          "#AEBFAE")
         (cursor        "#eddebd")
@@ -63,7 +63,7 @@
         (builtin       "#957c65")
         (keyword       "#d4576f")
         (const         "#98a299")
-        (comment       "#6E756D") ;; I dont't want this game.
+        (comment       "#6E756D")
         (comment-bg    "#262626")
         (func          "#adb78d")
         (str           "#87afaf")
@@ -106,7 +106,7 @@
         )
 
     (custom-theme-set-faces
-     theme-name
+     'majapahit-dark
 
 ;;;;; basics
      `(cursor ((,class (:background ,cursor))))
@@ -203,10 +203,10 @@
      `(company-tooltip ((,class (:background ,active2 :foreground ,base :bold t))))
      `(company-tooltip-annotation ((,class (:foreground ,const))))
      `(company-tooltip-common ((,class (:foreground ,type))))
-     `(company-tooltip-common-selection ((,class (:background ,bg2 :foreground ,(if (eq variant 'dark) keyword keyword)))))
+     `(company-tooltip-common-selection ((,class (:background ,bg2 :foreground ,keyword))))
      ;;`(company-tooltip-mouse ((,class (:inherit highlight))))
      ;;`(company-tooltip-search ((,class (:inherit match))))
-     `(company-tooltip-selection ((,class (:background ,(if (eq variant 'dark) bg2 bg2) :foreground ,const :bold t))))
+     `(company-tooltip-selection ((,class (:background ,bg2 :foreground ,const :bold t))))
 
 ;;;;; diff
      `(diff-added             ((,class :background nil :foreground ,green)))
@@ -250,13 +250,13 @@
 
 ;;;;; ein
      `(ein:cell-input-area((,class (:background ,bg2))))
-     `(ein:cell-input-prompt ((,class (:foreground ,(if (eq variant 'dark) suc green)))))
+     `(ein:cell-input-prompt ((,class (:foreground ,suc))))
      `(ein:cell-output-prompt ((,class (:foreground ,err))))
      `(ein:notification-tab-normal ((,class (:foreground ,builtin))))
-     `(ein:notification-tab-selected ((,class (:foreground ,(if (eq variant 'dark) suc green) :bold t))))
+     `(ein:notification-tab-selected ((,class (:foreground ,suc :bold t))))
 
 ;;;;; eldoc
-     `(eldoc-highlight-function-argument ((,class (:foreground ,(if (eq variant 'dark) suc red) :bold t))))
+     `(eldoc-highlight-function-argument ((,class (:foreground ,suc :bold t))))
 
 ;;;;; erc
      `(erc-input-face ((,class (:foreground ,func))))
@@ -264,7 +264,7 @@
      `(erc-nick-default-face ((,class (:foreground ,inf))))
      `(erc-nick-prefix-face ((,class (:foreground ,yellow))))
      `(erc-notice-face ((,class (:foreground ,str))))
-     `(erc-prompt-face ((,class (:foreground ,(if (eq variant 'dark) suc green) :bold t))))
+     `(erc-prompt-face ((,class (:foreground ,suc :bold t))))
      `(erc-timestamp-face ((,class (:foreground ,builtin))))
 
 ;;;;; eshell
@@ -307,12 +307,12 @@
      `(git-timemachine-minibuffer-detail-face ((,class (:foreground ,inf :bold t :background ,org-h1-bg))))
 
 ;;;;; gnus
-     `(gnus-emphasis-highlight-words ((,class (:background ,(if (eq variant 'dark) err suc) :foreground ,(when (eq variant 'light) bg1)))))
+     `(gnus-emphasis-highlight-words ((,class (:background ,err :foreground ,nil))))
      `(gnus-header-content ((,class (:foreground ,keyword))))
      `(gnus-header-from ((,class (:foreground ,var))))
      `(gnus-header-name ((,class (:foreground ,comp))))
      `(gnus-header-subject ((,class (:foreground ,func :bold t))))
-     `(gnus-summary-cancelled ((,class (:background ,(if (eq variant 'dark) err suc) :foreground ,bg1))))
+     `(gnus-summary-cancelled ((,class (:background ,err :foreground ,bg1))))
 
 ;;;;; guide-key
      `(guide-key/highlight-command-face ((,class (:foreground ,base))))
@@ -366,7 +366,7 @@
 
 ;;;;; ido
      `(ido-first-match ((,class (:foreground ,comp :bold t))))
-     `(ido-only-match ((,class (:foreground ,(if (eq variant 'dark) suc red) :bold t))))
+     `(ido-only-match ((,class (:foreground ,suc :bold t))))
      `(ido-subdir ((,class (:foreground ,key1))))
      `(ido-vertical-match-face ((,class (:foreground ,comp :underline nil))))
 
@@ -436,7 +436,7 @@
      `(org-agenda-date ((,class (:foreground ,var :height ,(if majapahit-theme-org-height 1.1 1.0)))))
      `(org-agenda-date-today ((,class (:weight bold :foreground ,keyword :height ,(if majapahit-theme-org-height 1.3 1.0)))))
      `(org-agenda-date-weekend ((,class (:weight normal :foreground ,var))))
-     `(org-agenda-done ((,class (:foreground ,(if (eq variant 'dark) suc green) :bold t))))
+     `(org-agenda-done ((,class (:foreground ,suc :bold t))))
      `(org-agenda-structure ((,class (:weight bold :foreground ,comp))))
      `(org-block ((,class (:foreground ,base))))
      `(org-block-background ((,class (:background ,org-block-bg))))
@@ -448,7 +448,7 @@
      `(org-date-selected ((,class (:background ,func :foreground ,bg1) )))
      `(org-document-info-keyword ((,class (:foreground ,str))))
      `(org-document-title ((,class (:foreground ,green :weight bold :height ,(if majapahit-theme-org-height 1.4 1.0) :underline t))))
-     `(org-done ((,class (:foreground ,(if (eq variant 'dark) suc green) :bold t :overline t :background ,org-h3-bg))))
+     `(org-done ((,class (:foreground ,suc :bold t :overline t :background ,org-h3-bg))))
      `(org-ellipsis ((,class (:foreground ,builtin))))
      `(org-footnote  ((,class (:underline t :foreground ,base))))
      `(org-hide ((,class (:foreground ,base))))
@@ -504,7 +504,7 @@
 
 ;;;;; smartparens
      `(sp-pair-overlay-face ((,class (:background ,highlight :foreground nil))))
-     `(sp-show-pair-match-face ((,class (:foreground ,(if (eq variant 'dark) suc red) :weight bold :underline t))))
+     `(sp-show-pair-match-face ((,class (:foreground ,suc :weight bold :underline t))))
 
 ;;;;; term
      `(term ((,class (:foreground ,base :background ,bg1))))
@@ -582,14 +582,8 @@
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
-(provide 'majapahit-common)
-
 (deftheme majapahit-dark "majapahit theme, the dark version")
 
-(create-majapahit-theme 'dark 'majapahit-dark)
-
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+(create-majapahit-theme)
 
 (provide 'init-themes)
