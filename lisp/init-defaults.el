@@ -2,16 +2,8 @@
 (set-default-font "Hack-12" t)
 (set-fontset-font "fontset-default" 'hangul '("NanumGothic" . "iso10646-1"))
 
-;;Dont't use UI
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-
-;;default start
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
+;;mode line
 (setq column-number-mode t)
-
 ;;show paren mode
 (setq show-paren-delay 0)
 (show-paren-mode 1)
