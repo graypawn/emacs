@@ -1,5 +1,9 @@
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+
+(setq 'package-archives '(("melpa" . "https://melpa.org/packages/")
+			  ("melpa-stable" . "http://stable.melpa.org/packages/")
+			  ;; ("gnu" . "http://elpa.gnu.org/packages/")
+			  ))
 
 (defun require-package (package &optional min-version no-refresh)
   "Ask elpa to install given PACKAGE."
