@@ -1,6 +1,4 @@
-;;Font
-(set-default-font "Hack-12" t)
-(set-fontset-font "fontset-default" 'hangul '("NanumGothic" . "iso10646-1"))
+(global-linum-mode 1)
 
 ;;mode line
 (setq column-number-mode t)
