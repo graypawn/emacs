@@ -13,5 +13,6 @@
 (require 'init-lisp)
 (require 'init-clojure)
 (require 'init-python)
+(require 'init-cc)
 
 (provide 'init)
