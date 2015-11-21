@@ -1,5 +1,3 @@
-(global-linum-mode 1)
-
 ;;mode line
 (setq column-number-mode t)
 ;;show paren mode
@@ -7,7 +5,16 @@
 (show-paren-mode 1)
 
 ;;tab -> space
-(setq indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode nil)
+
+;;Backup Setting
+(add-to-list 'backup-directory-alist '("." . "~/.emacs-saves"))
+
+(setq delete-old-versions t
+      kept-old-versions 3
+      kept-new-versions 5
+      version-control t)
 
 ;;Useful Shortcut
 (global-set-key (kbd "C-x m") 'eshell)
