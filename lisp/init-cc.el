@@ -1,5 +1,7 @@
 (defun c-mode-setup ()
-  (setq c-default-style "linux")
+  (c-set-style "bsd")
+  (setq c-basic-offset 2)
+  
   (local-set-key (kbd "C-c k") 'recompile)
   (local-set-key (kbd "C-c C-k") 'compile))
 
