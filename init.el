@@ -12,6 +12,7 @@
 (require 'init-edit)
 
 (require 'init-lisp)
+(require 'init-clisp)
 (require 'init-clojure)
 (require 'init-python)
 (require 'init-cc)
