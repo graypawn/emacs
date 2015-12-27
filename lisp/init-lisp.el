@@ -25,10 +25,7 @@
   (define-key emacs-lisp-mode-map (kbd "C-c C-z") 'elisp/switch-to-ielm)
   (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'eval-defun)
   (define-key emacs-lisp-mode-map (kbd "C-c C-k") 'eval-buffer))
-<<<<<<< HEAD
 
-=======
->>>>>>> 9d8b4cf591ff2025e05948d811a4b944ac1653ab
 (with-eval-after-load 'ielm
   (define-key ielm-map (kbd "C-c C-z") 'elisp/repl-switch-back))
 
