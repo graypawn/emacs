@@ -10,6 +10,7 @@
 (require 'init-ido)
 (require 'init-auto-complete)
 (require 'init-edit)
+(require 'init-gtags)
 
 (require 'init-lisp)
 (require 'init-clisp)

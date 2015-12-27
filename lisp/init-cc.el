@@ -1,4 +1,5 @@
 (defun c-mode-setup ()
+  (ggtags-mode)
   (c-set-style "bsd")
   (setq c-basic-offset 2)
   
