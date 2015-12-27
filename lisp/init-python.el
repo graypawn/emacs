@@ -7,18 +7,17 @@
 ;;require 'M-x jedi:install-server'
 (require-package 'jedi)
 (setq jedi:complete-on-dot t)
+(setq jedi:use-shortcuts t)
 
-;;jedi keybind
-(setq jedi:key-show-doc (kbd "C-c C-d d"))
-(setq jedi:key-goto-definition (kbd "M-."))
-(setq jedi:key-goto-definition-pop-marker (kbd "M-,"))
+(with-eval-after-load 'python
+  (define-key python-mode-map (kbd "C-c M-j") 'run-python)
+  (define-key python-mode-map (kbd "C-c C-c") 'python-shell-send-defun)
+  (define-key python-mode-map (kbd "C-c C-k") 'python-shell-send-buffer)
+  (define-key python-mode-map (kbd "C-c M-:") 'python-shell-send-string)
+  (define-key python-mode-map (kbd "C-c C-d d") 'jedi:show-doc))
 
 (defun python-setup ()
-  (jedi:setup)
-  (local-set-key (kbd "C-c M-j") 'run-python)
-  (local-set-key (kbd "C-c C-c") 'python-shell-send-defun)
-  (local-set-key (kbd "C-c C-k") 'python-shell-send-buffer)
-  (local-set-key (kbd "C-c M-:") 'python-shell-send-string))
+  (jedi:setup))
 
 (add-hook 'python-mode-hook 'python-setup)
 ;;autopair

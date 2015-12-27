@@ -25,7 +25,7 @@
     (when (gtags-root-dir)
       (gtags-update-current-file))))
 
-(eval-after-load "ggtags"
-  '(add-hook 'after-save-hook #'gtags-update-hook))
+(with-eval-after-load "ggtags"
+  (add-hook 'after-save-hook #'gtags-update-hook))
 
 (provide 'init-gtags)
