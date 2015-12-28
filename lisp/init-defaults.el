@@ -17,6 +17,8 @@
       version-control t)
 
 ;;Useful Shortcut
+(global-unset-key (kbd "C-z"))
+
 (global-set-key (kbd "C-x m") 'eshell)
 (global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t))) ;one more eshell
 (global-set-key (kbd "C-x C-m") 'execute-extended-command) ;M-x
