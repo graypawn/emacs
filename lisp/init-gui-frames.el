@@ -1,3 +1,6 @@
+(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
+
 ;; Supress GUI features
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
