@@ -3,6 +3,7 @@
 (require 'init-elpa) ; package utils
 (require 'init-os)
 (require 'init-defaults)
+(require 'init-eshell)
 (require 'init-themes) ;color theme
 (require 'init-gui-frames)
 (require 'init-dired)
