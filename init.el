@@ -15,8 +15,10 @@
 
 (require 'init-lisp)
 (require 'init-clisp)
+(require 'init-scheme)
 (require 'init-clojure)
 (require 'init-python)
+(require 'init-perl)
 (require 'init-cc)
 
 (provide 'init)
