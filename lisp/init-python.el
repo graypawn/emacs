@@ -10,11 +10,10 @@
 (setq jedi:use-shortcuts t)
 
 (with-eval-after-load 'python
-  (define-key python-mode-map (kbd "C-c M-j") 'run-python)
   (define-key python-mode-map (kbd "C-c C-c") 'python-shell-send-defun)
   (define-key python-mode-map (kbd "C-c C-k") 'python-shell-send-buffer)
   (define-key python-mode-map (kbd "C-c M-:") 'python-shell-send-string)
-  (define-key python-mode-map (kbd "C-c C-d d") 'jedi:show-doc))
+  (define-key python-mode-map (kbd "C-c d") 'jedi:show-doc))
 
 (defun python-setup ()
   (jedi:setup))
