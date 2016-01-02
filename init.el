@@ -12,6 +12,7 @@
 (require 'init-auto-complete)
 (require 'init-edit)
 (require 'init-gtags)
+(require 'init-tw)
 
 (require 'init-lisp)
 (require 'init-clisp)
