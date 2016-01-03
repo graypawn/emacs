@@ -1,0 +1,1 @@
+alias mplayer mplayer -zoom -xy 910 $1
