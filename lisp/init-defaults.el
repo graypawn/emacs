@@ -17,10 +17,13 @@
       version-control t)
 
 ;;Useful Shortcut
-(global-unset-key (kbd "C-z"))
+(when (display-graphic-p)
+  (global-unset-key (kbd "C-z"))
+  (global-unset-key (kbd "C-x C-z")))
 
 (global-set-key (kbd "C-x m") 'eshell)
 (global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t))) ;one more eshell
+
 (global-set-key (kbd "C-x C-m") 'execute-extended-command) ;M-x
 
 ;;Buffer Shortcut
@@ -34,5 +37,6 @@
 
 ;;Apropos
 (global-set-key (kbd "C-h l") 'apropos-library)
+
 
 (provide 'init-defaults)
