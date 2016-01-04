@@ -22,7 +22,9 @@
 (require-package 'autopair)
 (require-package 'paredit)
 (require-package 'indent-guide)
+(require-package 'fold-dwim)
+(require-package 'hideshow)
 
 
 
-(provide 'init-defaults)
+(provide 'init-core)
