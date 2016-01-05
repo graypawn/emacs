@@ -11,7 +11,7 @@
 
   ;; Linux
   (when (eq system-type 'gnu/linux)
-    (set-default-font "Hack-12" t)
+    (set-frame-font "Hack-12" t)
     (set-fontset-font "fontset-default" 'hangul '("NanumGothic" . "iso10646-1"))))
 
 (provide 'init-os)

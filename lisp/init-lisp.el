@@ -10,7 +10,7 @@
   (interactive)
   (let ((orig-buffer (current-buffer)))
     (if (get-buffer "*ielm*")
-	(funcall elisp/repl-switch-function "*ielm*")
+        (funcall elisp/repl-switch-function "*ielm*")
       (ielm))
     (setq elisp/repl-original-buffer orig-buffer)))
 
@@ -35,7 +35,7 @@
 (defun lisp-setup ()
   (rainbow-delimiters-mode t)
   (enable-paredit-mode)
-  (turn-on-eldoc-mode))
+  (eldoc-mode))
 
 (require-package 'elisp-slime-nav)
 
