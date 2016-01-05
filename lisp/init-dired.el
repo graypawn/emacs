@@ -17,9 +17,10 @@ if no files marked, always operate on current line in dired-mode
   (dired-do-shell-command command arg file-list)
   (message command))
 
-(eval-after-load 'dired
-  '(progn
-     (define-key dired-mode-map "\\" 'diredext-exec-git-command-in-shell)
-     (require 'dired+)))
+(with-after-load
+ 'dired
+ (define-key dired-mode-map
+   "\\" 'diredext-exec-git-command-in-shell)
+ (require 'dired+))
 
 (provide 'init-dired)
