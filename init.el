@@ -4,6 +4,8 @@
 (require 'init-os)
 (require 'init-core)
 
+(require 'init-tramp)
+
 (require 'init-themes) ;color theme
 (require 'init-ui)
 
@@ -13,7 +15,7 @@
 (require 'init-ido)
 
 (require 'init-auto-complete)
-(require 'init-gtags)
+;;(require 'init-gtags)
 
 (require 'init-git)
 (require 'init-tw)
