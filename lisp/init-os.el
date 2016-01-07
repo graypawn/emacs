@@ -14,7 +14,7 @@
                                     '("VL Gothic" . "unicode-bmp")))))))
 
  ((eq system-type 'gnu/linux)
-  (progn (set-default-font "Hack-12" t)
+  (progn (set-frame-font "Hack-12" t)
          (set-fontset-font "fontset-default"
                            'hangul
                            '("NanumGothic" . "iso10646-1"))
