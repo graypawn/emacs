@@ -1,9 +1,10 @@
-(require 'tramp)
-
 (setq tramp-default-method "ssh")
-(when (boundp 'tramp-connection-properties)
+
+;; (require 'tramp)
+
+(with-eval-after-load 'tramp
   (add-to-list 'tramp-connection-properties
-               (list (regexp-quote "localhost")
+               (list (regexp-quote "ftz.hackerschool.org")
                      "locale" "LC_ALL=ko_KR.euc-kr")))
 
 (provide 'init-tramp)
