@@ -23,7 +23,7 @@
 (require 'init-auto-complete)
 ;;(require 'init-gtags)
 
-;; (require 'init-git)
+ (require 'init-git)
 (require 'init-tw)
 
 ;; Language

@@ -2,8 +2,8 @@
 (add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\||psgi\\|t\\)\\'" . cperl-mode))
 
 (with-eval-after-load 'cperl-mode
-  (message "Hello")
-  (define-key cperl-mode-map (kbd "C-d d")  'cperl-perldoc)
-  )
+  (define-key cperl-mode-map (kbd "C-d d")  'cperl-perldoc))
+
+(add-hook 'cperl-mode-hook (lambda () (flymake-mode t)))
 
 (provide 'init-perl)
