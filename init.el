@@ -21,9 +21,10 @@
 
 
 (require 'init-auto-complete)
+(require 'init-graphviz)
 ;;(require 'init-gtags)
 
- (require 'init-git)
+(require 'init-git)
 (require 'init-tw)
 
 ;; Language
