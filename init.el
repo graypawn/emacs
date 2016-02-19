@@ -20,10 +20,11 @@
 
 (require 'init-git)
 (require 'init-tw)
+(require 'init-org)
 
 ;; Language
 (require 'init-lisp)
-(require 'init-markdown)
+;; (require 'init-markdown)
 ;; (require 'init-clisp)
 (require 'init-scheme)
 (require 'init-clojure)
