@@ -15,7 +15,7 @@
 (require 'init-eshell)
 
 (require 'init-auto-complete)
-(require 'init-graphviz)
+;; (require 'init-graphviz)
 ;;(require 'init-gtags)
 
 (require 'init-git)
