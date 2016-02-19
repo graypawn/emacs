@@ -9,16 +9,10 @@
 (require 'init-tramp)
 (require 'init-ido)
 
-
-
-
-
 (require 'init-ui)
 
 (require 'init-keybindings)
 (require 'init-eshell)
-
-
 
 (require 'init-auto-complete)
 (require 'init-graphviz)
@@ -33,8 +27,8 @@
 ;; (require 'init-clisp)
 (require 'init-scheme)
 (require 'init-clojure)
-;; (require 'init-python)
-(require 'init-perl)
+(require 'init-python)
+;; (require 'init-perl)
 (require 'init-cc)
 
 (provide 'init)
