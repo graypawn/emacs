@@ -17,7 +17,7 @@
                                 (other-window -1)))
 
 ;;; deft
-(global-set-key (kbd "<f9>") 'deft)
+(global-set-key (kbd "C-x l") 'deft)
 
 ;;Apropos
 (global-set-key (kbd "C-h l") 'apropos-library)
