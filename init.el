@@ -25,8 +25,8 @@
 ;; Language
 (require 'init-lisp)
 ;; (require 'init-markdown)
-;; (require 'init-clisp)
-(require 'init-scheme)
+(require 'init-clisp)
+;; (require 'init-scheme)
 (require 'init-clojure)
 (require 'init-python)
 ;; (require 'init-perl)
