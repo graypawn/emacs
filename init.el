@@ -8,6 +8,7 @@
 (require 'init-themes) ;color theme
 (require 'init-tramp)
 (require 'init-ido)
+(require 'init-org)
 
 (require 'init-ui)
 
@@ -20,7 +21,7 @@
 
 (require 'init-git)
 (require 'init-tw)
-(require 'init-org)
+
 
 ;; Language
 (require 'init-lisp)
