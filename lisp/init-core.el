@@ -24,7 +24,7 @@
 (require-package 'indent-guide)
 (require-package 'fold-dwim)
 (require-package 'hideshow)
-
-
+(require-package 'magit)
 
 (provide 'init-core)
+

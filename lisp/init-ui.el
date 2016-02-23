@@ -1,6 +1,3 @@
-(setq visible-bell nil)
-(setq ring-bell-function 'ignore)
-
 ;;mode line
 (setq column-number-mode t)
 

@@ -19,18 +19,17 @@
 ;; (require 'init-graphviz)
 ;;(require 'init-gtags)
 
-(require 'init-git)
 (require 'init-tw)
 
 
 ;; Language
 (require 'init-lisp)
-;; (require 'init-markdown)
+
 (require 'init-clisp)
-;; (require 'init-scheme)
 (require 'init-clojure)
+(require 'init-cc)
 (require 'init-python)
 ;; (require 'init-perl)
-(require 'init-cc)
-
+;; (require 'init-scheme)
+;; (require 'init-markdown)
 (provide 'init)
