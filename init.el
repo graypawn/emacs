@@ -16,8 +16,7 @@
 (require 'init-eshell)
 
 (require 'init-auto-complete)
-;; (require 'init-graphviz)
-;;(require 'init-gtags)
+(require 'init-gtags)
 
 (require 'init-tw)
 
@@ -31,5 +30,4 @@
 (require 'init-python)
 ;; (require 'init-perl)
 ;; (require 'init-scheme)
-;; (require 'init-markdown)
 (provide 'init)

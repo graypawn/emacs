@@ -1,30 +1,22 @@
-;;(require-package 'c-eldoc)
+(require-package 'javadoc-lookup)
 
-(defun c-mode-setup ()
+(defun cc-mode-setup ()
   (ggtags-mode)
-  (c-set-style "bsd")
-  (setq c-basic-offset 2)
-;;  (c-turn-on-eldoc-mode)
-;;  (setq c-eldoc-buffer-regenerate-time 60)
-;;  (flymake-mode t)
-  )
+  (c-set-style "k&r")
+  (setq c-basic-offset 4)
+  (hs-minor-mode t)
+  (autopair-mode t))
 
-;;; c-eldoc
-(when (require-package 'c-eldoc)
-  (add-hook 'c-mode-common-hook
-            (lambda ()
-              (set (make-local-variable 'eldoc-idle-delay) 0.2)
-              (set (make-local-variable 'eldoc-minor-mode-string) "")
-              (c-turn-on-eldoc-mode))))
-
-;;; Fold-dwim & hideshow
-(add-hook 'c-mode-common-hook 'hs-minor-mode)
-
-
+;;; CC-mode Key Binding
 (with-eval-after-load 'cc-mode
   (define-key c-mode-base-map (kbd "C-c k") 'recompile)
-  (define-key c-mode-base-map (kbd "C-c C-k") 'compile))
+  (define-key c-mode-base-map (kbd "C-c C-k") 'compile)
+  (define-key c-mode-base-map (kbd "C-c TAB") 'hs-toggle-hiding)
+  (define-key c-mode-base-map (kbd "C-c S") 'hs-show-all)
+  (define-key c-mode-base-map (kbd "C-c H") 'hs-hide-all)
 
-(add-to-list 'c-mode-common-hook 'c-mode-setup)
+  ;; java-mode
+  (define-key java-mode-map (kbd "C-c C-d h") 'javadoc-lookup))
 
+(add-to-list 'c-mode-common-hook 'cc-mode-setup)
 (provide 'init-cc)

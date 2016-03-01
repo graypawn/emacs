@@ -21,7 +21,6 @@
 ;;; required package
 (require-package 'autopair)
 (require-package 'paredit)
-(require-package 'indent-guide)
 (require-package 'fold-dwim)
 (require-package 'hideshow)
 (require-package 'magit)
