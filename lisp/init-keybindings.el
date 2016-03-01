@@ -4,7 +4,7 @@
 
 ;;; shell
 (global-set-key (kbd "C-x m") 'eshell)
-(global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t))) ;one more eshell
+(global-set-key (kbd "C-x M") 'term)
 
 ;;; M-x
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)
