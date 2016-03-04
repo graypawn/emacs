@@ -4,6 +4,7 @@
   (ggtags-mode)
   (c-set-style "k&r")
   (setq c-basic-offset 4)
+  (setq comment-style 'extra-line)
   (hs-minor-mode t)
   (autopair-mode t))
 
