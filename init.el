@@ -20,14 +20,12 @@
 
 (require 'init-tw)
 
-
-;; Language
 (require 'init-lisp)
 
 (require 'init-clisp)
 (require 'init-clojure)
 (require 'init-cc)
 (require 'init-python)
-;; (require 'init-perl)
-;; (require 'init-scheme)
+(require 'init-scheme)
+(require 'init-perl)
 (provide 'init)

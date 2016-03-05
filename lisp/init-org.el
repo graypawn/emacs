@@ -22,6 +22,7 @@
  '((sh . t)
    (calc . t)
    (emacs-lisp . t)
+   (scheme . t)
    (python . t)))
 
 ;;; Deft
