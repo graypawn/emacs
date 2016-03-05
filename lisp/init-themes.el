@@ -515,7 +515,10 @@
      `(popup-isearch-match ((,class (:background ,bg1 :foreground ,base :bold t))))
      `(ac-completion-face ((,class (:underline t :foreground ,keyword))))
 
-
+;;;;; whitespace
+     `(whitespace-line ((,class (:bold t :background ,war))))
+     `(whitespace-trailing ((,class (:bold t :background ,war))))
+     `(whitespace-tab ((,class (:bold t :background ,war))))
 
 ;;;;; other, need more work
      `(ffap ((,class (:foreground ,base))))
@@ -557,7 +560,8 @@
      `(web-mode-string-face ((,class (:foreground ,str))))
      `(web-mode-type-face ((,class (:inherit ,font-lock-type-face))))
      `(web-mode-warning-face ((,class (:inherit ,font-lock-warning-face))))
-     `(highlight-indentation-face ((,class (:background ,bg2)))))))
+     `(highlight-indentation-face ((,class (:background ,bg2))))
+     )))
 
 ;;;###autoload
 (when load-file-name
