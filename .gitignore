@@ -1,0 +1,15 @@
+*.elc
+*~
+.session
+.python-environments/
+history
+ac-comphist.dat
+bookmarks
+tramp
+recentf
+ido.last
+eshell/history
+eshell/lastdir
+auto-save-list/
+cclookup
+elpa/
