@@ -41,7 +41,7 @@
   (let ((class '((class color) (min-colors 89)))
         (base          "#AEBFAE")
         (cursor        "#eddebd")
-	(bg1           "#262626")
+        (bg1           "#262626")
         (bg2           "#4E4E4E")
         (bg3           "#585858")
         (bg4           "#6C6C6C")
