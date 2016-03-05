@@ -518,7 +518,7 @@
 ;;;;; whitespace
      `(whitespace-line ((,class (:bold t :background ,war))))
      `(whitespace-trailing ((,class (:bold t :background ,war))))
-     `(whitespace-tab ((,class (:bold t :background ,war))))
+     `(whitespace-tab ((,class (:bold t :background ,active1))))
 
 ;;;;; other, need more work
      `(ffap ((,class (:foreground ,base))))

@@ -20,18 +20,7 @@
 
 ;;; Whitespace
 (global-whitespace-mode t)
-
-(add-hook
- 'after-change-major-mode-hook
- '(lambda ()
-    (if (derived-mode-p 'prog-mode)
-        (setq whitespace-line-column 80
-              whitespace-style
-              '(face tabs trailing lines-tail))
-      (setq whitespace-line-column nil
-            whitespace-style
-            '(face tabs trailing lines-tail)))))
-
+(setq whitespace-style '(face tabs trailing))
 
 ;;; required package
 (require-package 'autopair)

@@ -27,5 +27,5 @@
 (require 'init-cc)
 (require 'init-python)
 (require 'init-scheme)
-(require 'init-perl)
+;; (require 'init-perl)
 (provide 'init)
