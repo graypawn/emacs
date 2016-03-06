@@ -48,7 +48,7 @@
 
 (defconst lispy-modes
   (append elispy-modes
-	  '(lisp-mode inferior-lisp-mode lisp-interaction-mode))
+  '(lisp-mode inferior-lisp-mode lisp-interaction-mode))
   "All lisp major modes.")
 
 (require 'derived)
