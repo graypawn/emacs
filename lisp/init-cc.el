@@ -20,7 +20,7 @@
 
 (autoload 'cclookup-lookup "cclookup"
   "Lookup SEARCH-TERM in the Python HTML indexes." t)
-(autoload 'cclookup-update "cclookup" 
+(autoload 'cclookup-update "cclookup"
   "Run cclookup-update and create the database at `cclookup-db-file'." t)
 
 ;;; CC-mode Key Binding

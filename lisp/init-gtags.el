@@ -10,12 +10,18 @@
 (defun gtags-update-single (filename)
   "Update Gtags database for changes in a single file"
   (interactive)
-  (start-process "update-gtags" "update-gtags" "bash" "-c" (concat "cd " (gtags-root-dir) " ; gtags --single-update " filename )))
+  (start-process "update-gtags" "update-gtags" "bash" "-c"
+                 (concat "cd "
+                         (gtags-root-dir)
+                         " ; gtags --single-update "
+                         filename )))
 
 (defun gtags-update-current-file()
   (interactive)
   (defvar filename)
-  (setq filename (replace-regexp-in-string (gtags-root-dir) "." (buffer-file-name (current-buffer))))
+  (setq filename (replace-regexp-in-string (gtags-root-dir)
+                                           "."
+                                           (buffer-file-name (current-buffer))))
   (gtags-update-single filename)
   (message "Gtags updated for %s" filename))
 

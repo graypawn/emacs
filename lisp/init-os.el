@@ -1,4 +1,4 @@
-;;; emacs --daemon으로 실행한 경우 
+;;; emacs --daemon으로 실행한 경우
 (defun linux-daemon-config ()
   (add-to-list 'default-frame-alist '(font . "Hack-12"))
   (add-hook 'after-make-frame-functions
