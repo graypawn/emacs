@@ -28,7 +28,7 @@
 ;;; Deft
 (require-package 'deft)
 
-(setq deft-extension "org")
+(setq deft-extensions '("org"))
 (setq deft-directory "~/Dropbox/wiki")
 (setq deft-text-mode 'org-mode)
 (setq deft-use-filename-as-title nil)
