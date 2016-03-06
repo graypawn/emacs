@@ -4,7 +4,6 @@
 (require 'init-os)
 (require 'init-core)
 
-(require 'init-dired)
 (require 'init-themes) ;color theme
 (require 'init-tramp)
 (require 'init-ido)
