@@ -1,4 +1,5 @@
 (require-package 'ggtags)
+(eval-when-compile (require 'ggtags))
 
 (defun gtags-root-dir ()
   "Returns GTAGS root directory or nil if doesn't exist."
@@ -18,12 +19,12 @@
 
 (defun gtags-update-current-file()
   (interactive)
-  (defvar filename)
-  (setq filename (replace-regexp-in-string (gtags-root-dir)
-                                           "."
-                                           (buffer-file-name (current-buffer))))
-  (gtags-update-single filename)
-  (message "Gtags updated for %s" filename))
+  (let ((filename (replace-regexp-in-string
+                   (gtags-root-dir)
+                   "."
+                   (buffer-file-name (current-buffer)))))
+    (gtags-update-single filename)
+    (message "Gtags updated for %s" filename)))
 
 (defun gtags-update-hook()
   "Update GTAGS file incrementally upon saving a file"

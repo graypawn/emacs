@@ -1,5 +1,5 @@
 (setq tramp-default-method "ssh")
-
+(eval-when-compile (require 'tramp))
 ;; (require 'tramp)
 
 (with-eval-after-load 'tramp

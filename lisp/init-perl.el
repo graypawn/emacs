@@ -1,4 +1,6 @@
+(eval-when-compile (require 'cperl-mode))
 (defalias 'perl-mode 'cperl-mode)
+
 (add-to-list 'auto-mode-alist
              '("\\.\\([pP][Llm]\\||psgi\\|t\\)\\'" . cperl-mode))
 

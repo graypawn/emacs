@@ -1,3 +1,6 @@
+(eval-when-compile (require 'cclookup)
+                   (require 'cc-mode))
+
 (require-package 'javadoc-lookup)
 
 (defun cc-mode-setup ()
@@ -14,7 +17,7 @@
 (setq cclookup-dir (expand-file-name "cclookup" user-emacs-directory))
 (add-to-list 'load-path cclookup-dir)
 
-(eval-when-compile (require 'cclookup))
+
 (setq cclookup-program (concat cclookup-dir "/cclookup.py"))
 (setq cclookup-db-file (concat cclookup-dir "/cclookup.db"))
 

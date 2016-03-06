@@ -1,3 +1,5 @@
+(eval-when-compile (require 'python))
+
 ;;Use IPython
 (setq python-shell-interpreter "ipython")
 (setq python-shell-buffer-name "IPython")

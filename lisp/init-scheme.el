@@ -1,4 +1,5 @@
 (require-package 'geiser)
+(eval-when-compile (require 'scheme))
 
 (defun scheme-setup ()
   (setq scheme-program-name "guile")
