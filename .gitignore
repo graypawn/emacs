@@ -2,6 +2,7 @@
 *~
 custom.el
 .session
+session.*
 history
 ac-comphist.dat
 bookmarks
