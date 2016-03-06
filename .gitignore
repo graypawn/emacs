@@ -1,7 +1,7 @@
 *.elc
 *~
+custom.el
 .session
-.python-environments/
 history
 ac-comphist.dat
 bookmarks
@@ -11,5 +11,6 @@ ido.last
 eshell/history
 eshell/lastdir
 auto-save-list/
-cclookup
+.python-environments/
+cclookup/
 elpa/
