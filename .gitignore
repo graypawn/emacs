@@ -6,6 +6,7 @@ session.*
 history
 ac-comphist.dat
 bookmarks
+projectile-bookmarks.eld
 tramp
 recentf
 ido.last

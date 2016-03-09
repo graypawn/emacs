@@ -44,6 +44,12 @@
 (setq helm-input-idle-delay 0.1)
 (helm-mode 1)
 
+;;; projectile
+(require-package 'projectile)
+(projectile-global-mode)
+
+(require-package 'helm-projectile)
+
 ;;; required package
 (require-package 'autopair)
 (require-package 'paredit)

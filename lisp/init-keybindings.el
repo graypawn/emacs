@@ -12,6 +12,9 @@
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
 
+;;; projectile
+(global-set-key (kbd "C-x p") 'helm-projectile)
+
 ;;; Buffer Shortcut
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
