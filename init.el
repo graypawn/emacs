@@ -6,7 +6,6 @@
 
 (require 'init-themes) ;color theme
 (require 'init-tramp)
-(require 'init-ido)
 (require 'init-org)
 
 (require 'init-ui)

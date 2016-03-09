@@ -15,9 +15,6 @@
 ;;; projectile
 (global-set-key (kbd "C-x p") 'helm-projectile)
 
-;;; Buffer Shortcut
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
 ;;; Other Window backward
 (global-set-key (kbd "C-x O") (lambda ()
                                 (interactive)
