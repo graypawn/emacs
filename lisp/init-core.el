@@ -37,6 +37,13 @@
 (require-package 'undo-tree)
 (global-undo-tree-mode t)
 
+;;; helm
+(require-package 'helm)
+(require 'helm-config)
+(setq helm-idle-delay 0.1)
+(setq helm-input-idle-delay 0.1)
+(helm-mode 1)
+
 ;;; required package
 (require-package 'autopair)
 (require-package 'paredit)
