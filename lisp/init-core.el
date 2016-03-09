@@ -33,6 +33,10 @@
         (setq whitespace-line-column nil
               whitespace-style '(face tabs trailing)))))
 
+;;; undo-tree
+(require-package 'undo-tree)
+(global-undo-tree-mode t)
+
 ;;; required package
 (require-package 'autopair)
 (require-package 'paredit)
