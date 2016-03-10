@@ -10,6 +10,7 @@ projectile-bookmarks.eld
 tramp
 recentf
 ido.last
+.#ido.last
 eshell/history
 eshell/lastdir
 auto-save-list/
