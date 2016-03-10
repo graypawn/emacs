@@ -54,6 +54,7 @@
 
 (let ((class '((class color) (min-colors 89)))
       (base          "#AEBFAE")
+      (whitetab      "#3D3D3D")
       (cursor        "#eddebd")
       (bg1           "#262626")
       (bg2           "#4E4E4E")
@@ -615,7 +616,7 @@
 ;;;;; whitespace
    `(whitespace-line ((,class (:bold t :background ,war))))
    `(whitespace-trailing ((,class (:bold t :background ,war))))
-   `(whitespace-tab ((,class (:bold t :background ,active1))))
+   `(whitespace-tab ((,class (:bold t :background ,whitetab))))
 
 ;;;;; other, need more work
    `(ffap ((,class (:foreground ,base))))
