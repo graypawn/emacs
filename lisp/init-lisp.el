@@ -54,7 +54,10 @@
 (require 'derived)
 
 (dolist (hook (mapcar #'derived-mode-hook-name lispy-modes))
-  (add-hook hook 'lisp-setup))
+  (add-hook hook (lambda ()
+                   (lisp-setup)
+                   (set (make-local-variable 'lisp-indent-function)
+                        'common-lisp-indent-function))))
 
 (dolist (hook (mapcar #'derived-mode-hook-name elispy-modes))
   (add-hook hook 'emacs-lisp-setup))
