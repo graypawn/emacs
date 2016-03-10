@@ -46,9 +46,11 @@
 
 ;;; projectile
 (require-package 'projectile)
-(projectile-global-mode)
-
 (require-package 'helm-projectile)
+
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
 
 ;;; required package
 (require-package 'autopair)

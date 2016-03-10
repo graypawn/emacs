@@ -12,9 +12,6 @@
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
 
-;;; projectile
-(global-set-key (kbd "C-x p") 'helm-projectile)
-
 ;;; Other Window backward
 (global-set-key (kbd "C-x O") (lambda ()
                                 (interactive)
