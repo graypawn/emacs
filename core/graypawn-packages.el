@@ -17,7 +17,12 @@
     autopair
     paredit
     fold-dwim
-    hideshow))
+    hideshow
+
+    markdown-mode
+    cmake-mode
+    pkgbuild-mode
+    ))
 
 (defun graypawn-packages-installed-p ()
   "Check if all packages in `graypawn-packages' are installed."
