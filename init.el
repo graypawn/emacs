@@ -1,5 +1,13 @@
-(add-to-list 'load-path (expand-file-name "core" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "modules" user-emacs-directory))
+(defvar graypawn-core-dir
+  (expand-file-name "core" user-emacs-directory))
+(defvar graypawn-modules-dir
+  (expand-file-name "modules" user-emacs-directory))
+(defvar graypawn-modules-file
+  (expand-file-name "graypawn-modules.el" user-emacs-directory)
+  "This files contains a list of modules.")
+
+(add-to-list 'load-path graypawn-core-dir)
+(add-to-list 'load-path graypawn-modules-dir)
 
 (require 'graypawn-packages)
 (require 'graypawn-os)
@@ -9,30 +17,16 @@
 (require 'graypawn-ui)
 (require 'graypawn-keybindings)
 
-(require 'init-tramp)
-(require 'init-org)
-
-(require 'init-eshell)
-
-(require 'init-auto-complete)
-(require 'init-gtags)
-
-(require 'init-tw)
-
-(require 'init-lisp)
-
-(require 'init-clisp)
-(require 'init-clojure)
-(require 'init-cc)
-(require 'init-java)
-(require 'init-python)
-(require 'init-scheme)
-;; (require 'init-perl)
-
 ;;; Load "custom.el"
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+;; the modules
+(if (file-exists-p graypawn-modules-file)
+    (load graypawn-modules-file)
+    (message "Missing modules file %s" graypawn-modules-file)
+    (message "You can get started by copying the bundled example file"))
 
 (provide 'init)
 

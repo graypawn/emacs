@@ -7,6 +7,7 @@ history
 ac-comphist.dat
 bookmarks
 projectile-bookmarks.eld
+/graypawn-modules.el
 tramp
 recentf
 ido.last
