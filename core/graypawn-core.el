@@ -32,6 +32,8 @@
         (setq whitespace-line-column nil
               whitespace-style '(face tabs trailing)))))
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;;; undo-tree
 (global-undo-tree-mode t)
 
