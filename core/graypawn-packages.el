@@ -14,7 +14,7 @@
   '(projectile
     magit
     undo-tree
-    autopair
+    smartparens
     paredit
     fold-dwim
     hideshow

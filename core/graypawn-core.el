@@ -1,8 +1,11 @@
-;;; smartparen을 autopair 대신
+;; smart pairing for all
+(require 'smartparens-config)
+(setq sp-base-key-bindings 'paredit)
+(setq sp-autoskip-closing-pair 'always)
+(setq sp-hybrid-kill-entire-symbol nil)
+(sp-use-paredit-bindings)
 
-;;show paren mode
-(setq show-paren-delay 0)
-(show-paren-mode 1)
+(show-smartparens-global-mode +1)
 
 ;;tab -> space
 (setq-default tab-width 4)
