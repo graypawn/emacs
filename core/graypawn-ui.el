@@ -4,6 +4,7 @@
 
 ;;mode line
 (setq column-number-mode t)
+(size-indication-mode t)
 
 ;; Supress GUI features
 (when (fboundp 'tool-bar-mode)
