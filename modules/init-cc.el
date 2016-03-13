@@ -6,9 +6,11 @@
 
 (defun cc-mode-setup ()
   (ggtags-mode)
-  (c-set-style "k&r")
+  (c-set-style "linux")
   (setq c-basic-offset 4)
   (setq comment-style 'extra-line)
+  (setq comment-start "/*")
+  (setq comment-end "*/")
   (hs-minor-mode t)
   (autopair-mode t))
 
@@ -35,6 +37,6 @@
   ;; c++-mode
   (define-key c++-mode-map (kbd "C-c C-d h") 'cclookup-lookup))
 
-
 (add-to-list 'c-mode-common-hook 'cc-mode-setup)
+
 (provide 'init-cc)
