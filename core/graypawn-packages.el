@@ -18,6 +18,7 @@
     paredit
     fold-dwim
     hideshow
+    which-key
 
     markdown-mode
     cmake-mode

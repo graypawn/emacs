@@ -16,4 +16,8 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message "")
 
+;; show available keybindings after you start typing
+(require 'which-key)
+(which-key-mode +1)
+
 (provide 'graypawn-ui)
