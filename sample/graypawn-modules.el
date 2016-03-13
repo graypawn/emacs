@@ -1,5 +1,5 @@
 (require 'init-org)
-
+(require 'init-helm)
 (require 'init-eshell)
 
 (require 'init-auto-complete)
