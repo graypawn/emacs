@@ -32,4 +32,4 @@
 
 ;;; Apropos
 (global-set-key (kbd "C-h l") 'apropos-library)
-(provide 'init-keybindings)
+(provide 'graypawn-keybindings)

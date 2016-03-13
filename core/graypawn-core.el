@@ -1,7 +1,3 @@
-;;Disable beep
-(setq visible-bell nil)
-(setq ring-bell-function 'ignore)
-
 ;;show paren mode
 (setq show-paren-delay 0)
 (show-paren-mode 1)
@@ -63,4 +59,4 @@
 (require-package 'hideshow)
 (require-package 'magit)
 
-(provide 'init-core)
+(provide 'graypawn-core)

@@ -1,16 +1,17 @@
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "core" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "modules" user-emacs-directory))
 
-(require 'init-elpa) ; package utils
-(require 'init-os)
-(require 'init-core)
+(require 'graypawn-packages)
+(require 'graypawn-os)
+(require 'graypawn-core)
 
-(require 'init-themes) ;color theme
+(require 'graypawn-themes) ;color theme
+(require 'graypawn-ui)
+(require 'graypawn-keybindings)
+
 (require 'init-tramp)
 (require 'init-org)
 
-(require 'init-ui)
-
-(require 'init-keybindings)
 (require 'init-eshell)
 
 (require 'init-auto-complete)

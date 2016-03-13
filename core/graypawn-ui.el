@@ -1,3 +1,7 @@
+;;Disable beep
+(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
+
 ;;mode line
 (setq column-number-mode t)
 
@@ -12,4 +16,4 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message "")
 
-(provide 'init-ui)
+(provide 'graypawn-ui)

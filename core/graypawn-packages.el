@@ -17,4 +17,4 @@
         (require-package package min-version t)))))
 
 (package-initialize)
-(provide 'init-elpa)
+(provide 'graypawn-packages)

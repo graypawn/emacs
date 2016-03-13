@@ -25,4 +25,4 @@
  ((daemonp) (linux-daemon-config))
  ((eq system-type 'gnu/linux) (linux-config)))
 
-(provide 'init-os)
+(provide 'graypawn-os)
