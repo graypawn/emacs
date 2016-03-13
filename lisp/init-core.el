@@ -18,6 +18,9 @@
       kept-new-versions 5
       version-control t)
 
+;;; Symbolic link to Git-controlled source file
+(setq vc-follow-symlinks t)
+
 ;;; Whitespace
 ;; trailing whitespace, tab을 강조한다.
 ;; prograimming mode에서 80컬럼을 넘어가면 강조한다.
