@@ -12,7 +12,7 @@
   (setq comment-start "/*")
   (setq comment-end "*/")
   (hs-minor-mode t)
-  (autopair-mode t))
+  )
 
 ;;; cclookup
 ;;; cpp 레퍼런스를 offline에서 확인할 수 있다.
