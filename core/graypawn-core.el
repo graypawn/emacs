@@ -1,3 +1,5 @@
+;;; smartparen을 autopair 대신
+
 ;;show paren mode
 (setq show-paren-delay 0)
 (show-paren-mode 1)
@@ -33,6 +35,14 @@
               whitespace-style '(face tabs trailing)))))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(require 'compile)
+(setq compilation-ask-about-save nil  ; Just save before compiling
+      compilation-always-kill t       ; Just kill old compile processes before
+                                        ; starting the new one
+      compilation-scroll-output 'first-error ; Automatically scroll to first
+                                        ; error
+      )
 
 ;;; undo-tree
 (global-undo-tree-mode t)
