@@ -1,4 +1,3 @@
-(require 'init-tramp)
 (require 'init-org)
 
 (require 'init-eshell)
@@ -17,4 +16,3 @@
 (require 'init-python)
 (require 'init-scheme)
 ;; (require 'init-perl)
-

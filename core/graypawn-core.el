@@ -50,4 +50,8 @@
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
 
+;;; Tramp
+(require 'tramp)
+(setq tramp-default-method "ssh")
+
 (provide 'graypawn-core)
