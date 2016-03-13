@@ -30,14 +30,14 @@
   (define-key ielm-map (kbd "C-c C-z") 'elisp/repl-switch-back))
 
 ;;rainbow delimiters
-(require-package 'rainbow-delimiters)
+(graypawn-require-package 'rainbow-delimiters)
 
 (defun lisp-setup ()
   (rainbow-delimiters-mode t)
   (enable-paredit-mode)
   (eldoc-mode))
 
-(require-package 'elisp-slime-nav)
+(graypawn-require-package 'elisp-slime-nav)
 
 (defun emacs-lisp-setup ()
   (turn-on-elisp-slime-nav-mode))

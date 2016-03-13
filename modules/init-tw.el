@@ -1,4 +1,4 @@
-(require-package 'twittering-mode)
+(graypawn-require-package 'twittering-mode)
 
 (setq twittering-icon-mode nil)
 (setq twittering-fill-column 70)

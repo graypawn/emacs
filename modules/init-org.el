@@ -26,7 +26,7 @@
    (python . t)))
 
 ;;; Deft
-(require-package 'deft)
+(graypawn-require-package 'deft)
 
 (setq deft-extensions '("org"))
 (setq deft-directory "~/Dropbox/wiki")

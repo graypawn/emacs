@@ -1,4 +1,4 @@
-(require-package 'jdee)
+(graypawn-require-package 'jdee)
 (setq jdee-server-dir "~/.jdee-server")
 
 

@@ -1,4 +1,4 @@
-(require-package 'ggtags)
+(graypawn-require-package 'ggtags)
 (eval-when-compile (require 'ggtags))
 
 (defun gtags-root-dir ()

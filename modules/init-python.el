@@ -7,7 +7,7 @@
 
 ;;jedi
 ;;require 'M-x jedi:install-server'
-(require-package 'jedi)
+(graypawn-require-package 'jedi)
 (setq jedi:complete-on-dot t)
 (setq jedi:use-shortcuts t)
 
@@ -25,7 +25,7 @@
 (add-hook 'python-mode-hook 'autopair-mode)
 (add-hook 'inferior-python-mode-hook 'autopair-mode)
 ;;highlight indentation
-(require-package 'highlight-indentation)
+(graypawn-require-package 'highlight-indentation)
 (add-hook 'python-mode-hook 'highlight-indentation-mode)
 
 (provide 'init-python)

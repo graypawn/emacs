@@ -33,11 +33,10 @@
               whitespace-style '(face tabs trailing)))))
 
 ;;; undo-tree
-(require-package 'undo-tree)
 (global-undo-tree-mode t)
 
 ;;; helm
-(require-package 'helm)
+(graypawn-require-packages '(helm helm-projectile))
 (require 'helm-config)
 (setq helm-idle-delay 0.1)
 (setq helm-input-idle-delay 0.1)
@@ -45,18 +44,8 @@
 (helm-mode 1)
 
 ;;; projectile
-(require-package 'projectile)
-(require-package 'helm-projectile)
-
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
-
-;;; required package
-(require-package 'autopair)
-(require-package 'paredit)
-(require-package 'fold-dwim)
-(require-package 'hideshow)
-(require-package 'magit)
 
 (provide 'graypawn-core)

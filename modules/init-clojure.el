@@ -1,5 +1,4 @@
-(require-package 'clojure-mode)
-(require-package 'cider)
+(graypawn-require-packages '(clojure-mode cider))
 
 (add-hook 'clojure-mode-hook 'lisp-setup)
 

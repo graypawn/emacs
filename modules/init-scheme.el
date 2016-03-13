@@ -1,4 +1,4 @@
-(require-package 'geiser)
+(graypawn-require-package 'geiser)
 (eval-when-compile (require 'scheme))
 
 (defun scheme-setup ()
