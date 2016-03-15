@@ -8,6 +8,7 @@
 /.session
 /session.*
 /history
+/abbrev_defs
 /ido.last
 /recentf
 /bookmarks
