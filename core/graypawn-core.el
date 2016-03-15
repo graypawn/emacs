@@ -17,7 +17,8 @@
 (setq delete-old-versions t
       kept-old-versions 3
       kept-new-versions 5
-      version-control t)
+      version-control t
+      auto-save-interval 500)
 
 ;;; Symbolic link to Git-controlled source file
 (setq vc-follow-symlinks t)
