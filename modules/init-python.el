@@ -17,13 +17,14 @@
   (define-key python-mode-map (kbd "C-c M-:") 'python-shell-send-string)
   (define-key python-mode-map (kbd "C-c d") 'jedi:show-doc))
 
-(defun python-setup ()
-  (jedi:setup)
-  (smartparens-mode))
-
-(add-hook 'python-mode-hook 'python-setup)
 ;;highlight indentation
 (graypawn-require-package 'highlight-indentation)
-(add-hook 'python-mode-hook 'highlight-indentation-mode)
+
+(defun python-setup ()
+  (jedi:setup)
+  (smartparens-mode)
+  (highlight-indentation-mode))
+
+(add-hook 'python-mode-hook 'python-setup)
 
 (provide 'init-python)
