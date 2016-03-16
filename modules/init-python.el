@@ -21,9 +21,6 @@
   (jedi:setup))
 
 (add-hook 'python-mode-hook 'python-setup)
-;;autopair
-(add-hook 'python-mode-hook 'autopair-mode)
-(add-hook 'inferior-python-mode-hook 'autopair-mode)
 ;;highlight indentation
 (graypawn-require-package 'highlight-indentation)
 (add-hook 'python-mode-hook 'highlight-indentation-mode)
