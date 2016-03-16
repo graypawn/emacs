@@ -17,8 +17,7 @@
 (setq delete-old-versions t
       kept-old-versions 3
       kept-new-versions 5
-      version-control t
-      auto-save-interval 500)
+      version-control t)
 
 ;;; Symbolic link to Git-controlled source file
 (setq vc-follow-symlinks t)
@@ -38,7 +37,11 @@
         (setq whitespace-line-column nil
               whitespace-style '(face tabs trailing)))))
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(defun graypawn-save-buffer ()
+  "Remove trailing whitespace before saving buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (save-buffer))
 
 (require 'compile)
 (setq compilation-ask-about-save nil  ; Just save before compiling

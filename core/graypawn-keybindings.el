@@ -6,6 +6,9 @@
 (global-set-key (kbd "C-x m") 'eshell)
 (global-set-key (kbd "C-x M") 'term)
 
+;;; Custom Save-buffer
+(global-set-key (kbd "C-x C-s") 'graypawn-save-buffer)
+
 ;;; helm
 (global-set-key (kbd "C-x C-m") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
