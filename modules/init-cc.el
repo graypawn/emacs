@@ -12,6 +12,7 @@
   (setq comment-start "/*")
   (setq comment-end "*/")
   (hs-minor-mode t)
+  (smartparens-mode)
   )
 
 ;;; cclookup

@@ -18,7 +18,8 @@
   (define-key python-mode-map (kbd "C-c d") 'jedi:show-doc))
 
 (defun python-setup ()
-  (jedi:setup))
+  (jedi:setup)
+  (smartparens-mode))
 
 (add-hook 'python-mode-hook 'python-setup)
 ;;highlight indentation
