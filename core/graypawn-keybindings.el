@@ -9,6 +9,9 @@
 ;;; Custom Save-buffer
 (global-set-key (kbd "C-x C-s") 'graypawn-save-buffer)
 
+;;; Input Method
+(global-set-key (kbd "C-|") 'set-input-method)
+
 ;;; helm
 (global-set-key (kbd "C-x C-m") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
