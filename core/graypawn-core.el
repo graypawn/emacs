@@ -43,6 +43,14 @@
   (delete-trailing-whitespace)
   (save-buffer))
 
+(defun graypawn-switch-sudo ()
+  "Use TRAMP to `sudo' the current buffer"
+  (interactive)
+  (when buffer-file-name
+    (find-alternate-file
+     (concat "/sudo:root@localhost:"
+             buffer-file-name))))
+
 (require 'compile)
 (setq compilation-ask-about-save nil  ; Just save before compiling
       compilation-always-kill t       ; Just kill old compile processes before

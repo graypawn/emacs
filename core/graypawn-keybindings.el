@@ -12,6 +12,9 @@
 ;;; Input Method
 (global-set-key (kbd "C-|") 'set-input-method)
 
+;;; File file as sudo
+(global-set-key (kbd "C-x S") 'graypawn-switch-sudo)
+
 ;;; helm
 (global-set-key (kbd "C-x C-m") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
