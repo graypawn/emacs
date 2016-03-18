@@ -3,6 +3,7 @@
 \#*
 \.#*
 /custom.el
+/kkcrc
 /graypawn-modules.el
 /tramp
 /.session
