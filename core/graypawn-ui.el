@@ -14,6 +14,9 @@
             (lambda ()
               (deactivate-input-method)))
 
+;;; Prettify Symbols
+(global-prettify-symbols-mode 1)
+
 ;; Supress GUI features
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
