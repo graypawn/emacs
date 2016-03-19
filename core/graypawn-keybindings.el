@@ -6,8 +6,10 @@
 (global-set-key (kbd "C-x m") 'eshell)
 (global-set-key (kbd "C-x M") 'term)
 
-;;; Custom Save-buffer
+;;; Useful functions
 (global-set-key (kbd "C-x C-s") 'graypawn-save-buffer)
+(global-set-key (kbd "C-x M-e") 'eval-and-replace)
+(global-set-key (kbd "C-+") 'set-file-executable)
 
 ;;; Input Method
 (global-set-key (kbd "C-|") 'set-input-method)
@@ -19,14 +21,10 @@
 (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
 
 ;;; Other Window backward
-(global-set-key (kbd "C-x O") (lambda ()
-                                (interactive)
-                                (other-window -1)))
+(global-set-key (kbd "C-x O") 'other-window-backward)
 
 ;;; Org
-(global-set-key (kbd "C-l n")
-                (lambda () (interactive)
-                  (find-file org-default-notes-file)))
+(global-set-key (kbd "C-l n") 'find-file-org-note)
 (global-set-key (kbd "C-l c") 'org-capture)
 (global-set-key (kbd "C-l a") 'org-agenda)
 (global-set-key (kbd "C-l l") 'org-store-link)
