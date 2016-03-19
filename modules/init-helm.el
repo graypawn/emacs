@@ -11,4 +11,7 @@
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
 
+(define-key helm-find-files-map (kbd "<C-backspace>") 'backward-kill-word)
+(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+
 (provide 'init-helm)
