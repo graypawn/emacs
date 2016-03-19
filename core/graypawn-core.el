@@ -37,20 +37,6 @@
         (setq whitespace-line-column nil
               whitespace-style '(face tabs trailing)))))
 
-(defun graypawn-save-buffer ()
-  "Remove trailing whitespace before saving buffer"
-  (interactive)
-  (delete-trailing-whitespace)
-  (save-buffer))
-
-(defun graypawn-switch-sudo ()
-  "Use TRAMP to `sudo' the current buffer"
-  (interactive)
-  (when buffer-file-name
-    (find-alternate-file
-     (concat "/sudo:root@localhost:"
-             buffer-file-name))))
-
 (require 'compile)
 (setq compilation-ask-about-save nil  ; Just save before compiling
       compilation-always-kill t       ; Just kill old compile processes before
@@ -65,5 +51,20 @@
 ;;; Tramp
 (require 'tramp)
 (setq tramp-default-method "ssh")
+
+;;; Useful Function
+(defun graypawn-save-buffer ()
+  "Remove trailing whitespace before saving buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (save-buffer))
+
+(defun file-reopen-as-root ()
+  "Use TRAMP to `sudo' the current buffer"
+  (interactive)
+  (when buffer-file-name
+    (find-alternate-file
+     (concat "/sudo:root@localhost:"
+             buffer-file-name))))
 
 (provide 'graypawn-core)
