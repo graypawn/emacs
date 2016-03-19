@@ -12,6 +12,8 @@
 (helm-projectile-on)
 
 (define-key helm-find-files-map (kbd "<C-backspace>") 'backward-kill-word)
+(define-key helm-read-file-map (kbd "<C-backspace>") 'backward-kill-word)
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 
 (provide 'init-helm)
