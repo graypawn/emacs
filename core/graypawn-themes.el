@@ -20,11 +20,6 @@
   :type 'boolean
   :group 'graypawn-theme-group)
 
-(defcustom graypawn-comment-bg t
-  "Use a background for comment lines."
-  :type 'boolean
-  :group 'graypawn-theme-group)
-
 (defcustom graypawn-org-height t
   "Use varying text heights for org headings."
   :type 'boolean
@@ -123,8 +118,7 @@
 
    `(font-lock-builtin-face ((,class (:foreground ,builtin))))
    `(font-lock-comment-face
-     ((,class (:foreground ,comment
-               :background ,(when graypawn-comment-bg comment-bg)))))
+     ((,class (:foreground ,comment :background ,comment-bg))))
    `(font-lock-constant-face ((,class (:foreground ,const))))
    `(font-lock-doc-face ((,class (:foreground ,comment))))
    `(font-lock-doc-string-face ((,class (:foreground ,comment))))
@@ -186,27 +180,27 @@
    `(font-latex-match-variable-keywords ((,class (:foreground ,var))))
    `(font-latex-math-face ((,class (:foreground ,builtin :weight bold))))
    `(font-latex-sectioning-0-face
-     ((,class (:inherit font-latex-sectioning-1-face
-               :height ,graypawn-tex-height-110))))
+     ((,class :inherit font-latex-sectioning-1-face
+              :height ,graypawn-tex-height-110)))
    `(font-latex-sectioning-1-face
-     ((,class (:inherit font-latex-sectioning-2-face
-               :height ,graypawn-tex-height-110))))
+     ((,class :inherit font-latex-sectioning-2-face
+              :height ,graypawn-tex-height-110)))
    `(font-latex-sectioning-2-face
-     ((,class (:inherit font-latex-sectioning-3-face
-               :height ,graypawn-tex-height-110))))
+     ((,class :inherit font-latex-sectioning-3-face
+              :height ,graypawn-tex-height-110)))
    `(font-latex-sectioning-3-face
-     ((,class (:inherit font-latex-sectioning-4-face
-               :height ,graypawn-tex-height-110))))
+     ((,class :inherit font-latex-sectioning-4-face
+              :height ,graypawn-tex-height-110)))
    `(font-latex-sectioning-4-face
-     ((,class (:inherit font-latex-sectioning-5-face
-               :height ,graypawn-tex-height-110))))
+     ((,class :inherit font-latex-sectioning-5-face
+              :height ,graypawn-tex-height-110)))
    `(font-latex-sectioning-5-face
-     ((,class (:inherit ,pawn-variable-pitch :foreground ,violet
-               :weight bold))))
+     ((,class :inherit ,pawn-variable-pitch :foreground ,violet
+              :weight bold)))
    `(font-latex-sedate-face ((,class (:foreground ,bg4))))
    `(font-latex-slide-title-face
-     ((,class (:inherit (,pawn-variable-pitch font-lock-type-face)
-               :weight bold :height ,graypawn-tex-height-130))))
+     ((,class :inherit (,pawn-variable-pitch font-lock-type-face)
+              :weight bold :height ,graypawn-tex-height-130)))
    `(font-latex-string-face ((,class (:foreground ,str))))
    `(font-latex-subscript-face ((,class (:height ,graypawn-tex-height-90))))
    `(font-latex-superscript-face ((,class (:height ,graypawn-tex-height-90))))
@@ -312,7 +306,7 @@
 ;;;;; flycheck
    `(flycheck-error
      ((,(append '((supports :underline (:style line))) class)
-       (:underline (:style line :color ,err)))
+        (:underline (:style line :color ,err)))
       (,class (:foreground ,base :background ,err :weight bold :underline t))))
    `(flycheck-error-list-checker-name ((,class (:foreground ,keyword))))
    `(flycheck-fringe-error ((,class (:foreground ,err :weight bold))))
@@ -320,11 +314,11 @@
    `(flycheck-fringe-warning ((,class (:foreground ,war :weight bold))))
    `(flycheck-info
      ((,(append '((supports :underline (:style line))) class)
-       (:underline (:style line :color ,inf)))
+        (:underline (:style line :color ,inf)))
       (,class (:foreground ,base :background ,inf :weight bold :underline t))))
    `(flycheck-warning
      ((,(append '((supports :underline (:style line))) class)
-       (:underline (:style line :color ,war)))
+        (:underline (:style line :color ,war)))
       (,class (:foreground ,base :background ,war :weight bold :underline t))))
 
 ;;;;; git-gutter-fr
@@ -469,21 +463,19 @@
    `(magit-log-sha1 ((,class (:foreground ,str))))
    `(magit-process-ng ((,class (:foreground ,war :weight bold))))
    `(magit-process-ok ((,class (:foreground ,func :weight bold))))
-   `(magit-section-heading
-     ((,class (:foreground ,keyword :weight bold))))
-   `(magit-section-highlight      ((,class (:background ,bg2))))
-   `(magit-section-title
-     ((,class (:background ,bg1 :foreground ,builtin :weight bold))))
+   `(magit-section-heading ((,class (:foreground ,keyword :weight bold))))
+   `(magit-section-highlight ((,class (:background ,bg2))))
+   `(magit-section-title ((,class :background ,bg1
+                                  :foreground ,builtin
+                                  :weight bold)))
 
 ;;;;; mode-line
-   `(mode-line
-     ((,class (:foreground ,base
-               :background ,active1
-               :box (:color ,m-line-brdr :line-width 1)))))
-   `(mode-line-inactive
-     ((,class (:foreground ,base
-               :background ,bg1
-               :box (:color ,m-line-brdr :line-width 1)))))
+   `(mode-line ((,class :foreground ,base
+                        :background ,active1
+                        :box (:color ,m-line-brdr :line-width 1))))
+   `(mode-line-inactive ((,class :foreground ,base
+                                 :background ,bg1
+                                 :box (:color ,m-line-brdr :line-width 1))))
    `(mode-line-buffer-id ((,class (:bold t :foreground ,func))))
 
 ;;;;; neotree
@@ -494,12 +486,11 @@
 
 ;;;;; org
    `(org-agenda-clocking ((,class (:foreground ,comp))))
-   `(org-agenda-date
-     ((,class (:foreground ,var :height ,(if graypawn-org-height 1.1 1.0)))))
-   `(org-agenda-date-today
-     ((,class (:weight bold
-               :foreground ,keyword
-               :height ,(if graypawn-org-height 1.3 1.0)))))
+   `(org-agenda-date ((,class :foreground ,var
+                              :height ,(if graypawn-org-height 1.1 1.0))))
+   `(org-agenda-date-today ((,class :weight bold
+                                    :foreground ,keyword
+                                    :height ,(if graypawn-org-height 1.3 1.0))))
    `(org-agenda-date-weekend ((,class (:weight normal :foreground ,var))))
    `(org-agenda-done ((,class (:foreground ,suc :bold t))))
    `(org-agenda-structure ((,class (:weight bold :foreground ,comp))))
@@ -512,31 +503,29 @@
    `(org-date ((,class (:underline t :foreground ,var) )))
    `(org-date-selected ((,class (:background ,func :foreground ,bg1) )))
    `(org-document-info-keyword ((,class (:foreground ,str))))
-   `(org-document-title
-     ((,class (:foreground ,green
-               :weight bold
-               :height ,(if graypawn-org-height 1.4 1.0) :underline t))))
-   `(org-done ((,class (:foreground ,suc
-                        :bold t
-                        :overline t
-                        :background ,org-h3-bg))))
+   `(org-document-title ((,class :foreground ,green
+                                 :weight bold
+                                 :height ,(if graypawn-org-height 1.4 1.0)
+                                 :underline t)))
+   `(org-done
+     ((,class :foreground ,suc :bold t :overline t :background ,org-h3-bg)))
    `(org-ellipsis ((,class (:foreground ,builtin))))
    `(org-footnote  ((,class (:underline t :foreground ,base))))
    `(org-hide ((,class (:foreground ,base))))
-   `(org-level-1 ((,class (:bold t
-                           :foreground ,type
-                           :height ,(if graypawn-org-height 1.25 1.0)
-                           :background ,org-h1-bg :overline t))))
-   `(org-level-2 ((,class (:bold t
-                           :foreground ,keyword
-                           :height ,(if graypawn-org-height 1.2 1.0)
-                           :background ,org-h2-bg))))
-   `(org-level-3 ((,class (:bold nil
-                           :foreground ,str
-                           :height ,(if graypawn-org-height 1.1 1.0)
-                           :background ,org-h3-bg))))
-   `(org-level-4
-     ((,class (:bold nil :foreground ,yellow :background ,org-h4-bg))))
+   `(org-level-1 ((,class :bold t
+                          :foreground ,type
+                          :height ,(if graypawn-org-height 1.25 1.0)
+                          :background ,org-h1-bg :overline t)))
+   `(org-level-2 ((,class :bold t
+                          :foreground ,keyword
+                          :height ,(if graypawn-org-height 1.2 1.0)
+                          :background ,org-h2-bg)))
+   `(org-level-3 ((,class :bold nil
+                          :foreground ,str
+                          :height ,(if graypawn-org-height 1.1 1.0)
+                          :background ,org-h3-bg)))
+   `(org-level-4 ((,class :bold nil
+                          :foreground ,yellow :background ,org-h4-bg)))
    `(org-level-5 ((,class (:bold nil :foreground ,inf))))
    `(org-level-6 ((,class (:bold nil :foreground ,str))))
    `(org-level-7 ((,class (:bold nil :foreground ,green))))
@@ -551,8 +540,10 @@
    `(org-sexp-date ((,class (:foreground ,base))))
    `(org-special-keyword ((,class (:foreground ,keyword))))
    `(org-table ((,class (:foreground ,yellow :background ,org-h4-bg))))
-   `(org-todo
-     ((,class (:foreground ,war :bold t :overline t :background ,org-h4-bg))))
+   `(org-todo ((,class :foreground ,war
+                       :bold t
+                       :overline t
+                       :background ,org-h4-bg)))
    `(org-verbatim ((,class (:foreground ,inf))))
    `(org-verse ((,class (:inherit org-block :slant italic))))
    `(org-warning ((,class (:foreground ,err))))
