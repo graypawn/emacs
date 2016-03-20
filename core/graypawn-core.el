@@ -121,13 +121,15 @@
                     (logior (file-modes buffer-file-name) #o100))
     (message (concat "Made " buffer-file-name " executable"))))
 
-(defun clone-file-and-open (filename)
-  "Clone the current buffer writing it into FILENAME and open it"
-  (interactive "FClone to file: ")
+(defun graypawn/clone-file (open-p filename)
+  "Clone the current buffer writing it into FILENAME.
+   And if open-p is false then, open file"
+  (interactive "P\nFClone to file: ")
   (save-restriction
     (widen)
     (write-region (point-min) (point-max) filename nil nil nil 'confirm))
-  (find-file filename))
+  (unless open-p
+    (find-file filename)))
 
 (defun other-window-backward ()
   (interactive)

@@ -12,7 +12,7 @@
 (global-set-key (kbd "C-+") 'set-file-executable)
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
 (global-set-key (kbd "C-x C-d") 'delete-current-buffer-file)
-(global-set-key (kbd "C-x M-c") 'clone-file-and-open)
+(global-set-key (kbd "C-x M-c") 'graypawn/clone-file)
 
 ;;; Input Method
 (global-set-key (kbd "C-|") 'set-input-method)
