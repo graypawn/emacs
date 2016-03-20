@@ -13,6 +13,7 @@
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
 (global-set-key (kbd "C-x C-d") 'delete-current-buffer-file)
 (global-set-key (kbd "C-x M-c") 'graypawn/clone-file)
+(global-set-key (kbd "C-x C-n") 'nuke-all-buffers)
 
 ;;; Input Method
 (global-set-key (kbd "C-|") 'set-input-method)
