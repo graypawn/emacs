@@ -10,6 +10,8 @@
 (global-set-key (kbd "C-x C-s") 'graypawn-save-buffer)
 (global-set-key (kbd "C-x M-e") 'eval-and-replace)
 (global-set-key (kbd "C-+") 'set-file-executable)
+(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
+(global-set-key (kbd "C-x C-d") 'delete-current-buffer-file)
 
 ;;; Input Method
 (global-set-key (kbd "C-|") 'set-input-method)
