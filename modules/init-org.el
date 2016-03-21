@@ -5,8 +5,8 @@
 (setq org-capture-templates
       '(("n" "Note" entry (file org-default-notes-file)
          "* %?" :empty-lines 1)
-        ("t" "Todo" entry (file+datetree "~/Dropbox/org/diary.org")
-         "* TODO %?\n:DETAIL: \n:CREATE: %U")
+        ("t" "Todo" entry (file "~/Dropbox/org/diary.org")
+         "* TODO %?\nSCHEDULED:\nDEADLINE:\n")
         ("c" "Clipboard" entry (file org-default-notes-file)
          "* %(format-time-string \"%Y-%m-%d %a - %H:%M:%S\")\n%x"
          :immediate-finish t)))
