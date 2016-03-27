@@ -1,0 +1,11 @@
+#+TITLE:Hide Show
+#+OPTIONS: toc:2 num:nil ^:nil
+
+#+BEGIN_SRC emacs-lisp
+(use-package fold-dwim :ensure t)
+(use-package hideshow
+  :ensure t
+  :diminish hs-minor-mode
+  :init
+  (add-hook 'c-mode-common-hook 'hs-minor-mode))
+#+END_SRC

@@ -1,0 +1,17 @@
+#+TITLE:Smartparens
+#+OPTIONS: toc:2 num:nil ^:nil
+
+#+BEGIN_SRC emacs-lisp
+;; smart pairing for all
+(use-package smartparens
+  :ensure t
+  :diminish smartparens-mode
+  :init
+  (setq sp-base-key-bindings 'paredit
+        sp-autoskip-closing-pair 'always
+        sp-hybrid-kill-entire-symbol nil)
+  :config
+  (sp-use-paredit-bindings)
+  (show-smartparens-global-mode +1))
+
+#+END_SRC

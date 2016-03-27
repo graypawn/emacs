@@ -1,0 +1,54 @@
+#+TITLE:UI Config
+#+OPTIONS: toc:2 num:nil ^:nil
+
+Beep을 끈다. 또한 시각적 bell도 사용하지 않는다.
+#+BEGIN_SRC emacs-lisp
+(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq column-number-mode t)
+(size-indication-mode t)
+#+END_SRC
+
+enable y/n answers
+#+BEGIN_SRC emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+Minibuffer에 진입 시, 자동으로 input-method가 꺼지도록 한다.
+변수를 선언한 것은, 다른 곳에서 유용하게 사용하기 위함이다.
+#+BEGIN_SRC emacs-lisp
+(defvar minibuffer-default-input-method nil)
+
+(add-hook 'minibuffer-setup-hook
+          (lambda ()
+            (if minibuffer-default-input-method
+                (activate-input-method minibuffer-default-input-method)
+              (deactivate-input-method))))
+#+END_SRC
+
+최대한 간단한 GUI를 사용한다.
+#+BEGIN_SRC emacs-lisp
+(when (fboundp 'tool-bar-mode)
+  (tool-bar-mode -1))
+(when (fboundp 'menu-bar-mode)
+  (menu-bar-mode -1))
+(when (fboundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
+#+END_SRC
+
+초기 구동 시, 비어있는 sratch를 연다.
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-message t)
+(setq initial-scratch-message "")
+#+END_SRC
+
+키를 입력하면 사용가능한 Keybinding을 보여준다.
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :ensure t
+  :diminish which-key-mode
+  :config (which-key-mode))
+#+END_SRC

@@ -1,0 +1,14 @@
+#+TITLE:Scheme
+#+OPTIONS: toc:2 num:nil ^:nil
+
+#+BEGIN_SRC emacs-lisp
+(use-package geiser
+  :ensure t
+  :init
+  (setq geiser-default-implementation 'guile))
+
+(use-package scheme
+  :init
+  (setq scheme-program-name "guile")
+  (add-hook 'scheme-mode-hook 'lisp-setup))
+#+END_SRC

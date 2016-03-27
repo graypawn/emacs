@@ -1,0 +1,354 @@
+#+TITLE:Core Config
+#+OPTIONS: toc:2 num:nil ^:nil
+* Basic
+** Tab
+#+BEGIN_SRC emacs-lisp
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode nil)
+#+END_SRC
+
+** Tramp
+Tramp는 ssh 접속을 하는데 사용된다.
+또한 Root 권한으로 파일을 수정하는데도 사용된다.
+#+BEGIN_SRC emacs-lisp
+(setq tramp-default-method "ssh")
+#+END_SRC
+
+Symbolic link가 된 파일을 열었을 때 원복 파일을 기준으로 git을 동작한다.
+#+BEGIN_SRC emacs-lisp
+(setq vc-follow-symlinks t)
+#+END_SRC
+** Backup
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'backup-directory-alist '("." . "~/.emacs-saves"))
+
+(setq delete-old-versions t
+      kept-old-versions 3
+      kept-new-versions 5
+      version-control t)
+#+END_SRC
+** Compile
+
+#+BEGIN_SRC emacs-lisp
+(require 'compile)
+(setq compilation-ask-about-save nil  ; Just save before compiling
+      compilation-always-kill t       ; Just kill old compile processes before
+                                      ; starting the new one
+      compilation-scroll-output 'first-error
+                                        ; Automatically scroll to first error
+      )
+#+END_SRC
+** Undo Tree
+undo-tree는 Undo, Redo를 Tree 형식으로 기록하며,
+또한 시각적으로 변경하는 것이 가능하게 해준다.
+
+~C-_~ undo
+~M-_~ redo
+~C-x u~ undo-tree-visualize
+
+In the undo-tree visualizer
+~p~ up
+~n~ down
+~b~ left
+~f~ right
+~M-{~ or ~M-}~ branch point를 기준으로 이동.
+~d~ : Toggle diff display
+
+#+BEGIN_SRC emacs-lisp
+(use-package undo-tree
+  :ensure t
+  :diminish undo-tree-mode
+  :config (global-undo-tree-mode t))
+#+END_SRC
+** Whitespace
+whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
+라인 끝의 공백 (trailing whitespace), TAB이 이런 공백에 해당된다.
+또한 Programming 모드에서는 80 컬럼을 넘어가는 문자도 강조한다.
+
+#+BEGIN_SRC emacs-lisp
+(use-package whitespace
+  :diminish global-whitespace-mode
+  :config
+  (global-whitespace-mode t)
+
+  (add-hook
+   'after-change-major-mode-hook
+   '(lambda ()
+      (if (derived-mode-p 'prog-mode)
+          (setq whitespace-line-column 80
+                whitespace-style '(face tabs trailing lines-tail))
+        (setq whitespace-line-column nil
+              whitespace-style '(face tabs trailing))))))
+#+END_SRC
+** Projectile
+projectile map은 ~C-c p~ 에 바인딩 되어있다.
+
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-global-mode))
+#+END_SRC
+** diminish
+#+BEGIN_SRC emacs-lisp
+(use-package abbrev :diminish abbrev-mode)
+#+END_SRC
+* Org mode
+** Basic
+#+BEGIN_SRC emacs-lisp
+(setq org-directory "~/Dropbox/org/")
+(setq org-default-notes-file "~/Dropbox/org/notes.org")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+;;; Agenda
+(setq org-agenda-files '("~/Dropbox/org/diary.org"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+;;; Capture
+(setq org-capture-templates
+      '(("n" "Note" entry (file org-default-notes-file)
+         "* %?" :empty-lines 1)
+        ("t" "Todo" entry (file "~/Dropbox/org/diary.org")
+         "* TODO %?\nSCHEDULED:\nDEADLINE:\n")
+        ("c" "Clipboard" entry (file org-default-notes-file)
+         "* %(format-time-string \"%Y-%m-%d %a - %H:%M:%S\")\n%x"
+         :immediate-finish t)))
+#+END_SRC
+** Code Block
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+(setq org-edit-src-content-indentation 0)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((sh . t)
+   (calc . t)
+   (emacs-lisp . t)
+   (python . t)))
+#+END_SRC
+** Keybinding
+#+BEGIN_SRC emacs-lisp
+(unbind-key "C-l")
+
+(bind-key "C-l n" 'find-file-org-note)
+(bind-key "C-l c" 'org-capture)
+(bind-key "C-l a" 'org-agenda)
+(bind-key "C-l l" 'org-store-link)
+#+END_SRC
+
+** Deft
+Org 문서를 효율적으로 관리하기 위해서 deft를 사용한다.
+deft는 문서의 제목뿐 아니라 내용까지 검색해 준다.
+
+Deft에는 두 가지 문제점이 있는데 첫 번째는 Emacs 내장 한글입력기를 사용할 수 없다는 것이다.
+이 문제는 외부입력기를 사용하거나, 미니 버퍼에서 작성한 후 붙여넣기 하는 방식으로 해결할 수 있다.
+두 번째는 문서의 수가 많아지면 Delay가 발생한다는 것인데, 이를 해결하기 위해 카테고리를 분리할 예정이다.
+
+아래의 함수는 [[file:pawn-ui.org]] 의 ~minibuffer-default-input-method~ 와
+~minibuffer-setup-hook~ 을 참고하자.
+
+#+BEGIN_SRC emacs-lisp
+(defun deft-filter-input-with-korean  (someone)
+  "Append the input message to the filter with korean input method.
+   This function depend on `minibuffer-default-input-method' that defined in
+   `file:pawn-ui.org'."
+  (interactive
+   (list
+    (progn
+      (setq minibuffer-default-input-method 'korean-hangul)
+      (read-string "Input message: "))))
+  (setq minibuffer-default-input-method nil)
+  (deft-filter
+    (concat (deft-whole-filter-regexp) someone) t))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+;;; Deft
+(use-package deft
+  :ensure t
+  :init
+  (setq deft-extensions '("org")
+        deft-directory "~/Dropbox/wiki"
+        deft-text-mode 'org-mode
+        deft-use-filename-as-title nil)
+  :config
+  (bind-key "S-SPC" 'deft-filter-input-with-korean deft-mode-map)
+  (bind-key "C-l d" 'deft))
+#+END_SRC
+* Eshell
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'eshell
+  ;;; eshell에서 맨 앞에 붙는 "$" 문구를 변경한다.
+  (setq eshell-prompt-function
+        (lambda ()
+          (concat
+           (car (last (split-string (eshell/pwd) "/")))
+           " $ "))))
+#+END_SRC
+
+** Alias
+#+BEGIN_SRC sh
+alias ll 'ls -l $1'
+#+END_SRC
+** find-file & dired
+#+BEGIN_SRC sh
+find-file hello.cpp
+#+END_SRC
+
+#+BEGIN_SRC sh
+dired /
+#+END_SRC
+** Reference
+[[https://www.masteringemacs.org/article/complete-guide-mastering-eshell][Mastering Eshell]]
+[[http://qiita.com/fnobi/items/8906c8e7759751d32b6b][terminalを棄ててEmacsと心中するための設定]]
+* Magit
+#+BEGIN_SRC emacs-lisp
+  ;; magit
+  (use-package magit
+    :ensure t
+    :bind ("C-x g" . magit-status))
+#+END_SRC
+** Magit Tutorial
+~M-x magit-init~ : git init
+
+magit의 작업은 magit-status와 함께한다.
+~n~, ~p~ : 항목의 이동
+
+~s~ : stage
+커서가 카테고리에 위치한다면 해당 카테고리 전부를 stage한다.
+
+~d~ : diff
+~k~ : kill
+~l l~ : log
+
+~c c~ : commit
+이후 commit를 위한 버퍼가 열리는데, message를 작성했으면 ~C-c C-c~ 를 눌러 완료하면 된다.
+
+~M a~ remote 저장소를 add한다.
+~M v~ 원격저장소 manager
+
+~P P~ push
+~F F~ pull
+~G~ refresh
+
+~b b~ branch를 이동한다.
+~magit-file-log~ 특정 파일을 수정한 커밋들을 본다.
+** Reference
+[[http://seorenn.blogspot.kr/2011/05/emacs-magit.html][Magit 사용법 동영상]]
+[[http://noota.tistory.com/entry/git-%EB%AF%B8%EB%9F%AC%EB%A7%81%ED%95%98%EA%B8%B0-mirroring][Git 미러링하기]]
+* Useful Function
+#+BEGIN_SRC emacs-lisp
+(defun pawn/save-buffer ()
+  "Remove trailing whitespace before saving buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (save-buffer))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun file-reopen-as-root ()
+  "Use TRAMP to `sudo' the current buffer"
+  (interactive)
+  (when buffer-file-name
+    (find-alternate-file
+     (concat "/sudo:root@localhost:"
+             buffer-file-name))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun nuke-all-buffers ()
+  "Kill all buffers, leaving *scratch* only."
+  (interactive)
+  (when (yes-or-no-p "Kill all buffer?")
+    (mapcar (lambda (x) (kill-buffer x)) (buffer-list))
+    (delete-other-windows)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun delete-current-buffer-file ()
+  "Removes file connected to current buffer and kills buffer."
+  (interactive)
+  (let ((filename (buffer-file-name))
+        (buffer (current-buffer))
+        (name (buffer-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (ido-kill-buffer)
+      (when (yes-or-no-p "Are you sure you want to remove this file? ")
+        (delete-file filename)
+        (kill-buffer buffer)
+        (message "File '%s' successfully removed" filename)))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun rename-current-buffer-file ()
+  "Renames current buffer and file it is visiting."
+  (interactive)
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (error "Buffer '%s' is not visiting a file!" name)
+      (let ((new-name (read-file-name "New name: " filename)))
+        (if (get-buffer new-name)
+            (error "A buffer named '%s' already exists!" new-name)
+          (rename-file filename new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil)
+          (message "File '%s' successfully renamed to '%s'"
+                   name (file-name-nondirectory new-name)))))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun set-file-executable()
+  "Add executable permissions on current file."
+  (interactive)
+  (when (buffer-file-name)
+    (set-file-modes buffer-file-name
+                    (logior (file-modes buffer-file-name) #o100))
+    (message (concat "Made " buffer-file-name " executable"))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun pawn/clone-file (open-p filename)
+  "Clone the current buffer writing it into FILENAME.
+   And if open-p is false then, open file"
+  (interactive "P\nFClone to file: ")
+  (save-restriction
+    (widen)
+    (write-region (point-min) (point-max) filename nil nil nil 'confirm))
+  (unless open-p
+    (find-file filename)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun other-window-backward ()
+  (interactive)
+  (other-window -1))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun find-file-org-note ()
+  (interactive)
+  (find-file org-default-notes-file))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun pawn/reload-init ()
+  "Reload init.el file"
+  (interactive)
+  (load-file user-init-file))
+#+END_SRC

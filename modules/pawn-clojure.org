@@ -1,0 +1,25 @@
+#+TITLE:Clojure
+#+OPTIONS: toc:2 num:nil ^:nil
+
+#+BEGIN_SRC emacs-lisp
+(use-package clojure-mode
+  :ensure t
+  :defer t
+  :config
+  (use-package cider :ensure t)
+  (bind-key "C-c C-z" 'cider-jack-in clojure-mode-map)
+  (add-hook 'clojure-mode-hook 'lisp-setup))
+#+END_SRC
+
+* Cider
+emacs에서 cider을 통해 test를 하는 방법은 3가지가 있다.
+
+~C-c M-,~ cider-test-run-test
+~C-c ,~   cider-test-run-tests
+~C-c C-,~ cider-test-rerun-tests
+
+이중 첫 번째 방법은 커서가 위치한 곳의 테스트를 실행하기에 test namespace가 아니여도 가능한 방법이다.
+두번째는 현재의 ~{namespace}-test~ 형태의 namespace에 위치하는 test를 모두 실행한다.
+세번째는 이전의 테스트를 다시 실행한다.
+* Reference
+[[http://futurismo.biz/archives/5742][Emacs で Clojure の開発環境を構築]]

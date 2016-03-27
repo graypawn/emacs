@@ -1,0 +1,34 @@
+#+TITLE:Keybindings Config
+#+OPTIONS: toc:2 num:nil ^:nil
+
+#+BEGIN_SRC emacs-lisp
+(global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x C-z"))
+#+END_SRC
+
+~eshell~ interactive program을 지원하지 않는다.
+~watch free~ 와 같은 명령를 동작시키면 무엇이 문제인지 확인할 수 있다.
+이 때, 대안으로 사용할 수 있는 것이 ~term~ 이다.
+
+때로는 여러 개의 eshell을 열고 싶은 경우가 있는데 ~C-u~ 를 사용하면 된다.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x m") 'eshell)
+(global-set-key (kbd "C-x M") 'term)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+;;; Useful functions
+(global-set-key (kbd "C-x C-s") 'pawn/save-buffer)
+(global-set-key (kbd "C-x M-e") 'eval-and-replace)
+(global-set-key (kbd "C-+") 'set-file-executable)
+(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
+(global-set-key (kbd "C-x C-d") 'delete-current-buffer-file)
+(global-set-key (kbd "C-x M-c") 'pawn/clone-file)
+
+;;; Input Method
+(global-set-key (kbd "C-|") 'set-input-method)
+
+;;; Other Window backward
+(global-set-key (kbd "C-x O") 'other-window-backward)
+#+END_SRC

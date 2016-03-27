@@ -1,3 +1,7 @@
+#+TITLE:Perl
+#+OPTIONS: toc:2 num:nil ^:nil
+
+#+BEGIN_SRC emacs-lisp
 (eval-when-compile (require 'cperl-mode))
 (defalias 'perl-mode 'cperl-mode)
 
@@ -8,5 +12,4 @@
   (define-key cperl-mode-map (kbd "C-d d")  'cperl-perldoc))
 
 (add-hook 'cperl-mode-hook (lambda () (flymake-mode t)))
-
-(provide 'init-perl)
+#+END_SRC

@@ -1,10 +1,16 @@
 *.elc
+/core/*.el
+/modules/*.el
+
 *~
 \#*
 \.#*
+
 /custom.el
+/pawn-modules.el
+/srecode-map.el
+/workbench.xmi
 /kkcrc
-/graypawn-modules.el
 /tramp
 /.session
 /session.*
@@ -19,6 +25,8 @@
 /eshell/lastdir
 /auto-save-list/
 /.python-environments/
+/var/
+
 /cclookup/
 /elpa/
 /semanticdb/

@@ -1,3 +1,7 @@
+#+TITLE:Lisp
+#+OPTIONS: toc:2 num:nil ^:nil
+
+#+BEGIN_SRC emacs-lisp
 (require 'ielm)
 
 (defvar elisp/repl-original-buffer nil
@@ -21,23 +25,28 @@
       (funcall elisp/repl-switch-function elisp/repl-original-buffer)
     (error "No original buffer.")))
 
-(with-eval-after-load 'lisp-mode
-  (define-key emacs-lisp-mode-map (kbd "C-c C-z") 'elisp/switch-to-ielm)
-  (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'eval-defun)
-  (define-key emacs-lisp-mode-map (kbd "C-c C-k") 'eval-buffer))
+(use-package lisp-mode
+  :config
+  (bind-keys :map emacs-lisp-mode-map
+             ("C-c C-z" . elisp/switch-to-ielm)
+             ("C-c C-c" . eval-defun)
+             ("C-c C-k" . eval-buffer)))
 
 (with-eval-after-load 'ielm
   (define-key ielm-map (kbd "C-c C-z") 'elisp/repl-switch-back))
+#+END_SRC
 
+#+BEGIN_SRC emacs-lisp
 ;;rainbow delimiters
-(graypawn-require-package 'rainbow-delimiters)
+(use-package rainbow-delimiters :ensure t)
+(use-package paredit :ensure t :diminish paredit-mode)
+(use-package elisp-slime-nav :ensure t :diminish elisp-slime-nav-mode)
+(use-package eldoc :diminish eldoc-mode)
 
 (defun lisp-setup ()
   (rainbow-delimiters-mode t)
   (enable-paredit-mode)
   (eldoc-mode))
-
-(graypawn-require-package 'elisp-slime-nav)
 
 (defun emacs-lisp-setup ()
   (turn-on-elisp-slime-nav-mode))
@@ -54,12 +63,8 @@
 (require 'derived)
 
 (dolist (hook (mapcar #'derived-mode-hook-name lispy-modes))
-  (add-hook hook (lambda ()
-                   (lisp-setup)
-                   (set (make-local-variable 'lisp-indent-function)
-                        'common-lisp-indent-function))))
+  (add-hook hook 'lisp-setup))
 
 (dolist (hook (mapcar #'derived-mode-hook-name elispy-modes))
   (add-hook hook 'emacs-lisp-setup))
-
-(provide 'init-lisp)
+#+END_SRC

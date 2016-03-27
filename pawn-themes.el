@@ -1,4 +1,4 @@
-; This file is free software: you can redistribute it and/or modify
+;; This file is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
@@ -11,41 +11,41 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
 
-(defgroup graypawn-theme-group nil
+(defgroup pawn-theme-group nil
   "graypawn-theme options."
   :group 'faces)
 
-(defcustom graypawn-variable-pitch t
+(defcustom pawn-variable-pitch t
   "Use variable pitch for like latex markdown or org-mode"
   :type 'boolean
-  :group 'graypawn-theme-group)
+  :group 'pawn-theme-group)
 
-(defcustom graypawn-org-height t
+(defcustom pawn-org-height t
   "Use varying text heights for org headings."
   :type 'boolean
-  :group 'graypawn-theme-group)
+  :group 'pawn-theme-group)
 
-(defcustom graypawn-tex-height-90 0.9
+(defcustom pawn-tex-height-90 0.9
   "Font size 90%"
   :type 'number
-  :group 'graypawn-theme-group)
+  :group 'pawn-theme-group)
 
-(defcustom graypawn-tex-height-110 1.1
+(defcustom pawn-tex-height-110 1.1
   "Font size 110%"
   :type 'number
-  :group 'graypawn-theme-group)
+  :group 'pawn-theme-group)
 
-(defcustom graypawn-tex-height-120 1.2
+(defcustom pawn-tex-height-120 1.2
   "Font size 120%"
   :type 'number
-  :group 'graypawn-theme-group)
+  :group 'pawn-theme-group)
 
-(defcustom graypawn-tex-height-130 1.3
+(defcustom pawn-tex-height-130 1.3
   "Font size 130%"
   :type 'number
-  :group 'graypawn-theme-group)
+  :group 'pawn-theme-group)
 
-(deftheme graypawn-theme)
+(deftheme pawn-theme)
 
 (let ((class '((class color) (min-colors 89)))
       (base          "#AEBFAE")
@@ -99,12 +99,12 @@
       (pth7          "#ac907c")
       (pth8          "#e47376")
       ;; for variable pitch
-      (pawn-variable-pitch (if graypawn-variable-pitch
+      (pawn-variable-pitch (if pawn-variable-pitch
                               'variable-pitch 'default))
       )
 
   (custom-theme-set-faces
-   'graypawn-theme
+   'pawn-theme
 
 ;;;;; basics
    `(cursor ((,class (:background ,cursor))))
@@ -181,29 +181,29 @@
    `(font-latex-math-face ((,class (:foreground ,builtin :weight bold))))
    `(font-latex-sectioning-0-face
      ((,class :inherit font-latex-sectioning-1-face
-              :height ,graypawn-tex-height-110)))
+              :height ,pawn-tex-height-110)))
    `(font-latex-sectioning-1-face
      ((,class :inherit font-latex-sectioning-2-face
-              :height ,graypawn-tex-height-110)))
+              :height ,pawn-tex-height-110)))
    `(font-latex-sectioning-2-face
      ((,class :inherit font-latex-sectioning-3-face
-              :height ,graypawn-tex-height-110)))
+              :height ,pawn-tex-height-110)))
    `(font-latex-sectioning-3-face
      ((,class :inherit font-latex-sectioning-4-face
-              :height ,graypawn-tex-height-110)))
+              :height ,pawn-tex-height-110)))
    `(font-latex-sectioning-4-face
      ((,class :inherit font-latex-sectioning-5-face
-              :height ,graypawn-tex-height-110)))
+              :height ,pawn-tex-height-110)))
    `(font-latex-sectioning-5-face
      ((,class :inherit ,pawn-variable-pitch :foreground ,violet
               :weight bold)))
    `(font-latex-sedate-face ((,class (:foreground ,bg4))))
    `(font-latex-slide-title-face
      ((,class :inherit (,pawn-variable-pitch font-lock-type-face)
-              :weight bold :height ,graypawn-tex-height-130)))
+              :weight bold :height ,pawn-tex-height-130)))
    `(font-latex-string-face ((,class (:foreground ,str))))
-   `(font-latex-subscript-face ((,class (:height ,graypawn-tex-height-90))))
-   `(font-latex-superscript-face ((,class (:height ,graypawn-tex-height-90))))
+   `(font-latex-subscript-face ((,class (:height ,pawn-tex-height-90))))
+   `(font-latex-superscript-face ((,class (:height ,pawn-tex-height-90))))
    `(font-latex-warning-face
      ((,class (:inherit bold :foreground ,war :underline t))))
 
@@ -487,10 +487,10 @@
 ;;;;; org
    `(org-agenda-clocking ((,class (:foreground ,comp))))
    `(org-agenda-date ((,class :foreground ,var
-                              :height ,(if graypawn-org-height 1.1 1.0))))
+                              :height ,(if pawn-org-height 1.1 1.0))))
    `(org-agenda-date-today ((,class :weight bold
                                     :foreground ,keyword
-                                    :height ,(if graypawn-org-height 1.3 1.0))))
+                                    :height ,(if pawn-org-height 1.3 1.0))))
    `(org-agenda-date-weekend ((,class (:weight normal :foreground ,var))))
    `(org-agenda-done ((,class (:foreground ,suc :bold t))))
    `(org-agenda-structure ((,class (:weight bold :foreground ,comp))))
@@ -505,7 +505,7 @@
    `(org-document-info-keyword ((,class (:foreground ,str))))
    `(org-document-title ((,class :foreground ,green
                                  :weight bold
-                                 :height ,(if graypawn-org-height 1.4 1.0)
+                                 :height ,(if pawn-org-height 1.4 1.0)
                                  :underline t)))
    `(org-done
      ((,class :foreground ,suc :bold t :overline t :background ,org-h3-bg)))
@@ -514,15 +514,15 @@
    `(org-hide ((,class (:foreground ,base))))
    `(org-level-1 ((,class :bold t
                           :foreground ,type
-                          :height ,(if graypawn-org-height 1.25 1.0)
+                          :height ,(if pawn-org-height 1.25 1.0)
                           :background ,org-h1-bg :overline t)))
    `(org-level-2 ((,class :bold t
                           :foreground ,keyword
-                          :height ,(if graypawn-org-height 1.2 1.0)
+                          :height ,(if pawn-org-height 1.2 1.0)
                           :background ,org-h2-bg)))
    `(org-level-3 ((,class :bold nil
                           :foreground ,str
-                          :height ,(if graypawn-org-height 1.1 1.0)
+                          :height ,(if pawn-org-height 1.1 1.0)
                           :background ,org-h3-bg)))
    `(org-level-4 ((,class :bold nil
                           :foreground ,yellow :background ,org-h4-bg)))
@@ -658,4 +658,4 @@
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
-(provide 'graypawn-themes)
+(provide 'pawn-themes)

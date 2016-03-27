@@ -1,0 +1,30 @@
+#+TITLE:Ido
+#+BEGIN_SRC emacs-lisp
+(require 'ido)
+
+(setq ido-use-filename-at-point nil)
+(setq ido-enable-flex-matching t)
+(setq ido-ignore-extensions t)
+
+;;; 현재 폴더만을 검색하기 위해서 -1로 설정한다.
+(setq ido-auto-merge-work-directories-length -1)
+
+(ido-mode t)
+(ido-everywhere t)
+
+(bind-key "C-x C-b" 'ibuffer)
+(bind-key "C-x C-m" 'execute-extended-command)
+
+(add-hook 'ido-setup-hook
+          (lambda ()
+            (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+            (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :ensure t
+  :init
+  :config
+  (projectile-global-mode))
+#+END_SRC

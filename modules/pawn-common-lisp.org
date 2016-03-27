@@ -1,0 +1,20 @@
+#+TITLE:Common Lisp
+#+OPTIONS: toc:2 num:nil ^:nil
+
+#+BEGIN_SRC emacs-lisp
+(use-package slime
+  :ensure t
+  :defer t
+  :init
+  (setq inferior-lisp-program "/usr/bin/sbcl --noinform")
+  :load-path "/usr/share/emacs/site-lisp/slime/"
+  :config
+  (add-hook 'slime-repl-mode-hook 'lisp-setup)
+  (slime-setup '(slime-fancy)))
+#+END_SRC
+
+
+slime에서 ,을 누르는 것을 통해 command을 입력하는 것이 가능하다.
+
+자세한 레페런스를 보기 위해서는 Common Lisp HyperSpec가 좋다.
+~C-c C-d h~ 를 누르면 HyperSpec 페이지로 이동한다.
