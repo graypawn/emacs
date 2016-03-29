@@ -25,8 +25,8 @@
 
 ;; Byte compile pawn-themes.el if newer than pawn-themes.elc
 ;; And load pawn-themes.elc
-(let ((source-file (expand-file-name "pawn-themes.el" user-emacs-directory))
-      (compiled-file (expand-file-name "pawn-themes.elc" user-emacs-directory)))
+(let ((source-file (expand-file-name "pawn-dark-theme.el" user-emacs-directory))
+      (compiled-file (expand-file-name "pawn-dark-theme.elc" user-emacs-directory)))
 
   (if (file-newer-than-file-p source-file compiled-file)
       (if (byte-compile-file source-file)

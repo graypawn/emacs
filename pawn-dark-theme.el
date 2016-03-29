@@ -45,7 +45,7 @@
   :type 'number
   :group 'pawn-theme-group)
 
-(deftheme pawn-theme)
+(deftheme pawn-dark)
 
 (let ((class '((class color) (min-colors 89)))
       (base          "#AEBFAE")
@@ -104,7 +104,7 @@
       )
 
   (custom-theme-set-faces
-   'pawn-theme
+   'pawn-dark
 
 ;;;;; basics
    `(cursor ((,class (:background ,cursor))))
@@ -658,4 +658,4 @@
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
-(provide 'pawn-themes)
+(provide-theme 'pawn-dark)
