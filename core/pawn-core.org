@@ -352,3 +352,11 @@ magit의 작업은 magit-status와 함께한다.
   (interactive)
   (load-file user-init-file))
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun print-to-html ()
+  (interactive)
+  (load-theme 'whiteboard)
+  (htmlfontify-buffer)
+  (load-theme 'pawn-dark))
+#+END_SRC
