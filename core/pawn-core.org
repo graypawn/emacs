@@ -356,7 +356,19 @@ magit의 작업은 magit-status와 함께한다.
 #+BEGIN_SRC emacs-lisp
 (defun print-to-html ()
   (interactive)
-  (load-theme 'whiteboard)
+  (load-theme 'adwaita)
   (htmlfontify-buffer)
+
+  ;; Use UTF-8
+  (beginning-of-buffer)
+  (search-forward "</title>")
+  (insert "<meta charset=\"utf-8\"></meta>")
+
+  ;; Disable background style
+  (mark-whole-buffer)
+  (replace-string "background: #ededed;" "")
+
+  (save-buffer)
+  (kill-buffer)
   (load-theme 'pawn-dark))
 #+END_SRC
