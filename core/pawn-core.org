@@ -372,3 +372,9 @@ magit의 작업은 magit-status와 함께한다.
   (kill-buffer)
   (load-theme 'pawn-dark))
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun recenter-top ()
+  (interactive)
+  (recenter-top-bottom 0))
+#+END_SRC

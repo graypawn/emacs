@@ -25,6 +25,7 @@
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
 (global-set-key (kbd "C-x C-d") 'delete-current-buffer-file)
 (global-set-key (kbd "C-x M-c") 'pawn/clone-file)
+(global-set-key (kbd "C-x C-l") 'recenter-top)
 
 ;;; Input Method
 (global-set-key (kbd "C-|") 'set-input-method)
