@@ -359,7 +359,6 @@ magit의 작업은 magit-status와 함께한다.
   (let ((hfy-file (concat default-directory
                           (buffer-name (current-buffer))
                           ".html")))
-    (load-theme 'adwaita)
     (htmlfontify-buffer)
 
     ;; Use UTF-8
@@ -369,11 +368,14 @@ magit의 작업은 magit-status와 함께한다.
 
     ;; Disable background style
     (mark-whole-buffer)
-    (replace-string "background: #ededed;" "")
+    (replace-string "background: #262626;" "")
+
+    ;; Disable default color
+    (mark-whole-buffer)
+    (replace-string "color: #aebfae;" "")
 
     (save-buffer)
     (kill-buffer)
-    (load-theme 'pawn-dark)
     (browse-url-of-file hfy-file)))
 #+END_SRC
 
