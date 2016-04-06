@@ -354,29 +354,56 @@ magit의 작업은 magit-status와 함께한다.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(defun print-to-html ()
+(defun hfy+-buffer ()
   (interactive)
-  (let ((hfy-file (concat default-directory
-                          (buffer-name (current-buffer))
-                          ".html")))
-    (htmlfontify-buffer)
 
-    ;; Use UTF-8
-    (beginning-of-buffer)
-    (search-forward "</title>")
-    (insert "<meta charset=\"utf-8\"></meta>")
+  (htmlfontify-buffer)
 
-    ;; Disable background style
-    (mark-whole-buffer)
-    (replace-string "background: #262626;" "")
+  ;; Use UTF-8
+  (beginning-of-buffer)
+  (search-forward "</title>")
+  (insert "<meta charset=\"utf-8\"></meta>")
 
-    ;; Disable default color
-    (mark-whole-buffer)
-    (replace-string "color: #aebfae;" "")
+  ;; Disable background style
+  (mark-whole-buffer)
+  (replace-string "background: #262626;" "")
 
-    (save-buffer)
-    (kill-buffer)
-    (browse-url-of-file hfy-file)))
+  ;; Change the font size to 11pt
+  (mark-whole-buffer)
+  (replace-string "font-size: 12pt;" "font-size: 11pt;")
+
+  ;; Disable default color
+  (mark-whole-buffer)
+  (replace-string "color: #aebfae;" "")
+
+  (save-buffer)
+  (kill-buffer))
+
+(defun hfy+-buffer-open ()
+  (interactive)
+  (let ((hfy+-filename (concat default-directory
+                              (buffer-name (current-buffer))
+                              ".html")))
+    (hfy+-buffer)
+    (browse-url-of-file hfy+-filename)))
+
+(defun hfy+-file (filename)
+  (find-file filename)
+    (hfy+-buffer)
+    (kill-buffer (file-name-nondirectory filename)))
+
+(defun hfy+-files (filelist)
+  "Create hfy+file with file list and Copy it in the current directory"
+  (interactive)
+  (let ((root-path default-directory))
+    (mapc (lambda (fs)
+            (let ((f (symbol-name fs)))
+              (hfy+-file f)
+              (rename-file (concat f ".html")
+                           (concat root-path "/"
+                                   (replace-regexp-in-string "/" "." f)
+                                   ".html"))))
+          filelist)))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
