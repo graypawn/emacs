@@ -4,7 +4,6 @@
 #+BEGIN_SRC sh
 pacman -S python-pip
 pip install virtualenv
-pip install ipython
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -23,13 +22,10 @@ pip install ipython
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-;;Use IPython
 (use-package python-mode
   :defer t
-  :interpreter ("ipython" . python-mode)
   :init
-  (setq python-shell-buffer-name "IPython"
-        python-indent-guess-indent-offset nil)
+  (setq python-indent-guess-indent-offset nil)
   (add-hook 'python-mode-hook '(lambda ()
                                 (jedi:setup)
                                 (smartparens-mode)
