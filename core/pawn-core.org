@@ -389,17 +389,17 @@ magit의 작업은 magit-status와 함께한다.
 
 (defun hfy+-file (filename)
   (find-file filename)
-    (hfy+-buffer)
-    (kill-buffer (file-name-nondirectory filename)))
+    (hfy+-buffer))
 
 (defun hfy+-files (filelist)
   "Create hfy+file with file list and Copy it in the current directory"
   (interactive)
   (let ((root-path default-directory))
     (mapc (lambda (fs)
-            (let ((f (symbol-name fs)))
-              (hfy+-file f)
-              (rename-file (concat f ".html")
+            (let* ((f (symbol-name fs))
+                  (filename (concat root-path "/" f)))
+              (hfy+-file filename)
+              (rename-file (concat filename ".html")
                            (concat root-path "/"
                                    (replace-regexp-in-string "/" "." f)
                                    ".html"))))
