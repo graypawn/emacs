@@ -368,9 +368,9 @@ magit의 작업은 magit-status와 함께한다.
   (mark-whole-buffer)
   (replace-string "background: #262626;" "")
 
-  ;; Change the font size to 11pt
+  ;; Change the font size to 10pt
   (mark-whole-buffer)
-  (replace-string "font-size: 12pt;" "font-size: 11pt;")
+  (replace-string "font-size: 12pt;" "font-size: 10pt;")
 
   ;; Disable default color
   (mark-whole-buffer)
