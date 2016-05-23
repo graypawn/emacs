@@ -1,12 +1,16 @@
 #+TITLE:Core Config
 #+OPTIONS: toc:2 num:nil ^:nil
 * Basic
-** Tab
+** Editor
 #+BEGIN_SRC emacs-lisp
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+;; Newline at end of file
+(setq require-final-newline t)
+#+END_SRC
 ** Tramp
 Tramp는 ssh 접속을 하는데 사용된다.
 또한 Root 권한으로 파일을 수정하는데도 사용된다.
