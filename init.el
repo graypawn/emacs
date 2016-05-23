@@ -1,5 +1,8 @@
 (require 'ob-tangle)
 
+(setq user-full-name "graypawn")
+(setq user-mail-address "choi.pawn @gmail.com")
+
 (defun pawn/org-babel-tangle-and-compile-file (file)
   (interactive "fFile to load: ")
   (let* ((base-name file)
