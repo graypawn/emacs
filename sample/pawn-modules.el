@@ -6,6 +6,7 @@
 ;; (pawn/load "modules/pawn-gtags")
 ;; (pawn/load "modules/pawn-hideshow")
 
+;; (pawn/load "modules/pawn-alert")
 ;; (pawn/load "modules/pawn-tw")
 
 (pawn/load "modules/pawn-lisp")

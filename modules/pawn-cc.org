@@ -87,7 +87,6 @@ target_link_libraries(gtest_example
 * Documentation
 ~M-x man~
 ~M-x helm-man-woman~
-* Code template using yasnippet
 * Reference
 [[http://tuhdo.github.io/c-ide.html][C/C++ Development Environment for Emacs]]
 [[http://futurismo.biz/archives/3071][Emacs で C/C++ の開発環境をめちゃガチャパワーアップしたまとめ]]
