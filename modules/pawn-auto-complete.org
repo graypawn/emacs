@@ -6,7 +6,9 @@
     :ensure t
     :diminish auto-complete-mode
     :config
-    (ac-config-default))
+    (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+    (ac-config-default)
+)
 #+END_SRC
 
 * Company vs Auto-complete
