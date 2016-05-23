@@ -1,6 +1,7 @@
 (pawn/load "modules/pawn-ido")
 ;; (pawn/load "modules/pawn-helm")
 
+(pawn/load "modules/pawn-yasnippet")
 (pawn/load "modules/pawn-auto-complete")
 (pawn/load "modules/pawn-smartparens")
 ;; (pawn/load "modules/pawn-gtags")

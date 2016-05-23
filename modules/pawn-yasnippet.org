@@ -1,0 +1,43 @@
+#+TITLE:yasnippet
+#+OPTIONS: toc:2 num:nil ^:nil
+
+#+BEGIN_SRC emacs-lisp
+(defun yas-ido-expand ()
+  "Lets you select (and expand) a yasnippet key"
+  (interactive)
+    (let ((original-point (point)))
+      (while (and
+              (not (= (point) (point-min) ))
+              (not
+               (string-match "[[:space:]\n]" (char-to-string (char-before)))))
+        (backward-word 1))
+    (let* ((init-word (point))
+           (word (buffer-substring init-word original-point))
+           (list (yas-active-keys)))
+      (goto-char original-point)
+      (let ((key (remove-if-not
+                  (lambda (s) (string-match (concat "^" word) s)) list)))
+        (if (= (length key) 1)
+            (setq key (pop key))
+          (setq key (ido-completing-read "key: " list nil nil word)))
+        (delete-char (- init-word original-point))
+        (insert key)
+        (yas-expand)))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+  :ensure t
+  :diminish yas-minor-mode
+  :init
+  (setq yas-snippet-dirs
+        '("~/.emacs.d/snippets"
+          ))
+  (yas-global-mode 1)
+  :config
+
+  (unbind-key "<tab>"  yas-minor-mode-map)
+  (unbind-key "TAB" yas-minor-mode-map)
+  (bind-key "<C-tab>" 'yas-ido-expand yas-minor-mode-map)
+  )
+#+END_SRC
