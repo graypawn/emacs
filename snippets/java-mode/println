@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: System.out.println
+# key: prn
+# --
+System.out.println(${1:text});$0

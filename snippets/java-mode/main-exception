@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: main method with Exception
+# key: maine
+# --
+public static void main(String[] args) throws Exception {
+    $0
+}

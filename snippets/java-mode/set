@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Set
+# key: set
+# --
+Set<${1:String}> ${2:set} = new HashSet<>();$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: package
+# key: pa
+# --
+package ${1:`(mapconcat 'identity (split-string (replace-regexp-in-string ".*src\\(/\\(main\\|test\\)\\)?\\(/java\\)?" "" default-directory) "/" t) ".")`};
+$0
