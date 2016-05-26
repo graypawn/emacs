@@ -1,5 +1,4 @@
 (require 'ob-tangle)
-(require 'cl)
 
 (setq user-full-name "graypawn")
 (setq user-mail-address (concat "choi.pawn" " @" "gmail.com"))

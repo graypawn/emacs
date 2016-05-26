@@ -2,4 +2,4 @@
 # name: Declare and instantiate
 # key: new
 # --
-${1:Type} ${2:name} = new ${$3:$1}($4:args);$0
+${1:Type} ${2:name} = new ${3:$1}(${4:args});$0

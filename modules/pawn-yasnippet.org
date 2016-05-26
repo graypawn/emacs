@@ -2,15 +2,20 @@
 #+OPTIONS: toc:2 num:nil ^:nil
 
 #+BEGIN_SRC emacs-lisp
+(eval-and-compile
+  (require 'cl))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
 (defun yas-ido-expand ()
   "Lets you select (and expand) a yasnippet key"
   (interactive)
-    (let ((original-point (point)))
-      (while (and
-              (not (= (point) (point-min) ))
-              (not
-               (string-match "[[:space:]\n]" (char-to-string (char-before)))))
-        (backward-word 1))
+  (let ((original-point (point)))
+    (while (and
+            (not (= (point) (point-min) ))
+            (not
+             (string-match "[[:space:]\n]" (char-to-string (char-before)))))
+      (backward-word 1))
     (let* ((init-word (point))
            (word (buffer-substring init-word original-point))
            (list (yas-active-keys)))
@@ -33,11 +38,27 @@
   (setq yas-snippet-dirs
         '("~/.emacs.d/snippets"
           ))
-  (yas-global-mode 1)
   :config
-
+  (yas-global-mode 1)
   (unbind-key "<tab>"  yas-minor-mode-map)
   (unbind-key "TAB" yas-minor-mode-map)
   (bind-key "<C-tab>" 'yas-ido-expand yas-minor-mode-map)
   )
+#+END_SRC
+
+확장자를 기준으로 새 파일을 열 때, 자동으로 template를 삽입하도록 한다.
+#+BEGIN_SRC emacs-lisp
+(defun pawn/autoinsert-yas-expand ()
+  "Replace text in yasnippet template."
+  (yas/expand-snippet (buffer-string) (point-min) (point-max)))
+
+(setq auto-insert-directory "~/.emacs.d/auto-insert/")
+(setq auto-insert-query nil)
+(auto-insert-mode 1)
+
+(define-auto-insert "\\.\\(c\\|cc\\|cpp\\)$" ["template.c" pawn/autoinsert-yas-expand])
+(define-auto-insert "\\.\\(h\\|hh\\|hpp\\)$" ["template.h" pawn/autoinsert-yas-expand])
+(define-auto-insert "\\.java$" ["template.java" pawn/autoinsert-yas-expand])
+(define-auto-insert "\\.py$" ["template.py" pawn/autoinsert-yas-expand])
+(define-auto-insert "\\.sh$" ["template.sh" pawn/autoinsert-yas-expand])
 #+END_SRC
