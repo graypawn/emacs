@@ -23,7 +23,7 @@
 (global-set-key (kbd "C-x M-e") 'eval-and-replace)
 (global-set-key (kbd "C-+") 'set-file-executable)
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
-(global-set-key (kbd "C-x C-R") 'revert-buffer)
+(global-set-key (kbd "<f5>") 'revert-buffer)
 (global-set-key (kbd "C-x C-d") 'delete-current-buffer-file)
 (global-set-key (kbd "C-x M-c") 'pawn/clone-file)
 (global-set-key (kbd "C-x C-l") 'recenter-top)
