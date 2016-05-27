@@ -2,6 +2,64 @@
 #+OPTIONS: toc:2 num:nil ^:nil
 
 #+BEGIN_SRC sh
+yaourt -S vim
+yaourt -S eclipse-java
+
+# groovy CLASSPATH
+for i in `ls /usr/share/groovy/lib/ | grep jar`; do export CLASSPATH=$CLASSPATH":/usr/share/groovy/lib/"$i; done;
+
+yaourt -S eclim
+
+# Eclim Test
+ECLIPSE_HOME=/usr/lib/eclipse
+$ECLIPSE_HOME/eclimd
+#+END_SRC
+
+
+#+BEGIN_SRC emacs-lisp
+(use-package eclim :ensure emacs-eclim
+  :commands start-eclimd
+  :bind (("C-c C-e C-r" . eclim-run-class)
+         ;; problems
+         ("C-c C-e b b" . eclim-problems)
+         ("C-c C-e b o" . eclim-problems-open)
+         ("C-c C-e b n" . eclim-problems-next)
+         ("C-c C-e b p" . eclim-problems-previous)
+         ("C-c C-e b c" . eclim-problems-correct)
+         ;; find
+         ("M-." . eclim-java-find-declaration))
+  :config
+  (setq eclim-eclipse-dirs "/usr/lib/eclipse/")
+  (setq eclim-executable "/usr/lib/eclipse/eclim")
+
+  ;; Displaying compilation error messages in the echo area
+  (setq help-at-pt-display-when-idle t)
+  (setq help-at-pt-timer-delay 0.1)
+  (help-at-pt-set-timer)
+
+  (setq-default eclimd-default-workspace "~/workspace/")
+  (require 'eclimd)
+
+  (require 'eclim-java)
+  (global-eclim-mode)
+)
+#+END_SRC
+
+#+BEGIN_EXAMPLE emacs-lisp
+start-eclimd
+;; dir : ~/workspare
+eclim-project-create
+;; Name: hello
+;; dir : ~/workspace/hello
+;; lang: java
+
+;; create source file
+eclim-project-build
+eclim-run-class
+#+END_EXAMPLE
+
+* JDEE
+#+BEGIN_SRC sh
 git clone https://github.com/jdee-emacs/jdee-server.git ~/.jdee-server
 cd ~/.jdee-server
 mvn -DskipTests=true assembly:assembly
@@ -9,16 +67,16 @@ cp target/jdee-bundle-{{VERSION}}.jar ./
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(use-package jdee
-  :ensure t
-  :defer t
-  :init
-  (setq jdee-server-dir "~/.jdee-server")
-  (setq jdee-build-function 'jdee-ant-build)
-)
+;; (use-package jdee
+;;   :ensure t
+;;   :defer t
+;;   :init
+;;   (setq jdee-server-dir "~/.jdee-server")
+;;   (setq jdee-build-function 'jdee-ant-build)
+;; )
 
-(use-package java-imports :ensure t)
-(use-package javadoc-lookup :ensure t)
+;; (use-package java-imports :ensure t)
+;; (use-package javadoc-lookup :ensure t)
 #+END_SRC
 
 jdee는 prj.el을 프로젝트 설정파일로 사용한다.
@@ -126,7 +184,55 @@ target은 Build를 수행할 경우 수행할 작업들을 정의한다.
 
 #+END_SRC
 * MAVEN
-pom.xml을 통해 프로젝트를 관라한다.
+** 프로젝트 생성
+적절한 값을 입력하고 나면 pom.xml이 생성된다.
+생성을 위해 인자를 필요로 한다.
+#+BEGIN_SRC sh
+mvn archetype:generate
+# groupId     ex) net.hello
+# artifactId  ex) sample
+# version     ex) 1.1.1
+# package     ex) net.hello.sample
+#+END_SRC
+
+
+
+
+
+간단한게 다음과 같이 실행해 볼 수 있다.
+#+BEGIN_SRC sh
+mvn compile
+mvn exec:java -Dexec.mainClass="net.hello.sample.App"
+#+END_SRC
+
+* Malabar-mode
+#+BEGIN_SRC sh
+# install malabar-mode stable
+# install groovy-mode stable
+yaourt -S groovy
+yaourt -S gradle
+
+git clone https://github.com/alexott/cedet.git
+cd cedet
+git checkout -b origin/devel
+make all
+#+END_SRC
+
+#+BEGIN_EXAMPLE emacs-lisp
+(load-file "/home/guilty/cedet/cedet-devel-load.el")
+(require 'malabar-mode)
+(add-hook 'after-init-hook (lambda ()
+                 (message "activate-malabar-mode")
+                 (activate-malabar-mode)))
+#+END_EXAMPLE
+
+#+BEGIN_SRC emacs-lisp
+;; (setq cedet-dir (expand-file-name "cedet" user-emacs-directory))
+;; (add-to-list 'load-path cedet-dir)
+;; (require 'ede/maven2)
+;; (require 'malabar-mode)
+;; (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
+#+END_SRC
 * Reference
 [[https://github.com/jdee-emacs/jdee-server][github:jdee]]
 [[http://futurismo.biz/archives/2675][コマンドラインから JUnit を使う方法]]
