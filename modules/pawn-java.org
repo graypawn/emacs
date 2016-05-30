@@ -6,15 +6,17 @@ yaourt -S vim
 yaourt -S eclipse-java
 
 # groovy CLASSPATH
+yaourt -S groovy
 for i in `ls /usr/share/groovy/lib/ | grep jar`; do export CLASSPATH=$CLASSPATH":/usr/share/groovy/lib/"$i; done;
 
 yaourt -S eclim
+#+END_SRC
 
+#+BEGIN_EXAMPLE sh
 # Eclim Test
 ECLIPSE_HOME=/usr/lib/eclipse
 $ECLIPSE_HOME/eclimd
-#+END_SRC
-
+#+END_EXAMPLE
 
 #+BEGIN_SRC emacs-lisp
 (use-package eclim :ensure emacs-eclim
