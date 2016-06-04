@@ -236,7 +236,16 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
   (add-hook 'text-mode-hook 'flyspell-mode)
   :config
   (setq ispell-program-name "aspell" ; use aspell instead of ispell
-        ispell-extra-args '("--sug-mode=ultra")))
+        ispell-extra-args '("--sug-mode=ultra"))
+
+  (bind-keys :map flyspell-mode-map
+    ("C-;" . nil)
+    ("C-M-i" . nil)
+    ("C-," . nil)
+    ("C-," . nil)
+    ("C-c $" . nil)
+    ("C-/" . ispell-word)
+))
 #+END_SRC
 * Hippie
 #+BEGIN_SRC emacs-lisp
@@ -253,14 +262,7 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 #+END_SRC
-* Zop-to-char
-#+BEGIN_SRC emacs-lisp
-(use-package zop-to-char
-  :ensure t
-  :bind (("M-z" . zop-up-to-char)
-         ("M-Z" . zop-to-char)))
-#+END_SRC
-* avy and ace-window
+* avy / ace-window / avy-zap
 #+BEGIN_SRC emacs-lisp
 (use-package ace-window
   :ensure t
@@ -268,11 +270,16 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
   (setq avy-background t)
   (setq avy-style 'at-full)
 
-  ;;keybindigs
+  ;;keybindings
   (global-set-key (kbd "C-:") 'avy-goto-word-or-subword-1)
-  (global-set-key (kbd "C-x O") 'ace-window)
-  (define-key isearch-mode-map (kbd "C-'") 'avy-isearch)
-)
+  (global-set-key (kbd "C-;") 'ace-window)
+  (define-key isearch-mode-map (kbd "C-'") 'avy-isearch))
+
+(use-package avy-zap
+  :ensure t
+  :bind
+  (("M-z" . avy-zap-up-to-char-dwim)
+   ("M-Z" . avy-zap-to-char-dwim)))
 #+END_SRC
 * Recentf
 #+BEGIN_SRC emacs-lisp
