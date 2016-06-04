@@ -14,14 +14,14 @@
 (setq org-agenda-files '("~/Dropbox/org/diary.org"))
 
 ;;; Capture
-(setq-default org-capture-templates
-              '(("n" "Note" entry (file org-default-notes-file)
-                 "* %?" :empty-lines 1)
-                ("t" "Todo" entry (file "~/Dropbox/org/diary.org")
-                 "* TODO %?\nSCHEDULED:\nDEADLINE:\n")
-                ("c" "Clipboard" entry (file org-default-notes-file)
-                 "* %(format-time-string \"%Y-%m-%d %a - %H:%M:%S\")\n%x"
-                 :immediate-finish t)))
+(setq org-capture-templates
+      '(("n" "Note" entry (file org-default-notes-file)
+         "* %?" :empty-lines 1)
+        ("t" "Todo" entry (file "~/Dropbox/org/diary.org")
+         "* TODO %?\nSCHEDULED:\nDEADLINE:\n")
+        ("c" "Clipboard" entry (file org-default-notes-file)
+         "* %(format-time-string \"%Y-%m-%d %a - %H:%M:%S\")\n%x"
+         :immediate-finish t)))
 #+END_SRC
 * Code Block
 #+BEGIN_SRC emacs-lisp
@@ -35,7 +35,7 @@
 #+END_SRC
 * Keybinding
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-l n") 'find-file-org-note)
+(global-set-key (kbd "C-l n") 'pawn/find-file-org-note)
 (global-set-key (kbd "C-l c") 'org-capture)
 (global-set-key (kbd "C-l a") 'org-agenda)
 (global-set-key (kbd "C-l l") 'org-store-link)
