@@ -1,14 +1,24 @@
 #+TITLE:Scheme
 #+OPTIONS: toc:2 num:nil ^:nil
+| precondition | repository |
+|--------------+------------|
+| guile        | pacman     |
+
+| packages |
+|----------|
+| geiser   |
 
 #+BEGIN_SRC emacs-lisp
 (use-package geiser
   :ensure t
-  :init
+  :if (executable-find "guile")
+  :config
   (setq geiser-default-implementation 'guile))
 
-(use-package scheme
+(use-package scheme-mode
+  :mode "\\.lisp\\'"
   :init
   (setq scheme-program-name "guile")
-  (add-hook 'scheme-mode-hook 'lisp-setup))
+  (add-hook 'scheme-mode-hook 'lisp-setup)
+)
 #+END_SRC

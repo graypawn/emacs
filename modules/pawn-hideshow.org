@@ -1,5 +1,9 @@
 #+TITLE:Hide Show
 #+OPTIONS: toc:2 num:nil ^:nil
+| packages  |
+|-----------|
+| fold-dwim |
+| hideshow  |
 
 #+BEGIN_SRC emacs-lisp
 (use-package fold-dwim :ensure t)

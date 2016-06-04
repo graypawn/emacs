@@ -1,10 +1,14 @@
 #+TITLE:Python
 #+OPTIONS: toc:2 num:nil ^:nil
+| precondition | repository |
+|--------------+------------|
+| python-pip   | pacman     |
+| virtualenv   | pip        |
 
-#+BEGIN_SRC sh
-pacman -S python-pip
-pip install virtualenv
-#+END_SRC
+| packages              |
+|-----------------------|
+| highlight-indentation |
+| jdei                  |
 
 #+BEGIN_SRC emacs-lisp
 ;;jedi

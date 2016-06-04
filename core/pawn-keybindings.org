@@ -1,36 +1,74 @@
-#+TITLE:Keybindings Config
+#+TITLE:Global Keybindings
+#+AUTHOR: graypawn
+#+EMAIL: choi.pawn@gmail.com
 #+OPTIONS: toc:2 num:nil ^:nil
 
 #+BEGIN_SRC emacs-lisp
+;; Disable suspend key.
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
-#+END_SRC
 
-~eshell~ interactive program을 지원하지 않는다.
-~watch free~ 와 같은 명령를 동작시키면 무엇이 문제인지 확인할 수 있다.
-이 때, 대안으로 사용할 수 있는 것이 ~term~ 이다.
+;; Unbind C-l
+(global-unset-key (kbd "C-l"))
 
-때로는 여러 개의 eshell을 열고 싶은 경우가 있는데 ~C-u~ 를 사용하면 된다.
-
-#+BEGIN_SRC emacs-lisp
+;; Start eshell or switch to it if it's active.
 (global-set-key (kbd "C-x m") 'eshell)
-(global-set-key (kbd "C-x M") 'term)
-#+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-;;; Useful functions
+;; Start a new eshell even if one is active.
+(global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
+
+;; open an ansi-term buffer
+(global-set-key (kbd "C-x M-m") 'prelude-visit-term-buffer)
+
+;; If you want to be able to M-x without meta
+(global-set-key (kbd "C-x C-m") 'execute-extended-command)
+
+;; File finding
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x f") 'ido-recentf-open)
+(global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
+
+;; Start proced in a similar manner to dired
+(global-set-key (kbd "<f12>") 'proced)
+
+;; use hippie-expand instead of dabbrev
+(global-set-key (kbd "M-/") 'hippie-expand)
+
+;; Use my custom function to save buffer.
 (global-set-key (kbd "C-x C-s") 'pawn/save-buffer)
-(global-set-key (kbd "C-x M-e") 'eval-and-replace)
-(global-set-key (kbd "C-+") 'set-file-executable)
-(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
-(global-set-key (kbd "<f5>") 'revert-buffer)
-(global-set-key (kbd "C-x C-d") 'delete-current-buffer-file)
-(global-set-key (kbd "C-x M-c") 'pawn/clone-file)
-(global-set-key (kbd "C-x C-l") 'recenter-top)
 
-;;; Input Method
+;; Should be able to pawn/eval-and-replace anywhere.
+(global-set-key (kbd "C-x M-e") 'pawn/eval-and-replace)
+
+;; Add executable permissions on current file.
+(global-set-key (kbd "C-+") 'pawn/set-file-executable)
+
+;; Renames current buffer and file it is visiting.
+(global-set-key (kbd "C-x C-r") 'pawn/rename-current-buffer-file)
+
+;; Removes file connected to current buffer and kills buffer.
+(global-set-key (kbd "C-x C-d") 'pawn/delete-current-buffer-file)
+
+;; Clone current buffer.
+;; And if universal-argument is true then, open file.
+(global-set-key (kbd "C-x M-c") 'pawn/clone-file)
+
+;; Search
+(global-set-key (kbd "C-l s g") 'prelude-google)
+(global-set-key (kbd "C-l s G") 'prelude-github)
+
+;; Replace current buffer text with the text of the visited file on disk
+(global-set-key (kbd "<f5>") 'revert-buffer)
+
+;; Select and activate input method.
 (global-set-key (kbd "C-|") 'set-input-method)
 
-;;; Other Window backward
-(global-set-key (kbd "C-x O") 'other-window-backward)
+;; Indentation help
+(global-set-key (kbd "C-x ^") 'join-line)
+
+;; Activate occur easily inside isearch
+(define-key isearch-mode-map (kbd "C-o") 'isearch-occur)
+
+
+(global-set-key (kbd "C-x C-l") 'pawn/recenter-top)
 #+END_SRC

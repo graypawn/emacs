@@ -2,7 +2,6 @@
 #+OPTIONS: toc:2 num:nil ^:nil
 
 #+BEGIN_SRC emacs-lisp
-(eval-when-compile (require 'cperl-mode))
 (defalias 'perl-mode 'cperl-mode)
 
 (add-to-list 'auto-mode-alist

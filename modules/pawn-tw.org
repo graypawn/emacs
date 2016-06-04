@@ -1,5 +1,8 @@
 #+TITLE:Twittering mode
 #+OPTIONS: toc:2 num:nil ^:nil
+| packages        |
+|-----------------|
+| twittering-mode |
 
 #+BEGIN_SRC emacs-lisp
 (use-package twittering-mode

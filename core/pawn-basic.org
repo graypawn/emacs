@@ -1,0 +1,312 @@
+#+TITLE:Emacs Basic Configuration
+#+AUTHOR: graypawn
+#+EMAIL: choi.pawn@gmail.com
+#+OPTIONS: toc:2 num:nil ^:nil
+| precondition | repository |
+|--------------+------------|
+| aspell-en    | pacman     |
+| git          | pacman     |
+| openssh      | pacman     |
+
+| packages      |
+|---------------|
+| projectile    |
+| magit         |
+| auto-complete |
+| yanippet      |
+| flx-ido       |
+| flycheck      |
+| smex          |
+| zop-to-char   |
+| ace-window    |
+| markdown-mode |
+| cmake-mode    |
+| pkgbuild-mode |
+* Basic
+#+BEGIN_SRC emacs-lisp
+;; set environment coding system
+(set-language-environment "UTF-8")
+
+;; Tab
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode nil)
+
+;; Newline at end of file
+(setq require-final-newline t)
+
+;; do not ask, just follow symlinks
+(setq vc-follow-symlinks t)
+
+;; Fill Column
+(setq-default fill-column 80)
+#+END_SRC
+
+#+END_SRC
+* Tramp
+Tramp는 ssh 접속을 하는데 사용된다.
+또한 Root 권한으로 파일을 수정하는데도 사용된다.
+#+BEGIN_SRC emacs-lisp
+(use-package tramp
+  :defer t
+  :config
+  (setq tramp-ssh-controlmaster-options)
+  (setq tramp-default-method "ssh"))
+#+END_SRC
+* Backup
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'backup-directory-alist '("." . "~/.emacs-saves"))
+
+(setq delete-old-versions t
+      kept-old-versions 3
+      kept-new-versions 5
+      version-control t)
+#+END_SRC
+* Minubuffer default input method
+Minibuffer에 진입 시, ~minibuffer-default-input-method~ 에 선언된 input method가 activate된다.
+만약 값이 nil일 경우, deactivate된다.
+
+#+BEGIN_SRC emacs-lisp
+(defvar minibuffer-default-input-method nil)
+
+(add-hook 'minibuffer-setup-hook
+          (lambda ()
+            (if minibuffer-default-input-method
+                (activate-input-method minibuffer-default-input-method)
+              (deactivate-input-method))))
+#+END_SRC
+* Undo Tree
+#+BEGIN_SRC emacs-lisp
+(use-package undo-tree
+  :ensure t
+  :diminish undo-tree-mode
+  :config (global-undo-tree-mode t))
+#+END_SRC
+* Whitespace
+whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
+라인 끝의 공백 (trailing whitespace), TAB이 이런 공백에 해당된다.
+또한 Programming 모드에서는 80 컬럼을 넘어가는 문자도 강조한다.
+
+#+BEGIN_SRC emacs-lisp
+(use-package whitespace
+  :diminish global-whitespace-mode
+  :config
+  (global-whitespace-mode t)
+
+  (add-hook
+   'after-change-major-mode-hook
+   '(lambda ()
+      (if (derived-mode-p 'prog-mode)
+          (setq whitespace-line-column 80
+                whitespace-style '(face tabs trailing lines-tail))
+        (setq whitespace-line-column nil
+              whitespace-style '(face tabs trailing))))))
+#+END_SRC
+* Auto complete
+#+BEGIN_SRC emacs-lisp
+(use-package auto-complete
+    :ensure t
+    :diminish auto-complete-mode
+    :config
+    (ac-config-default)
+)
+#+END_SRC
+* Compile
+#+BEGIN_SRC emacs-lisp
+(setq
+ compilation-ask-about-save nil          ;Just save before compiling
+ compilation-scroll-output 'first-error  ;Automatically scroll to first error
+ compilation-always-kill t               ;Just kill old compile processes before
+                                         ;starting the new one
+)
+#+END_SRC
+* Interactively Do Things
+#+BEGIN_SRC emacs-lisp
+(setq ido-use-filename-at-point nil)
+(setq ido-enable-flex-matching t)
+(setq ido-ignore-extensions t)
+
+;;; ido don't look for a file/directory outside the current directory.
+(setq ido-auto-merge-work-directories-length -1)
+
+(ido-mode t)
+(ido-everywhere t)
+
+(add-hook 'ido-setup-hook
+          (lambda ()
+            (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+            (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)))
+
+(use-package flx-ido
+  :ensure t
+  :init (flx-ido-mode 1))
+
+;; use icomplete in minibuffer
+(icomplete-mode t)
+#+END_SRC
+* Projectile
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :ensure t
+  :config
+  (setq projectile-mode-line '(:eval (format " 《%s》" (projectile-project-name))))
+  (setq projectile-enable-caching t)
+  (projectile-global-mode))
+#+END_SRC
+* yasnippet
+#+BEGIN_SRC emacs-lisp
+(defun yas-ido-expand ()
+  "Lets you select (and expand) a yasnippet key"
+  (interactive)
+  (let ((original-point (point)))
+    (while (and
+            (not (= (point) (point-min) ))
+            (not
+             (string-match "[[:space:]\n]" (char-to-string (char-before)))))
+      (backward-word 1))
+    (let* ((init-word (point))
+           (word (buffer-substring init-word original-point))
+           (list (yas-active-keys)))
+      (goto-char original-point)
+      (let ((key (remove-if-not
+                  (lambda (s) (string-match (concat "^" word) s)) list)))
+        (if (= (length key) 1)
+            (setq key (pop key))
+          (setq key (ido-completing-read "key: " list nil nil word)))
+        (delete-char (- init-word original-point))
+        (insert key)
+        (yas-expand)))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+  :ensure t
+  :diminish yas-minor-mode
+  :init
+  (setq yas-snippet-dirs
+        '("~/.emacs.d/snippets"
+          ))
+  :config
+  (yas-global-mode 1)
+  (unbind-key "<tab>"  yas-minor-mode-map)
+  (unbind-key "TAB" yas-minor-mode-map)
+  (bind-key "<C-tab>" 'yas-ido-expand yas-minor-mode-map)
+  )
+#+END_SRC
+
+확장자를 기준으로 새 파일을 열 때, 자동으로 template를 삽입하도록 한다.
+#+BEGIN_SRC emacs-lisp
+(defun pawn/autoinsert-yas-expand ()
+  "Replace text in yasnippet template."
+  (yas/expand-snippet (buffer-string) (point-min) (point-max)))
+
+(setq auto-insert-directory "~/.emacs.d/auto-insert/")
+(setq auto-insert-query nil)
+(auto-insert-mode 1)
+
+(define-auto-insert "\\.\\(c\\|cc\\|cpp\\)$" ["template.c" pawn/autoinsert-yas-expand])
+(define-auto-insert "\\.\\(h\\|hh\\|hpp\\)$" ["template.h" pawn/autoinsert-yas-expand])
+(define-auto-insert "\\.java$" ["template.java" pawn/autoinsert-yas-expand])
+(define-auto-insert "\\.py$" ["template.py" pawn/autoinsert-yas-expand])
+(define-auto-insert "\\.sh$" ["template.sh" pawn/autoinsert-yas-expand])
+(define-auto-insert "\\.el$" ["template.el" pawn/autoinsert-yas-expand])
+#+END_SRC
+* Eshell
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'eshell
+  ;;; eshell에서 맨 앞에 붙는 "$" 문구를 변경한다.
+  (setq eshell-prompt-function
+        (lambda ()
+          (concat
+           (car (last (split-string (eshell/pwd) "/")))
+           " $ "))))
+#+END_SRC
+* Magit
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :ensure t
+  :bind ("C-x g" . magit-status))
+#+END_SRC
+* Flyspell
+#+BEGIN_SRC emacs-lisp
+(use-package flyspell
+  :diminish flyspell-mode
+  :if (executable-find "aspell")
+  :init
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  (add-hook 'text-mode-hook 'flyspell-mode)
+  :config
+  (setq ispell-program-name "aspell" ; use aspell instead of ispell
+        ispell-extra-args '("--sug-mode=ultra")))
+#+END_SRC
+* Hippie
+#+BEGIN_SRC emacs-lisp
+;; hippie expand is dabbrev expand on steroids
+(setq hippie-expand-try-functions-list
+      '(try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-all-abbrevs
+        try-expand-list
+        try-expand-line
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
+#+END_SRC
+* Zop-to-char
+#+BEGIN_SRC emacs-lisp
+(use-package zop-to-char
+  :ensure t
+  :bind (("M-z" . zop-up-to-char)
+         ("M-Z" . zop-to-char)))
+#+END_SRC
+* avy and ace-window
+#+BEGIN_SRC emacs-lisp
+(use-package ace-window
+  :ensure t
+  :config
+  (setq avy-background t)
+  (setq avy-style 'at-full)
+
+  ;;keybindigs
+  (global-set-key (kbd "C-:") 'avy-goto-word-or-subword-1)
+  (global-set-key (kbd "C-x O") 'ace-window)
+  (define-key isearch-mode-map (kbd "C-'") 'avy-isearch)
+)
+#+END_SRC
+* Recentf
+#+BEGIN_SRC emacs-lisp
+;; 50 files ought to be enough.
+(setq recentf-max-saved-items 50)
+
+;; enable recent files mode.
+(recentf-mode t)
+
+(defun ido-recentf-open ()
+  "Use `ido-completing-read' to \\[find-file] a recent file"
+  (interactive)
+  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+      (message "Opening file...")
+    (message "Aborting")))
+
+;; get rid of `find-file-read-only' and replace it with something
+;; more useful.
+#+END_SRC
+* Flycheck
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :ensure t
+  :diminish flycheck-mode
+  :config
+  (global-flycheck-mode t))
+#+END_SRC
+* Extension mode packages
+#+BEGIN_SRC emacs-lisp
+(use-package markdown-mode :ensure t)
+(use-package cmake-mode
+  :ensure t
+  :if (executable-find "cmake"))
+(use-package pkgbuild-mode
+  :ensure t
+  :if (executable-find "pacman"))
+#+END_SRC

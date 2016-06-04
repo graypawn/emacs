@@ -1,0 +1,80 @@
+#+TITLE:Org mode
+#+AUTHOR: graypawn
+#+EMAIL: choi.pawn@gmail.com
+#+OPTIONS: toc:2 num:nil ^:nil
+| packages |
+|----------|
+| deft     |
+* Basic
+#+BEGIN_SRC emacs-lisp
+(setq org-directory "~/Dropbox/org/")
+(setq org-default-notes-file "~/Dropbox/org/notes.org")
+
+;;; Agenda
+(setq org-agenda-files '("~/Dropbox/org/diary.org"))
+
+;;; Capture
+(setq-default org-capture-templates
+              '(("n" "Note" entry (file org-default-notes-file)
+                 "* %?" :empty-lines 1)
+                ("t" "Todo" entry (file "~/Dropbox/org/diary.org")
+                 "* TODO %?\nSCHEDULED:\nDEADLINE:\n")
+                ("c" "Clipboard" entry (file org-default-notes-file)
+                 "* %(format-time-string \"%Y-%m-%d %a - %H:%M:%S\")\n%x"
+                 :immediate-finish t)))
+#+END_SRC
+* Code Block
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+(setq org-edit-src-content-indentation 0)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((sh . t)
+   (emacs-lisp . t)))
+#+END_SRC
+* Keybinding
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-l n") 'find-file-org-note)
+(global-set-key (kbd "C-l c") 'org-capture)
+(global-set-key (kbd "C-l a") 'org-agenda)
+(global-set-key (kbd "C-l l") 'org-store-link)
+#+END_SRC
+* Deft
+Org 문서를 효율적으로 관리하기 위해서 deft를 사용한다.
+deft는 문서의 제목뿐 아니라 내용까지 검색해 준다.
+
+Deft에는 두 가지 문제점이 있는데 첫 번째는 Emacs 내장 한글입력기를 사용할 수 없다는 것이다.
+이 문제는 외부입력기를 사용하거나, 미니 버퍼에서 작성한 후 붙여넣기 하는 방식으로 해결할 수 있다.
+두 번째는 문서의 수가 많아지면 Delay가 발생한다는 것인데, 이를 해결하기 위해 카테고리를 분리할 예정이다.
+
+아래의 함수는 [[file:pawn-core.org]] 의 ~minibuffer-default-input-method~ 와
+~minibuffer-setup-hook~ 을 참고하자.
+
+#+BEGIN_SRC emacs-lisp
+(use-package deft
+  :ensure t
+  :config
+  (defun deft-filter-input-with-korean  (someone)
+    "Append the input message to the filter with korean input method.
+   This function depend on `minibuffer-default-input-method' that defined in
+   `file:pawn-core.org'."
+    (interactive
+     (list
+      (progn
+        (setq minibuffer-default-input-method 'korean-hangul)
+        (read-string "Input message: "))))
+    (setq minibuffer-default-input-method nil)
+    (deft-filter
+      (concat (deft-whole-filter-regexp) someone) t))
+
+  (setq-default  deft-extensions '("org")
+                 deft-directory "~/Dropbox/wiki"
+                 deft-text-mode 'org-mode
+                 deft-use-filename-as-title nil)
+
+  ;;keybindings
+  (bind-key "S-SPC" 'deft-filter-input-with-korean deft-mode-map)
+  (bind-key "C-l d" 'deft)
+)
+#+END_SRC

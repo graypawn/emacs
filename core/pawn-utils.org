@@ -1,0 +1,125 @@
+#+TITLE:Utility Functions
+#+AUTHOR: graypawn
+#+EMAIL: choi.pawn@gmail.com
+#+BEGIN_SRC emacs-lisp
+(defun pawn/save-buffer ()
+  "Remove trailing whitespace before saving buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (save-buffer))
+
+(defun pawn/file-reopen-as-root ()
+  "Use TRAMP to `sudo' the current buffer"
+  (interactive)
+  (when buffer-file-name
+    (find-alternate-file
+     (concat "/sudo:root@localhost:"
+             buffer-file-name))))
+
+(defun pawn/eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
+(defun pawn/nuke-all-buffers ()
+  "Kill all buffers, leaving *scratch* only."
+  (interactive)
+  (when (yes-or-no-p "Kill all buffer?")
+    (mapc (lambda (x) (kill-buffer x)) (buffer-list))
+    (delete-other-windows)))
+
+(defun pawn/delete-current-buffer-file ()
+  "Removes file connected to current buffer and kills buffer."
+  (interactive)
+  (let ((filename (buffer-file-name))
+        (buffer (current-buffer))
+        (name (buffer-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (ido-kill-buffer)
+      (when (yes-or-no-p "Are you sure you want to remove this file? ")
+        (delete-file filename)
+        (kill-buffer buffer)
+        (message "File '%s' successfully removed" filename)))))
+
+(defun pawn/rename-current-buffer-file ()
+  "Renames current buffer and file it is visiting."
+  (interactive)
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (error "Buffer '%s' is not visiting a file!" name)
+      (let ((new-name (read-file-name "New name: " filename)))
+        (if (get-buffer new-name)
+            (error "A buffer named '%s' already exists!" new-name)
+          (rename-file filename new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil)
+          (message "File '%s' successfully renamed to '%s'"
+                   name (file-name-nondirectory new-name)))))))
+
+(defun pawn/set-file-executable()
+  "Add executable permissions on current file."
+  (interactive)
+  (when (buffer-file-name)
+    (set-file-modes buffer-file-name
+                    (logior (file-modes buffer-file-name) #o100))
+    (message (concat "Made " buffer-file-name " executable"))))
+
+(defun pawn/clone-file (open-p filename)
+  "Clone the current buffer writing it into FILENAME.
+   And if open-p is false then, open file"
+  (interactive "P\nFClone to file: ")
+  (save-restriction
+    (widen)
+    (write-region (point-min) (point-max) filename nil nil nil 'confirm))
+  (unless open-p
+    (find-file filename)))
+
+(defun pawn/find-file-org-note ()
+  (interactive)
+  (find-file org-default-notes-file))
+
+(defun pawn/reload-init ()
+  "Reload init.el file"
+  (interactive)
+  (load-file user-init-file))
+
+(defun pawn/recenter-top ()
+  (interactive)
+  (recenter-top-bottom 0))
+#+END_SRC
+
+아래의 *prelude-* 로 시작하는 함수들은 [[https://github.com/bbatsov/prelude][prelude]] 에서 가져왔다.
+#+BEGIN_SRC emacs-lisp
+(defun prelude-search (query-url prompt)
+  "Open the search url constructed with the QUERY-URL.
+PROMPT sets the `read-string prompt."
+  (browse-url
+   (concat query-url
+           (url-hexify-string
+            (if mark-active
+                (buffer-substring (region-beginning) (region-end))
+              (read-string prompt))))))
+
+(defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
+  "Given some information regarding a search engine, install the interactive command to search through them"
+  `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
+       ,(format "Search %s with a query or region if any." search-engine-name)
+       (interactive)
+       (prelude-search ,search-engine-url ,search-engine-prompt)))
+
+(prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
+(prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
+
+(defun prelude-visit-term-buffer ()
+  (interactive)
+  (if (not (get-buffer "*ansi-term*"))
+      (ansi-term "/bin/bash")
+    (switch-to-buffer "*ansi-term*")))
+#+END_SRC

@@ -1,9 +1,9 @@
-(pawn/load "modules/pawn-ido")
-;; (pawn/load "modules/pawn-helm")
+;;; pawn-modules --- Load Modules
+;;; Commentary:
+;;; Code:
 
-(pawn/load "modules/pawn-yasnippet")
-(pawn/load "modules/pawn-auto-complete")
-(pawn/load "modules/pawn-smartparens")
+;; (pawn/load "modules/pawn-helm") ;; freeze
+
 ;; (pawn/load "modules/pawn-gtags")
 ;; (pawn/load "modules/pawn-hideshow")
 
@@ -20,3 +20,5 @@
 
 ;; (pawn/load "modules/pawn-cc")
 ;; (pawn/load "modules/pawn-java")
+
+;;; pawn-modules.el ends here

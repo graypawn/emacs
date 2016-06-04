@@ -1,10 +1,16 @@
 #+TITLE:Java
 #+OPTIONS: toc:2 num:nil ^:nil
+| precondition | repository |
+|--------------+------------|
+| vim          | pacman     |
+| eclipse-java | pacman     |
+| groovy       | pacman     |
+| eclim        | AUR        |
 
+| packages    |
+|-------------|
+| emacs-eclim |
 #+BEGIN_SRC sh
-yaourt -S vim
-yaourt -S eclipse-java
-
 # groovy CLASSPATH
 yaourt -S groovy
 for i in `ls /usr/share/groovy/lib/ | grep jar`; do export CLASSPATH=$CLASSPATH":/usr/share/groovy/lib/"$i; done;
@@ -20,25 +26,25 @@ $ECLIPSE_HOME/eclimd
 
 #+BEGIN_SRC emacs-lisp
 (use-package eclim :ensure emacs-eclim
+  :if (executable-find "eclipse")
   :commands start-eclimd
   :config
   (setq eclim-eclipse-dirs "/usr/lib/eclipse/")
   (setq eclim-executable "/usr/lib/eclipse/eclim")
+  (setq eclimd-executable "/usr/lib/eclipse/eclimd")
+  (setq eclimd-default-workspace "~/workspace/")
+  (setq eclimd-wait-for-process nil)
 
   ;; Displaying compilation error messages in the echo area
   (setq help-at-pt-display-when-idle t)
   (setq help-at-pt-timer-delay 0.1)
   (help-at-pt-set-timer)
 
-  (setq-default eclimd-default-workspace "~/workspace/")
-  (require 'eclimd)
-  (require 'eclim-java)
-
-  ;; keybinding
+  ;; keybindings
   (bind-key "C-c C-e C-r" 'eclim-run-class eclim-mode-map)
   (bind-key "C-c C-e C-b" 'eclim-project-build eclim-mode-map)
 
-  (unbind-key "C-c C-e b" 'eclim-mode-map)
+  (unbind-key "C-c C-e b" eclim-mode-map)
   (bind-key "C-c C-e b b" 'eclim-problems eclim-mode-map)
   (bind-key "C-c C-e b o" 'eclim-problems-open eclim-mode-map)
   (bind-key "C-c C-e b n" 'eclim-problems-next eclim-mode-map)
@@ -47,7 +53,10 @@ $ECLIPSE_HOME/eclimd
 
   (bind-key "M-." 'eclim-java-find-declaration eclim-mode-map)
   (bind-key "M-," 'pop-tag-mark eclim-mode-map)
-  (global-eclim-mode)
+
+  (require 'eclimd)
+  (require 'eclim-java)
+  (add-hook 'java-mode-hook 'eclim-mode)
   )
 #+END_SRC
 
@@ -63,182 +72,6 @@ eclim-project-create
 eclim-project-build
 eclim-run-class
 #+END_EXAMPLE
-
-* JDEE
-#+BEGIN_SRC sh
-git clone https://github.com/jdee-emacs/jdee-server.git ~/.jdee-server
-cd ~/.jdee-server
-mvn -DskipTests=true assembly:assembly
-cp target/jdee-bundle-{{VERSION}}.jar ./
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-;; (use-package jdee
-;;   :ensure t
-;;   :defer t
-;;   :init
-;;   (setq jdee-server-dir "~/.jdee-server")
-;;   (setq jdee-build-function 'jdee-ant-build)
-;; )
-
-;; (use-package java-imports :ensure t)
-;; (use-package javadoc-lookup :ensure t)
-#+END_SRC
-
-jdee는 prj.el을 프로젝트 설정파일로 사용한다.
-~C-c C-v C-p~ 를 통해 생성되며, 아래와 같이 설정하는 것으로 기본적인 사용이 가능하다.
-
-#+BEGIN_EXAMPLE emacs-lisp
-(jdee-project-file-version "1.0")
-(jdee-set-variables
- '(jdee-ant-buildfile "./build.xml"))
-#+END_EXAMPLE
-* Java Ant
-자바의 프로젝트 관리 도구인 Ant는 xml파일을 사용해 프로젝트를 정의한다. [1]
-** Project 정의
-#+BEGIN_SRC xml
-  <?xml version="1.0"?>
-  <project name="sprint_example" default="compile" basedir=".">
-    <!-- 모든 정보는 이곳에 작성한다. -->
-  </project>
-#+END_SRC
-+ name : project의 이름이다.
-+ default="compile" : 인자 없이 ant를 실행할 경우 기본적으로 compile이 수행되도록 한다.
-+ basedir="." : Build에 사용되는 모든 경로는 build.xml을 기준으로 한 상대경로이다.
-** Property 정의
-#+BEGIN_SRC xml
-  <property name="build.dir" location="build"/>
-  <property name="build.prod.dir" location="${build.dir}/prod"/>
-  <property name="src.dir" location="src"/>
-  <property name="lib.dir" location="lib"/>
-#+END_SRC
-property를 정의하여 project의 디렉터리 구조를 정의한다.
-** ClassPath 정의
-#+BEGIN_SRC xml
-  <path id="project.classpath">
-    <pathelement location="${build.prod.dir}" />
-    <fileset dir="${lib.dir}">
-      <include name="*.jar" />
-    </fileset>
-  </path>
-#+END_SRC
-+ pathelement : build 디렉토리를 path에 추가해 컴파일러가 class 파일을 찾을 수 있도록 한다.
-+ fileset : 라이브러리들의 경로를 추가한다.
-** Target 정의
-#+BEGIN_SRC xml
-  <target name="prepare">
-    <mkdir dir="${build.prod.dir}" />
-  </target>
-
-  <target name="compile" depends="prepare">
-    <javac srcdir="${src.dir}" destdir="${build.prod.dir}">
-      <classpath refid="project.classpath" />
-    </javac>
-  </target>
-#+END_SRC
-target은 Build를 수행할 경우 수행할 작업들을 정의한다.
-** Sample
-#+BEGIN_SRC xml
-<?xml version="1.0"?>
-<project name="Hello" default="main" basedir=".">
-  <property name="build.dir" location="build"/>
-  <property name="classes.dir" location="${build.dir}/classes" />
-  <property name="jar.dir" location="${build.dir}/jar" />
-  <property name="src.dir" location="src"/>
-  <property name="lib.dir" location="lib"/>
-
-  <property name="main-class" value="oata.Hello" />
-
-  <path id="project.classpath">
-    <pathelement location="${classes.dir}" />
-    <fileset dir="${lib.dir}">
-      <include name="*.jar" />
-    </fileset>
-  </path>
-
-  <target name="clean" description="Clean output directories">
-    <delete dir="${build.dir}" />
-  </target>
-
-  <target name="compile">
-    <mkdir dir="${classes.dir}" />
-    <javac srcdir="${src.dir}"
-           destdir="${classes.dir}"
-           encoding="UTF-8"
-           includeantruntime="false">
-      <classpath refid="project.classpath" />
-    </javac>
-  </target>
-
-  <target name="jar" depends="compile">
-    <mkdir dir="${jar.dir}" />
-    <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
-      <manifest>
-        <attribute name="Main-Class" value="${main-class}" />
-      </manifest>
-    </jar>
-  </target>
-
-  <target name="run" depends="jar">
-    <java jar="${jar.dir}/${ant.project.name}.jar" fork="true" />
-  </target>
-
-  <target name="rebuild" depends="clean,jar" />
-  <target name="main" depends="clean,run" />
-
-</project>
-
-#+END_SRC
-* MAVEN
-** 프로젝트 생성
-적절한 값을 입력하고 나면 pom.xml이 생성된다.
-생성을 위해 인자를 필요로 한다.
-#+BEGIN_SRC sh
-mvn archetype:generate
-# groupId     ex) net.hello
-# artifactId  ex) sample
-# version     ex) 1.1.1
-# package     ex) net.hello.sample
-#+END_SRC
-
-
-
-
-
-간단한게 다음과 같이 실행해 볼 수 있다.
-#+BEGIN_SRC sh
-mvn compile
-mvn exec:java -Dexec.mainClass="net.hello.sample.App"
-#+END_SRC
-
-* Malabar-mode
-#+BEGIN_SRC sh
-# install malabar-mode stable
-# install groovy-mode stable
-yaourt -S groovy
-yaourt -S gradle
-
-git clone https://github.com/alexott/cedet.git
-cd cedet
-git checkout -b origin/devel
-make all
-#+END_SRC
-
-#+BEGIN_EXAMPLE emacs-lisp
-(load-file "/home/guilty/cedet/cedet-devel-load.el")
-(require 'malabar-mode)
-(add-hook 'after-init-hook (lambda ()
-                 (message "activate-malabar-mode")
-                 (activate-malabar-mode)))
-#+END_EXAMPLE
-
-#+BEGIN_SRC emacs-lisp
-;; (setq cedet-dir (expand-file-name "cedet" user-emacs-directory))
-;; (add-to-list 'load-path cedet-dir)
-;; (require 'ede/maven2)
-;; (require 'malabar-mode)
-;; (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
-#+END_SRC
 * Reference
 [[https://github.com/jdee-emacs/jdee-server][github:jdee]]
 [[http://futurismo.biz/archives/2675][コマンドラインから JUnit を使う方法]]

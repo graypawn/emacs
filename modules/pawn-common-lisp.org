@@ -1,5 +1,12 @@
 #+TITLE:Common Lisp
 #+OPTIONS: toc:2 num:nil ^:nil
+| precondition | repository |
+|--------------+------------|
+| sbcl         | pacman     |
+
+| packages |
+|----------|
+| slime    |
 
 #+BEGIN_SRC emacs-lisp
 (use-package slime

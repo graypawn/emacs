@@ -1,5 +1,11 @@
-#+TITLE:Packages Config
+#+TITLE:Packages Configuration
+#+AUTHOR: graypawn
+#+EMAIL: choi.pawn@gmail.com
 #+OPTIONS: toc:2 num:nil ^:nil
+| packages    |
+|-------------|
+| use-package |
+| diminish    |
 * Package
 #+BEGIN_SRC emacs-lisp
 (require 'package)
@@ -21,10 +27,4 @@
 (eval-and-compile
   (require 'use-package))
 (require 'diminish)
-#+END_SRC
-* Extention mode package
-#+BEGIN_SRC emacs-lisp
-(use-package markdown-mode :ensure t)
-(use-package cmake-mode :ensure t)
-(use-package pkgbuild-mode :ensure t)
 #+END_SRC

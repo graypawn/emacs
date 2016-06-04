@@ -86,7 +86,7 @@
       (org-h2-bg     "#63635a")
       (org-h3-bg     "#73735a")
       (org-h4-bg     "#4D4D44")
-      (highlight     "#2a2a24")
+      (highlight     "#3E4451")
       (green-bg      "#7b894f")
       (red-bg        "#512e31")
       (mkwd          "#D7AF87")

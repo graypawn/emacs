@@ -1,14 +1,12 @@
 #+TITLE:GNU Global
 #+OPTIONS: toc:2 num:nil ^:nil
-* Install
-#+BEGIN_SRC sh
-yaourt -S global
-#+END_SRC
+| precondition | repository |
+|--------------+------------|
+| global       | AUR        |
 
-Global은 다음의 명령을 통해 GPATH, GRTAGS, GTAGS을 생성한다.
-#+BEGIN_SRC sh
-gtags
-#+END_SRC
+| packages |
+|----------|
+| ggtags   |
 * Config
 #+BEGIN_SRC emacs-lisp
 (use-package ggtags :ensure t :diminish ggtags-mode)

@@ -25,7 +25,11 @@ sed -i 's/#! \/usr\/bin\/env python/#!\/usr\/bin\/env python2/' cclookup.py
 * Basic Config
 #+BEGIN_SRC emacs-lisp
 (defun cc-mode-setup ()
-  (c-set-style "k&r")
+  (setq c-default-style '((java-mode . "java")
+                          (awk-mode . "awk")
+                          (c-mode . "k&r")
+                          (c++-mode . "stroustrup")
+                          (other . "linux")))
   (setq c-basic-offset 4)
   (setq comment-style 'extra-line)
   (setq comment-start "/*")
@@ -80,7 +84,6 @@ target_link_libraries(gtest_example
 [[http://matome.naver.jp/odai/2138347407380937501][C언어 UnitTest 정리]]
 [[http://gaobin.hatenablog.com/entry/2015/05/06/012007][Google TestでC言語のプログラムをテストする]]
 [1] [[http://qiita.com/kuchida1981/items/9bb8fa4cc04635e7e909][Google Testの始め方]]
-* Flycheck
 * Complete Header
 [[https://github.com/randomphrase/company-c-headers][company-c-headers]]
 [[https://github.com/mooz/auto-complete-c-headers][auto-complete-c-headers]]

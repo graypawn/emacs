@@ -1,5 +1,10 @@
 #+TITLE:Clojure
 #+OPTIONS: toc:2 num:nil ^:nil
+| packages     |
+|--------------|
+| clojure-mode |
+| cider        |
+
 
 #+BEGIN_SRC emacs-lisp
 (use-package clojure-mode

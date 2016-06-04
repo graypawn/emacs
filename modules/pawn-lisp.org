@@ -1,5 +1,11 @@
 #+TITLE:Lisp
 #+OPTIONS: toc:2 num:nil ^:nil
+| packages           |
+|--------------------|
+| rainbox-delimiters |
+| paredit            |
+| elisp-slime-nav    |
+| eldoc              |
 
 #+BEGIN_SRC emacs-lisp
 (require 'ielm)
@@ -28,6 +34,7 @@
 (use-package lisp-mode
   :config
   (bind-keys :map emacs-lisp-mode-map
+             ("C-c e" . macrostep-expand)
              ("C-c C-z" . elisp/switch-to-ielm)
              ("C-c C-c" . eval-defun)
              ("C-c C-k" . eval-buffer)))

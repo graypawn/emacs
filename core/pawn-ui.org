@@ -1,34 +1,88 @@
-#+TITLE:UI Config
+#+TITLE:UI Preference
+#+AUTHOR: graypawn
+#+EMAIL: choi.pawn@gmail.com
 #+OPTIONS: toc:2 num:nil ^:nil
+| packages    |
+|-------------|
+| smartparens |
+| which-key   |
+* OS Config
+#+BEGIN_SRC emacs-lisp
+;;; emacs --daemon으로 실행한 경우
+(defun linux-daemon-config ()
+  (add-to-list 'default-frame-alist '(font . "Hack-12"))
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (with-selected-frame frame
+                (set-fontset-font "fontset-default"
+                                  'hangul
+                                  '("NanumGothic" . "iso10646-1"))
+                (set-fontset-font "fontset-default"
+                                  'japanese-jisx0208
+                                  '("VL Gothic" . "unicode-bmp"))))))
 
+(defun linux-config ()
+  (set-frame-font "Hack-12" t)
+  (set-fontset-font "fontset-default"
+                    'hangul
+                    '("NanumGothic" . "iso10646-1"))
+  (set-fontset-font "fontset-default"
+                    'japanese-jisx0208
+                    '("VL Gothic" . "unicode-bmp")))
+
+(cond
+ ((daemonp) (linux-daemon-config))
+ ((eq system-type 'gnu/linux) (linux-config)))
+#+END_SRC
+* Theme
+#+BEGIN_SRC emacs-lisp
+;; Byte compile pawn-themes.el if newer than pawn-themes.elc
+;; And load pawn-themes.elc
+(let ((source-file (expand-file-name "pawn-dark-theme.el" user-emacs-directory))
+      (compiled-file (expand-file-name "pawn-dark-theme.elc" user-emacs-directory)))
+
+  (if (file-newer-than-file-p source-file compiled-file)
+      (if (byte-compile-file source-file)
+          (message (concat "Compiled " compiled-file))
+        (error "Failed compiling %s" compiled-file)))
+  (load-theme 'pawn-dark t))
+#+END_SRC
+* Modeline
+#+BEGIN_SRC emacs-lisp
+(setq column-number-mode t)
+(size-indication-mode t)
+
+;;; diminish
+(use-package abbrev :diminish abbrev-mode)
+#+END_SRC
+* Smartparens
+#+BEGIN_SRC emacs-lisp
+(use-package smartparens
+  :ensure t
+  :diminish smartparens-mode
+  :init
+  (setq sp-base-key-bindings 'paredit
+        sp-autoskip-closing-pair 'always)
+  :config
+  (sp-use-paredit-bindings)
+  (show-smartparens-global-mode +1)
+  (sp-pair "'" nil :actions :rem)
+  (sp-pair "\"" nil :actions :rem)
+  (sp-pair "`" nil :actions :rem)
+  :preface (require 'smartparens))
+#+END_SRC
+* Disable Bell
 Beep을 끈다. 또한 시각적 bell도 사용하지 않는다.
 #+BEGIN_SRC emacs-lisp
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
 #+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-(setq column-number-mode t)
-(size-indication-mode t)
-#+END_SRC
-
+* Replace 'yes or no' with 'y or n'
 enable y/n answers
 #+BEGIN_SRC emacs-lisp
 (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
-
-Minibuffer에 진입 시, 자동으로 input-method가 꺼지도록 한다.
-변수를 선언한 것은, 다른 곳에서 유용하게 사용하기 위함이다.
-#+BEGIN_SRC emacs-lisp
-(defvar minibuffer-default-input-method nil)
-
-(add-hook 'minibuffer-setup-hook
-          (lambda ()
-            (if minibuffer-default-input-method
-                (activate-input-method minibuffer-default-input-method)
-              (deactivate-input-method))))
-#+END_SRC
-
+* Disable window chrome
 최대한 간단한 GUI를 사용한다.
 #+BEGIN_SRC emacs-lisp
 (when (fboundp 'tool-bar-mode)
@@ -38,13 +92,13 @@ Minibuffer에 진입 시, 자동으로 input-method가 꺼지도록 한다.
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 #+END_SRC
-
+* Simple startup
 초기 구동 시, 비어있는 sratch를 연다.
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
 (setq initial-scratch-message "")
 #+END_SRC
-
+* Display available keybindings in popup
 키를 입력하면 사용가능한 Keybinding을 보여준다.
 #+BEGIN_SRC emacs-lisp
 (use-package which-key
