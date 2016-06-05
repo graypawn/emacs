@@ -73,8 +73,20 @@ Deft에는 두 가지 문제점이 있는데 첫 번째는 Emacs 내장 한글�
                  deft-text-mode 'org-mode
                  deft-use-filename-as-title nil)
 
+  (defun deft+ (directory)
+    "Run deft in specified directory via argument."
+    (interactive (list (read-directory-name "Deft: "
+                                            deft-directory)))
+    (let* ((default-deft-directory deft-directory)
+           (deft-directory directory)
+           (deft-buffer (format "*deft* <%s>"
+                                (directory-file-name
+                                 (file-relative-name directory
+                                                     default-deft-directory)))))
+      (deft)))
+
   ;;keybindings
   (bind-key "S-SPC" 'deft-filter-input-with-korean deft-mode-map)
-  (bind-key "C-l d" 'deft)
+  (bind-key "C-l d" 'deft+)
 )
 #+END_SRC
