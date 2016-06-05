@@ -56,6 +56,7 @@ Deft에는 두 가지 문제점이 있는데 첫 번째는 Emacs 내장 한글�
   :ensure t
   :config
   (setq  deft-extensions '("org")
+         deft-default-extension "org"
          deft-directory "~/Dropbox/wiki"
          deft-text-mode 'org-mode
          deft-use-filename-as-title nil)
@@ -76,6 +77,8 @@ Deft에는 두 가지 문제점이 있는데 첫 번째는 Emacs 내장 한글�
     "Run deft in specified directory via argument."
     (interactive (list (read-directory-name "Deft: "
                                             (default-value 'deft-directory))))
+
+    (make-directory directory t)
 
     ;; global value for deft+
     (setq deft+-buffer
