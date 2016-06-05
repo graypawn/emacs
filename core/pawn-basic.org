@@ -25,7 +25,8 @@
 * Basic
 #+BEGIN_SRC emacs-lisp
 ;; set environment coding system
-(set-language-environment "UTF-8")
+(set-language-environment "Korean")
+(prefer-coding-system 'utf-8)
 
 ;; Tab
 (setq-default tab-width 4)
@@ -41,7 +42,6 @@
 (setq-default fill-column 80)
 #+END_SRC
 
-#+END_SRC
 * Tramp
 Tramp는 ssh 접속을 하는데 사용된다.
 또한 Root 권한으로 파일을 수정하는데도 사용된다.

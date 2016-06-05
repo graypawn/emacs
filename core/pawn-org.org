@@ -48,45 +48,54 @@ Deft에는 두 가지 문제점이 있는데 첫 번째는 Emacs 내장 한글�
 이 문제는 외부입력기를 사용하거나, 미니 버퍼에서 작성한 후 붙여넣기 하는 방식으로 해결할 수 있다.
 두 번째는 문서의 수가 많아지면 Delay가 발생한다는 것인데, 이를 해결하기 위해 카테고리를 분리할 예정이다.
 
-아래의 함수는 [[file:pawn-core.org]] 의 ~minibuffer-default-input-method~ 와
+아래의 함수는 [[file:pawn-basic.org]] 의 ~minibuffer-default-input-method~ 와
 ~minibuffer-setup-hook~ 을 참고하자.
 
 #+BEGIN_SRC emacs-lisp
 (use-package deft
   :ensure t
   :config
+  (setq  deft-extensions '("org")
+         deft-directory "~/Dropbox/wiki"
+         deft-text-mode 'org-mode
+         deft-use-filename-as-title nil)
+
   (defun deft-filter-input-with-korean  (someone)
     "Append the input message to the filter with korean input method.
    This function depend on `minibuffer-default-input-method' that defined in
-   `file:pawn-core.org'."
+   `file:pawn-basic.org'."
+
     (interactive
      (list
-      (progn
-        (setq minibuffer-default-input-method 'korean-hangul)
+      (let ((minibuffer-default-input-method 'korean-hangul))
         (read-string "Input message: "))))
-    (setq minibuffer-default-input-method nil)
     (deft-filter
       (concat (deft-whole-filter-regexp) someone) t))
-
-  (setq-default  deft-extensions '("org")
-                 deft-directory "~/Dropbox/wiki"
-                 deft-text-mode 'org-mode
-                 deft-use-filename-as-title nil)
 
   (defun deft+ (directory)
     "Run deft in specified directory via argument."
     (interactive (list (read-directory-name "Deft: "
-                                            deft-directory)))
-    (let* ((default-deft-directory deft-directory)
-           (deft-directory directory)
-           (deft-buffer (format "*deft* <%s>"
-                                (directory-file-name
-                                 (file-relative-name directory
-                                                     default-deft-directory)))))
-      (deft)))
+                                            (default-value 'deft-directory))))
+
+    ;; global value for deft+
+    (setq deft+-buffer
+          (format "*deft* <%s>"
+                  (directory-file-name
+                   (file-relative-name directory
+                                       (default-value 'deft-directory)))))
+
+    ;; Run deft.
+    (let ((deft-directory directory)
+          (deft-buffer deft+-buffer))
+      (deft))
+
+    ;; Setting local value in deft buffer. And refresh.
+    (set (make-local-variable 'deft-buffer) deft+-buffer)
+    (set (make-local-variable 'deft-directory) directory)
+    (deft-refresh))
 
   ;;keybindings
   (bind-key "S-SPC" 'deft-filter-input-with-korean deft-mode-map)
   (bind-key "C-l d" 'deft+)
-)
+  )
 #+END_SRC
