@@ -15,6 +15,7 @@
 /smex-items
 /.session
 /session.*
+/projectile.cache
 /history
 /abbrev_defs
 /ido.last

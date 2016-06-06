@@ -35,10 +35,10 @@
 #+END_SRC
 * Keybinding
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-l n") 'pawn/find-file-org-note)
-(global-set-key (kbd "C-l c") 'org-capture)
-(global-set-key (kbd "C-l a") 'org-agenda)
-(global-set-key (kbd "C-l l") 'org-store-link)
+(global-set-key (kbd "C-t n") 'pawn/find-file-org-note)
+(global-set-key (kbd "C-t c") 'org-capture)
+(global-set-key (kbd "C-t a") 'org-agenda)
+(global-set-key (kbd "C-t l") 'org-store-link)
 #+END_SRC
 * Deft
 Org 문서를 효율적으로 관리하기 위해서 deft를 사용한다.
@@ -99,6 +99,6 @@ Deft에는 두 가지 문제점이 있는데 첫 번째는 Emacs 내장 한글�
 
   ;;keybindings
   (bind-key "S-SPC" 'deft-filter-input-with-korean deft-mode-map)
-  (bind-key "C-l d" 'deft+)
+  (bind-key "<f12>" 'deft+)
   )
 #+END_SRC

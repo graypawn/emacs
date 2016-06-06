@@ -4,12 +4,13 @@
 #+OPTIONS: toc:2 num:nil ^:nil
 
 #+BEGIN_SRC emacs-lisp
-;; Disable suspend key.
+;; Disable key.
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
+(global-unset-key (kbd "C-t"))
 
-;; Unbind C-l
-(global-unset-key (kbd "C-l"))
+;; Switch to the scratch buffer
+(global-set-key (kbd "C-t s") 'pawn/switch-buffer-scratch)
 
 ;; Start eshell or switch to it if it's active.
 (global-set-key (kbd "C-x m") 'eshell)
@@ -29,7 +30,7 @@
 (global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
 
 ;; Start proced in a similar manner to dired
-(global-set-key (kbd "<f12>") 'proced)
+(global-set-key (kbd "C-x p") 'proced)
 
 ;; use hippie-expand instead of dabbrev
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -54,8 +55,9 @@
 (global-set-key (kbd "C-x M-c") 'pawn/clone-file)
 
 ;; Search
-(global-set-key (kbd "C-l s g") 'prelude-google)
-(global-set-key (kbd "C-l s G") 'prelude-github)
+(global-unset-key (kbd "C-x C-l"))
+(global-set-key (kbd "C-x C-l g") 'prelude-google)
+(global-set-key (kbd "C-x C-l G") 'prelude-github)
 
 ;; Replace current buffer text with the text of the visited file on disk
 (global-set-key (kbd "<f5>") 'revert-buffer)
@@ -69,6 +71,6 @@
 ;; Activate occur easily inside isearch
 (define-key isearch-mode-map (kbd "C-o") 'isearch-occur)
 
-
-(global-set-key (kbd "C-x C-l") 'pawn/recenter-top)
+(global-set-key (kbd "M-F") 'auto-fill-mode)
+(global-set-key (kbd "M-G") 'grep)
 #+END_SRC
