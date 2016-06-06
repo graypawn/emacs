@@ -1,0 +1,13 @@
+#+TITLE:Org Alert
+| packages  |
+|-----------|
+| org-alert |
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-alert
+  :ensure t
+  :config
+  (require 'org-agenda)
+  (setq alert-default-style 'libnotify)
+  (org-alert-enable))
+#+END_SRC
