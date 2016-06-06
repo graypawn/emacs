@@ -34,6 +34,7 @@ sed -i 's/#! \/usr\/bin\/env python/#!\/usr\/bin\/env python2/' cclookup.py
   (setq comment-style 'extra-line)
   (setq comment-start "/*")
   (setq comment-end "*/")
+  (setq c-block-comment-prefix "* ")
   (smartparens-mode))
 
 (use-package cc-mode
