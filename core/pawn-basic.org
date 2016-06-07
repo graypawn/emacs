@@ -220,6 +220,11 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
           (concat
            (car (last (split-string (eshell/pwd) "/")))
            " $ "))))
+
+(use-package shell-switcher
+  :ensure t
+  :config
+  (shell-switcher-mode t))
 #+END_SRC
 * Magit
 #+BEGIN_SRC emacs-lisp
