@@ -250,8 +250,8 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
     ("C-," . nil)
     ("C-," . nil)
     ("C-c $" . nil)
-    ("C-/" . ispell-word)
-))
+    ("C-/" . nil))
+  (bind-key "C-/" 'ispell-word))
 #+END_SRC
 * Hippie
 #+BEGIN_SRC emacs-lisp
