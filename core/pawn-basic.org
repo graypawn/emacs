@@ -265,7 +265,7 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
 #+END_SRC
 * avy / ace-window / avy-zap
 #+BEGIN_SRC emacs-lisp
-(use-package ace-window
+(use-package avy
   :ensure t
   :config
   (setq avy-background t)
@@ -273,9 +273,13 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
 
   ;;keybindings
   (global-set-key (kbd "C-:") 'avy-goto-word-or-subword-1)
-  (global-set-key (kbd "C-;") 'ace-window)
   (global-set-key (kbd "M-g") 'avy-goto-line)
   (define-key isearch-mode-map (kbd "C-'") 'avy-isearch))
+
+(use-package ace-window
+  :ensure t
+  :config
+  (global-set-key (kbd "C-;") 'ace-window))
 
 (use-package avy-zap
   :ensure t
