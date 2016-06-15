@@ -35,8 +35,8 @@
 ;; Should be able to pawn/eval-and-replace anywhere.
 (global-set-key (kbd "C-x M-e") 'pawn/eval-and-replace)
 
-;; Add executable permissions on current file.
-(global-set-key (kbd "C-+") 'pawn/set-file-executable)
+;; Toggle executable permissions on current file.
+(global-set-key (kbd "C-+") 'pawn/toggle-file-executable)
 
 ;; Renames current buffer and file it is visiting.
 (global-set-key (kbd "C-x C-r") 'pawn/rename-current-buffer-file)

@@ -63,13 +63,19 @@
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
-(defun pawn/set-file-executable()
-  "Add executable permissions on current file."
+(defun pawn/toggle-file-executable()
+  "Toggle executable permissions on current file."
   (interactive)
   (when (buffer-file-name)
-    (set-file-modes buffer-file-name
-                    (logior (file-modes buffer-file-name) #o100))
-    (message (concat "Made " buffer-file-name " executable"))))
+    (if (/= (logand (file-modes buffer-file-name) #o100) #o100)
+        (progn
+          (set-file-modes buffer-file-name
+                          (logior (file-modes buffer-file-name) #o100))
+          (message (concat "(Executable) " buffer-file-name)))
+      (progn
+        (set-file-modes buffer-file-name
+                        (logand (file-modes buffer-file-name) #o677))
+        (message (concat "(Inexecutable) " buffer-file-name))))))
 
 (defun pawn/clone-file (open-p filename)
   "Clone the current buffer writing it into FILENAME.
