@@ -36,16 +36,10 @@
 #+END_SRC
 * Theme
 #+BEGIN_SRC emacs-lisp
-;; Byte compile pawn-themes.el if newer than pawn-themes.elc
-;; And load pawn-themes.elc
-(let ((source-file (expand-file-name "pawn-dark-theme.el" user-emacs-directory))
-      (compiled-file (expand-file-name "pawn-dark-theme.elc" user-emacs-directory)))
-
-  (if (file-newer-than-file-p source-file compiled-file)
-      (if (byte-compile-file source-file)
-          (message (concat "Compiled " compiled-file))
-        (error "Failed compiling %s" compiled-file)))
-  (load-theme 'pawn-dark t))
+(use-package zenburn-theme
+  :ensure t
+  :config
+  (load-theme 'zenburn t))
 #+END_SRC
 * Modeline
 #+BEGIN_SRC emacs-lisp
