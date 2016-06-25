@@ -50,8 +50,8 @@ Tramp는 ssh 접속을 하는데 사용된다.
 (use-package tramp
   :defer t
   :config
-  (setq tramp-ssh-controlmaster-options)
-  (setq tramp-default-method "ssh"))
+  (setq tramp-default-method "ssh")
+  )
 #+END_SRC
 * Backup
 #+BEGIN_SRC emacs-lisp
