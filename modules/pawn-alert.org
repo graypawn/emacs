@@ -8,6 +8,8 @@
   :ensure t
   :config
   (require 'org-agenda)
-  (setq alert-default-style 'libnotify)
+  (setq alert-default-style 'libnotify
+        org-alert-interval 3600         ; 1 hour
+        org-alert-notification-title "TODO:")
   (org-alert-enable))
 #+END_SRC
