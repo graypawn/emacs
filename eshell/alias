@@ -1,1 +1,13 @@
-alias mplayer mplayer -zoom -xy 910 $1
+alias ... cd ../../
+alias .... cd ../../../
+
+alias free free -ht $1
+
+alias ls ls -A $1
+alias ll dired $1
+
+alias h history $1
+alias j jobs $1
+
+alias df df -H $1
+alias du du -ch $1
