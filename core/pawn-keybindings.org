@@ -11,6 +11,8 @@
 
 ;; Switch to the scratch buffer
 (global-set-key (kbd "C-t s") 'pawn/switch-buffer-scratch)
+;; Switch to the messages buffer
+(global-set-key (kbd "C-t m") 'pawn/switch-buffer-messages)
 
 ;; open an ansi-term buffer
 (global-set-key (kbd "C-x C-t") 'prelude-visit-term-buffer)
