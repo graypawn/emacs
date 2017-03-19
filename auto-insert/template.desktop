@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=`(file-name-sans-extension (buffer-name))`
+Comment=
+Exec=$0
+Icon=
+Path=
+Terminal=false
+StartupNotify=false
