@@ -56,12 +56,16 @@ Tramp는 ssh 접속을 하는데 사용된다.
 #+END_SRC
 * Backup
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'backup-directory-alist '("." . "~/.emacs-saves"))
+(setq backup-directory-alist `(("." . "~/.emacs-saves")))
 
 (setq delete-old-versions t
       kept-old-versions 3
-      kept-new-versions 5
+      kept-new-versions 6
       version-control t)
+
+(use-package backup-walker
+  :ensure t
+  :bind (("C-x b" . backup-walker-start)))
 #+END_SRC
 * Minubuffer default input method
 Minibuffer에 진입 시, ~minibuffer-default-input-method~ 에 선언된 input method가 activate된다.
