@@ -8,6 +8,7 @@
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 (global-unset-key (kbd "C-t"))
+(global-unset-key (kbd "C-h C-h"))
 
 ;; Switch to the scratch buffer
 (global-set-key (kbd "C-t s") 'pawn/switch-buffer-scratch)
