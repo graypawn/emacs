@@ -298,24 +298,6 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
   (("M-z" . avy-zap-up-to-char-dwim)
    ("M-Z" . avy-zap-to-char-dwim)))
 #+END_SRC
-* Recentf
-#+BEGIN_SRC emacs-lisp
-;; 50 files ought to be enough.
-(setq recentf-max-saved-items 50)
-
-;; enable recent files mode.
-(recentf-mode t)
-
-(defun ido-recentf-open ()
-  "Use `ido-completing-read' to \\[find-file] a recent file"
-  (interactive)
-  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-      (message "Opening file...")
-    (message "Aborting")))
-
-;; get rid of `find-file-read-only' and replace it with something
-;; more useful.
-#+END_SRC
 * Flycheck
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
