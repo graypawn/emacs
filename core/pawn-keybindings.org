@@ -55,6 +55,9 @@
 ;; And if universal-argument is true then, open file.
 (global-set-key (kbd "C-x M-c") 'pawn/clone-file)
 
+;; Input Method
+(global-set-key (kbd "C-\\") 'pawn/toggle-input-method)
+
 ;; Search
 (global-unset-key (kbd "C-x C-l"))
 (global-set-key (kbd "C-x C-l g") 'prelude-google)
