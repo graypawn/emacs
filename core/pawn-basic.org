@@ -306,6 +306,21 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
   :config
   (global-flycheck-mode t))
 #+END_SRC
+* View mode
+#+BEGIN_SRC emacs-lisp
+(use-package view
+  :init
+  (setq view-read-only t)
+  :config
+  (bind-key "g" 'avy-goto-line view-mode-map)
+  (bind-key ";" 'avy-goto-word-or-subword-1 view-mode-map)
+  ;; I don't want to leave the view-mode.
+  (unbind-key "c" view-mode-map)
+  (unbind-key "q" view-mode-map)
+  (unbind-key "Q" view-mode-map)
+  (unbind-key "e" view-mode-map)
+)
+#+END_SRC
 * Extension mode packages
 #+BEGIN_SRC emacs-lisp
 (use-package markdown-mode :ensure t)
