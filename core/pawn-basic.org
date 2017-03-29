@@ -274,7 +274,7 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 #+END_SRC
-* avy / ace-window / avy-zap
+* avy / ace-window
 #+BEGIN_SRC emacs-lisp
 (use-package avy
   :ensure t
@@ -291,12 +291,6 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
   :ensure t
   :config
   (global-set-key (kbd "C-;") 'ace-window))
-
-(use-package avy-zap
-  :ensure t
-  :bind
-  (("M-z" . avy-zap-up-to-char-dwim)
-   ("M-Z" . avy-zap-to-char-dwim)))
 #+END_SRC
 * Flycheck
 #+BEGIN_SRC emacs-lisp
