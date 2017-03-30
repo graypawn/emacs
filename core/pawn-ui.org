@@ -62,8 +62,7 @@
   (show-smartparens-global-mode +1)
   (sp-pair "'" nil :actions :rem)
   (sp-pair "\"" nil :actions :rem)
-  (sp-pair "`" nil :actions :rem)
-  :preface (require 'smartparens))
+  (sp-pair "`" nil :actions :rem))
 #+END_SRC
 * Disable Bell
 Beep을 끈다. 또한 시각적 bell도 사용하지 않는다.
