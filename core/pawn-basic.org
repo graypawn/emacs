@@ -67,19 +67,6 @@ Tramp는 ssh 접속을 하는데 사용된다.
   :ensure t
   :bind (("C-x M-b" . backup-walker-start)))
 #+END_SRC
-* Minubuffer default input method
-Minibuffer에 진입 시, ~minibuffer-default-input-method~ 에 선언된 input method가 activate된다.
-만약 값이 nil일 경우, deactivate된다.
-
-#+BEGIN_SRC emacs-lisp
-(defvar minibuffer-default-input-method nil)
-
-(add-hook 'minibuffer-setup-hook
-          (lambda ()
-            (if minibuffer-default-input-method
-                (activate-input-method minibuffer-default-input-method)
-              (deactivate-input-method))))
-#+END_SRC
 * Undo Tree
 #+BEGIN_SRC emacs-lisp
 (use-package undo-tree

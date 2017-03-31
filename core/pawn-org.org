@@ -54,14 +54,6 @@
 * Deft
 Org 문서를 효율적으로 관리하기 위해서 deft를 사용한다.
 deft는 문서의 제목뿐 아니라 내용까지 검색해 준다.
-
-Deft에는 두 가지 문제점이 있는데 첫 번째는 Emacs 내장 한글입력기를 사용할 수 없다는 것이다.
-이 문제는 외부입력기를 사용하거나, 미니 버퍼에서 작성한 후 붙여넣기 하는 방식으로 해결할 수 있다.
-두 번째는 문서의 수가 많아지면 Delay가 발생한다는 것인데, 이를 해결하기 위해 카테고리를 분리할 예정이다.
-
-아래의 함수는 [[file:pawn-basic.org]] 의 ~minibuffer-default-input-method~ 와
-~minibuffer-setup-hook~ 을 참고하자.
-
 #+BEGIN_SRC emacs-lisp
 (use-package deft
   :ensure t
@@ -73,16 +65,15 @@ Deft에는 두 가지 문제점이 있는데 첫 번째는 Emacs 내장 한글�
          deft-use-filename-as-title nil)
 
   (defun deft-filter-input-with-korean  (someone)
-    "Append the input message to the filter with korean input method.
-   This function depend on `minibuffer-default-input-method' that defined in
-   `file:pawn-basic.org'."
-
+    "Append the input message to the filter with korean input method."
     (interactive
      (list
-      (let ((minibuffer-default-input-method 'korean-hangul))
-        (read-string "Input message: "))))
+      ((lambda ()
+         (activate-input-method "korean-hangul")
+         (read-string "Input message: " "" nil "" t)))))
     (deft-filter
-      (concat (deft-whole-filter-regexp) someone) t))
+      (concat (deft-whole-filter-regexp) someone) t)
+    (deactivate-input-method))
 
   (defun deft+ (directory)
     "Run deft in specified directory via argument."
