@@ -16,7 +16,7 @@
 (global-set-key (kbd "C-t m") 'pawn/switch-buffer-messages)
 
 ;; open an ansi-term buffer
-(global-set-key (kbd "C-x C-t") 'prelude-visit-term-buffer)
+(global-set-key (kbd "M-'") 'prelude-visit-term-buffer)
 
 ;; If you want to be able to M-x without meta
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)
@@ -53,15 +53,15 @@
 
 ;; Clone current buffer.
 ;; And if universal-argument is true then, open file.
-(global-set-key (kbd "C-x M-c") 'pawn/clone-file)
+(global-set-key (kbd "C-x c") 'pawn/clone-file)
 
 ;; Input Method
 (global-set-key (kbd "C-\\") 'pawn/toggle-input-method)
 
 ;; Search
-(global-unset-key (kbd "C-x C-l"))
-(global-set-key (kbd "C-x C-l g") 'prelude-google)
-(global-set-key (kbd "C-x C-l G") 'prelude-github)
+(global-unset-key (kbd "C-x s"))
+(global-set-key (kbd "C-x s g") 'prelude-google)
+(global-set-key (kbd "C-x s G") 'prelude-github)
 
 ;; Replace current buffer text with the text of the visited file on disk
 (global-set-key (kbd "<f5>") 'revert-buffer)

@@ -65,7 +65,7 @@ Tramp는 ssh 접속을 하는데 사용된다.
 
 (use-package backup-walker
   :ensure t
-  :bind (("C-x b" . backup-walker-start)))
+  :bind (("C-x M-b" . backup-walker-start)))
 #+END_SRC
 * Minubuffer default input method
 Minibuffer에 진입 시, ~minibuffer-default-input-method~ 에 선언된 input method가 activate된다.
@@ -260,9 +260,7 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
     ("C-M-i" . nil)
     ("C-," . nil)
     ("C-," . nil)
-    ("C-c $" . nil)
-    ("C-/" . nil))
-  (bind-key "C-/" 'ispell-word))
+    ("C-c $" . nil)))
 #+END_SRC
 * Hippie
 #+BEGIN_SRC emacs-lisp
