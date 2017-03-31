@@ -85,7 +85,12 @@ Minibuffer에 진입 시, ~minibuffer-default-input-method~ 에 선언된 input 
 (use-package undo-tree
   :ensure t
   :diminish undo-tree-mode
-  :config (global-undo-tree-mode t))
+  :init
+  (setq undo-tree-auto-save-history t)
+  (setq undo-tree-history-directory-alist `(("." . "~/.undo-tree")))
+  (setq undo-tree-visualizer-timestamps t)
+  :config
+  (global-undo-tree-mode t))
 #+END_SRC
 * Whitespace
 whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
