@@ -19,6 +19,9 @@
       ;; don't show scheduled or deadline items in agenda when they are done.
       org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
+
+      ;; Initial buffer
+      initial-buffer-choice (car org-agenda-files)
       )
 
 ;;; Capture
