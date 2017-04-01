@@ -305,6 +305,12 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
   (unbind-key "e" view-mode-map)
 )
 #+END_SRC
+* Expand Region
+#+BEGIN_SRC emacs-lisp
+(use-package expand-region
+  :ensure t
+  :bind ("C-=" . er/expand-region))
+#+END_SRC
 * Extension mode packages
 #+BEGIN_SRC emacs-lisp
 (use-package markdown-mode :ensure t)
