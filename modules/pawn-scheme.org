@@ -16,7 +16,6 @@
   (setq geiser-default-implementation 'guile))
 
 (use-package scheme-mode
-  :mode "\\.lisp\\'"
   :init
   (setq scheme-program-name "guile")
   (add-hook 'scheme-mode-hook 'lisp-setup)
