@@ -16,8 +16,31 @@
   (setq inferior-lisp-program "/usr/bin/sbcl --noinform")
   :load-path "/usr/share/emacs/site-lisp/slime/"
   :config
-  (add-hook 'slime-repl-mode-hook 'lisp-setup)
-  (slime-setup '(slime-fancy)))
+  (require 'slime-repl)
+
+  (defvar pawn/slime-repl-original-buffer nil
+    "Buffer from which we jumped to this REPL.")
+
+  (defvar pawn/slime-repl-switch-function 'switch-to-buffer-other-window)
+
+  (defun pawn/slime-switch-to-output-buffer ()
+    (interactive)
+    (setq pawn/slime-repl-original-buffer (current-buffer))
+    (if (slime-connected-p)
+        (slime-switch-to-output-buffer)
+      (slime)))
+
+  (defun pawn/slime-repl-switch-back ()
+    "Switch back to the buffer from witch we reached this REPL."
+    (interactive)
+    (if pawn/slime-repl-original-buffer
+        (funcall pawn/slime-repl-switch-function pawn/slime-repl-original-buffer)
+      (error "No original buffer.")))
+
+ (bind-key "C-c C-z" 'pawn/slime-switch-to-output-buffer slime-mode-map)
+ (bind-key "C-c C-z" 'pawn/slime-repl-switch-back slime-repl-mode-map)
+ (add-hook 'slime-repl-mode-hook 'lisp-setup)
+ (slime-setup '(slime-fancy)))
 #+END_SRC
 
 
