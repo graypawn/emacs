@@ -246,3 +246,14 @@ Arrows: [_<left>_] ← [_<right>_] → [_<up>_] ↑ [_<down>_] ↓
 
 (bind-key "C-x 8" 'hydra-unicode/body)
 #+END_SRC
+** Hydra Yank Pop
+#+BEGIN_SRC emacs-lisp
+(defhydra hydra-yank-pop ()
+  "yank"
+  ("C-y" yank nil)
+  ("M-y" yank-pop nil)
+  ("n" (yank-pop 1) "next")
+  ("p" (yank-pop -1) "prev"))
+
+(bind-key (kbd "M-y") 'hydra-yank-pop/yank-pop)
+#+END_SRC
