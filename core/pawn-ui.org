@@ -52,6 +52,18 @@
                    " " vc-mode)))
       (setq vc-mode vc-text))))
 
+(defvar mode-line-boader nil)
+
+(defvar mode-line-projectile-or-boader
+  '(:eval (propertize
+           (format "[%s]"
+                   (or mode-line-boader
+                       (projectile-project-name)))
+           'face '(:weight bold)))
+  "Mode line construct for displaying project name or `mode-line-boader'")
+
+(put 'mode-line-projectile-or-boader 'risky-local-variable t)
+
 (setq-default
  mode-line-format
  '("%e" mode-line-front-space
@@ -63,9 +75,7 @@
    mode-line-buffer-identification
    "   "
    mode-line-position
-   (:eval (propertize
-           (format "[%s]" (projectile-project-name))
-           'face '(:weight bold)))
+   mode-line-projectile-or-boader
    (vc-mode vc-mode)
    "  "
    mode-line-modes

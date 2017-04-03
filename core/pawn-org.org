@@ -83,24 +83,23 @@ deft는 문서의 제목뿐 아니라 내용까지 검색해 준다.
     (make-directory directory t)
 
     ;; global value for deft+
-    (setq deft+-buffer
-          (format "*deft* <%s>"
-                  (directory-file-name
-                   (file-relative-name directory
-                                       (default-value 'deft-directory)))))
+    (setq deft+-name
+          (format "D: %s" (directory-file-name
+                          (file-relative-name directory
+                                              (default-value 'deft-directory)))))
 
     ;; Run deft.
-    (let ((deft-directory directory)
-          (deft-buffer deft+-buffer))
+    (let ((deft-directory directory))
       (deft))
 
     ;; Setting local value in deft buffer. And refresh.
-    (set (make-local-variable 'deft-buffer) deft+-buffer)
     (set (make-local-variable 'deft-directory) directory)
+    (set (make-local-variable 'mode-line-boader) deft+-name)
     (deft-refresh))
 
   ;;keybindings
   (bind-key "S-SPC" 'deft-filter-input-with-korean deft-mode-map)
-  (bind-key "<f12>" 'deft+)
+  (bind-key "<f12>" 'deft)
+  (bind-key "<f12>" 'deft+ deft-mode-map)
   )
 #+END_SRC
