@@ -208,6 +208,7 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
 (define-auto-insert "\\.sh$" ["template.sh" pawn/autoinsert-yas-expand])
 (define-auto-insert "\\.el$" ["template.el" pawn/autoinsert-yas-expand])
 (define-auto-insert "\\.desktop$" ["template.desktop" pawn/autoinsert-yas-expand])
+(define-auto-insert "\\.lisp$" ["template.lisp" pawn/autoinsert-yas-expand])
 #+END_SRC
 * Eshell
 #+BEGIN_SRC emacs-lisp
