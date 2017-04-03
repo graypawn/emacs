@@ -44,7 +44,34 @@
 * Modeline
 #+BEGIN_SRC emacs-lisp
 (setq column-number-mode t)
-(size-indication-mode t)
+
+(defadvice vc-mode-line (after strip-backend () activate)
+  (when (stringp vc-mode)
+    (let ((vc-text (replace-regexp-in-string
+                   (format "^ %s:" (vc-backend buffer-file-name))
+                   " " vc-mode)))
+      (setq vc-mode vc-text))))
+
+(setq-default
+ mode-line-format
+ '("%e" mode-line-front-space
+   mode-line-mule-info
+;;   mode-line-client
+   mode-line-modified
+   mode-line-remote
+;;   mode-line-frame-identification
+   mode-line-buffer-identification
+   "   "
+   mode-line-position
+   (:eval (propertize
+           (format "[%s]" (projectile-project-name))
+           'face '(:weight bold)))
+   (vc-mode vc-mode)
+   "  "
+   mode-line-modes
+   mode-line-misc-info
+   mode-line-end-spaces)
+ )
 
 ;;; diminish
 (use-package abbrev :diminish abbrev-mode)

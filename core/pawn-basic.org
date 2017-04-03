@@ -145,8 +145,8 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
   :ensure t
+  :diminish projectile-mode
   :config
-  (setq projectile-mode-line '(:eval (format " 《%s》" (projectile-project-name))))
   (setq projectile-enable-caching t)
   (projectile-global-mode))
 #+END_SRC
