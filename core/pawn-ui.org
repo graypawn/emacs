@@ -88,6 +88,9 @@
   (show-smartparens-global-mode t)
   (sp-use-paredit-bindings)
 
+  (sp-local-pair 'org-mode "'" nil :actions nil)
+  (sp-local-pair 'org-mode "`" nil :actions nil)
+
   (sp-with-modes sp--lisp-modes
     ;; disable ', it's the quote character!
     (sp-local-pair "'" nil :actions nil)
