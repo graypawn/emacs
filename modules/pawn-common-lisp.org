@@ -37,12 +37,20 @@
         (funcall pawn/slime-repl-switch-function pawn/slime-repl-original-buffer)
       (error "No original buffer.")))
 
+  (defun pawn/slime-eval-and-replace ()
+    (interactive)
+    (slime-eval-async `(swank:eval-and-grab-output ,(slime-last-expression))
+      (lambda (result)
+        (cl-destructuring-bind (output value) result
+          (backward-kill-sexp)
+          (insert output value)))))
+
  (bind-key "C-c C-z" 'pawn/slime-switch-to-output-buffer slime-mode-map)
  (bind-key "C-c C-z" 'pawn/slime-repl-switch-back slime-repl-mode-map)
+ (bind-key "C-x M-e" 'pawn/slime-eval-and-replace slime-mode-map)
  (add-hook 'slime-repl-mode-hook 'lisp-setup)
  (slime-setup '(slime-fancy)))
 #+END_SRC
-
 
 slime에서 ,을 누르는 것을 통해 command을 입력하는 것이 가능하다.
 
