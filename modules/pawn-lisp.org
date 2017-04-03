@@ -46,13 +46,11 @@
 #+BEGIN_SRC emacs-lisp
 ;;rainbow delimiters
 (use-package rainbow-delimiters :ensure t)
-(use-package paredit :ensure t :diminish paredit-mode)
 (use-package elisp-slime-nav :ensure t :diminish elisp-slime-nav-mode)
 (use-package eldoc :diminish eldoc-mode)
 
 (defun lisp-setup ()
   (rainbow-delimiters-mode t)
-  (enable-paredit-mode)
   (eldoc-mode))
 
 (defun emacs-lisp-setup ()
