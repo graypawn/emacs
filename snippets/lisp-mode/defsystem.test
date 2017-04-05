@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: defsystem.test
+# key: defs-test
+# --
+(asdf:defsystem #:`(pawn/default-directory-name)`.test
+  :depends-on (#:`(pawn/default-directory-name)` #:lisp-unit)
+  :components ((:module "test"
+                :components
+                ((:file "test-`(pawn/default-directory-name)`")))))
