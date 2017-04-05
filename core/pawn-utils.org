@@ -126,18 +126,25 @@ create it and write the initial message into it."
       (deactivate-input-method)
     (activate-input-method default-input-method)))
 
+(defun pawn/directory-name (directory)
+  (file-name-nondirectory
+   (directory-file-name directory)))
+
+(defun pawn/default-directory-name ()
+  (pawn/directory-name default-directory))
+
 (defun pawn/current-lispy-namespace (separator)
   (if (projectile-project-p)
       (let ((project-name (projectile-project-name))
             (project-relative-name
-             (file-relative-name default-directory
+             (file-relative-name (file-truename default-directory)
                                  (projectile-project-root))))
         (cond ((string= project-relative-name "./") project-name)
               ((string= project-relative-name "src/") project-name)
               ((concat (projectile-project-name)
                        separator
                        (directory-file-name project-relative-name)))))
-    (car (last (delete "" (split-string default-directory "/"))))))
+    (default-directory-name)))
 #+END_SRC
 
 아래의 *prelude-* 로 시작하는 함수들은 [[https://github.com/bbatsov/prelude][prelude]] 에서 가져왔다.
