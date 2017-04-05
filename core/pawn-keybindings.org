@@ -18,6 +18,9 @@
 ;; open an ansi-term buffer
 (global-set-key (kbd "M-'") 'prelude-visit-term-buffer)
 
+;; Move past next ‘)’, delete indentation before it.
+(global-set-key (kbd "M-)") 'pawn/move-past-close-round)
+
 ;; If you want to be able to M-x without meta
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)
 

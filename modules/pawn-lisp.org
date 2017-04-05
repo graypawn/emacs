@@ -51,7 +51,11 @@
 
 (defun lisp-setup ()
   (rainbow-delimiters-mode t)
-  (eldoc-mode))
+  (eldoc-mode)
+  (define-key
+    (eval (derived-mode-map-name major-mode))
+    (kbd ")")
+    'pawn/move-past-close-round))
 
 (defun emacs-lisp-setup ()
   (turn-on-elisp-slime-nav-mode))
