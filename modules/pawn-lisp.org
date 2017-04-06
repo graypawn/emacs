@@ -32,6 +32,7 @@
     (error "No original buffer.")))
 
 (use-package lisp-mode
+  :mode "\\.sexp\\'"
   :config
   (bind-keys :map emacs-lisp-mode-map
              ("C-c e" . macrostep-expand)

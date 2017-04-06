@@ -14,7 +14,6 @@
   :defer t
   :init
   (setq inferior-lisp-program "/usr/bin/sbcl --noinform")
-  :load-path "/usr/share/emacs/site-lisp/slime/"
   :config
   (require 'slime-repl)
 
