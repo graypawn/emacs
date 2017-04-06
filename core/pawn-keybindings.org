@@ -92,9 +92,7 @@
 | C-x e   | kmacro-end-and-call-macro |
 | C-x C-k | hydra-macro/body          |
 #+BEGIN_SRC emacs-lisp
-(defhydra hydra-macro (:hint nil :color pink :pre
-                             (when defining-kbd-macro
-                               (kmacro-end-macro 1)))
+(defhydra hydra-macro (:hint nil :color pink :pre)
 "
  ^Cycle^     ^Basic^          ^Insert^        ^Save^          ^^Edit^^
 ╭─────────────────────────────────────────────────────────────────────────╯
@@ -122,7 +120,36 @@
   ("," edit-kbd-macro)
   ("q" nil :color blue))
 
-(bind-key "C-x C-k" 'hydra-macro/body)
+(defhydra hydra-macro-defining (:hint nil :color pink :pre)
+"
+ ^Cycle^     ^Basic^         ^^Insert^^          ╲╲╭────╮╲╲
+╭^─────^─────^─────^─────────^^──────^^───╯      ╭╮|▆  ▆|╭╮
+   ^_p_^    [_e_] execute    [_i_] insert        |╰┫▽▽▽▽┣╯|
+   ^^↑^^    [_d_] delete     [_c_] set           ╰━┫△△△△┣━╯
+   ^^ ^^    [_r_] region     [_a_] add           ╲╲|┈┈┈┈┃╲╲
+   ^^↓^^     ^ ^             [_f_] format        ╲╲┃┈┏┓┈┃╲╲
+   ^_n_^     ^ ^              ^ ^                ▔▔╰━╯╰━╯▔▔
+  ^^   ^^                  ^^Counter: %s(number-to-string kmacro-counter)
+"
+
+  ("p" kmacro-cycle-ring-previous)
+  ("n" kmacro-cycle-ring-next)
+  ("e" kmacro-end-and-call-macro)
+  ("d" kmacro-delete-ring-head)
+  ("r" apply-macro-to-region-lines)
+  ("i" kmacro-insert-counter)
+  ("c" kmacro-set-counter)
+  ("a" kmacro-add-counter)
+  ("f" kmacro-set-format)
+  ("q" nil :color blue))
+
+(defun hydra-macro-selector ()
+  (interactive)
+  (if defining-kbd-macro
+      (hydra-macro-defining/body)
+    (hydra-macro/body)))
+
+(bind-key "C-x C-k" 'hydra-macro-selector)
 #+END_SRC
 ** Hydra Unicode
 #+BEGIN_SRC emacs-lisp
