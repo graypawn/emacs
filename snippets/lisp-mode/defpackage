@@ -2,8 +2,6 @@
 # name: defpackage
 # key: defp
 # --
-(defpackage #:${1:`(pawn/current-lispy-namespace ".")`}
-   (:use #:cl `(if (and (string= (pawn/default-directory-name) "test")
-                        (projectile-project-p))
-                   (concat "#:" (projectile-project-name)))` #:lisp-unit)
-   (:export :$0))
+(defpackage #:${1:`(pawn/current-lispy-namespace ".")`}$2
+  (:use #:cl)
+  (:export :$0))

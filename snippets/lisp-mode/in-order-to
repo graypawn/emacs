@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: in-order-to
+# key: in-order-to
+# --
+:in-order-to ((test-op (test-op `(pawn/default-directory-name)`.test)))$0

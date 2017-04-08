@@ -148,7 +148,41 @@ whitespace 모드를 통해 안 좋은 공백을 시각화 한다.
   :diminish projectile-mode
   :config
   (setq projectile-enable-caching t)
-  (projectile-global-mode))
+  (setq projectile-switch-project-action 'projectile-dired)
+  (projectile-global-mode)
+
+  (defun pawn/projectile-test-prefix (project-type)
+    "Find default test files prefix based on PROJECT-TYPE."
+    (cond
+     ((member project-type '(django python-pip python-pkg python-tox)) "test_")
+     ((member project-type '(emacs-cask)) "test-")
+     ((member project-type '(lein-midje)) "t_")
+     ((member project-type '(common-lisp)) "t-")))
+
+  (setq projectile-test-prefix-function 'pawn/projectile-test-prefix)
+
+  (defun projectile-cl ()
+    "Identifies a project as being common lisp by the presence of
+files with .asd extensions"
+    (cl-some (lambda (file)
+               (string= (file-name-extension file) "asd"))
+             (projectile-current-project-files)))
+
+  (defun projectile-cl-test-function ()
+    "Calls into slime to run the current project's tests with asdf."
+    (message "Testing %s in slime..." (projectile-project-name))
+    (pawn/slime-switch-to-output-buffer)
+    (slime-eval-async
+        `(asdf:test-system ,(projectile-project-name))
+      (lambda (result) (message "Tests finished with result %s" result))
+      "CL-USER"))
+
+  (projectile-register-project-type
+   'common-lisp
+   #'projectile-cl
+   nil
+   #'projectile-cl-test-function)
+)
 #+END_SRC
 * yasnippet
 #+BEGIN_SRC emacs-lisp
