@@ -1,0 +1,3 @@
+[submodule "no-elpa/slime-repl-ansi-color"]
+	path = no-elpa/slime-repl-ansi-color
+	url = https://github.com/enriquefernandez/slime-repl-ansi-color.git
