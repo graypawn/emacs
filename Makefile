@@ -1,4 +1,6 @@
 install:
+	git submodule init
+	git submodule update
 	sudo cp emacs-daemon /usr/local/bin/emacs-daemon
 	mkdir -p ~/.config/systemd/user/
 	cp emacs.service ~/.config/systemd/user/
