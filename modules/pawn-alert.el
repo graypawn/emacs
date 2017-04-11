@@ -1,9 +1,6 @@
-#+TITLE:Org Alert
-| packages  |
-|-----------|
-| org-alert |
-
-#+BEGIN_SRC emacs-lisp
+;;; pawn-alert.el --- Org Alert
+;;; Commentary:
+;;; Code:
 (use-package org-alert
   :ensure t
   :config
@@ -12,4 +9,6 @@
         org-alert-interval 3600         ; 1 hour
         org-alert-notification-title "TODO:")
   (org-alert-enable))
-#+END_SRC
+
+(provide 'pawn-alert)
+;;; pawn-alert.el ends here

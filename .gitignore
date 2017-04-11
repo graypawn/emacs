@@ -1,6 +1,5 @@
 *.elc
-/core/*.el
-/modules/*.el
+/modules-org/*.el
 
 *~
 \#*

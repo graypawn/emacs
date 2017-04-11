@@ -1,13 +1,15 @@
-#+TITLE:Packages Configuration
-#+AUTHOR: graypawn
-#+EMAIL: choi.pawn@gmail.com
-#+OPTIONS: toc:2 num:nil ^:nil
-| packages    |
-|-------------|
-| use-package |
-| diminish    |
-* Package
-#+BEGIN_SRC emacs-lisp
+;;; pawn-packages.el --- Packages Configuration
+;;; Commentary:
+
+;; * Packages:
+;; * ---------
+;; * use-package
+;; * diminish
+
+;;; Code:
+
+;; PACKAGE
+;; ==================================================
 (require 'package)
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
@@ -17,14 +19,16 @@
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
 (eval-and-compile
   (package-initialize))
-#+END_SRC
 
-* Use-package
-#+BEGIN_SRC emacs-lisp
+;; USE-PACKAGE
+;; ==================================================
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
 (eval-and-compile
   (require 'use-package))
 (require 'diminish)
-#+END_SRC
+
+(provide 'pawn-packages)
+;;; pawn-packages.el ends here

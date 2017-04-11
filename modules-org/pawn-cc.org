@@ -5,22 +5,10 @@ cclookup
 cpp 레퍼런스를 offline에서 확인할 수 있다.
 
 #+BEGIN_SRC sh
-git clone https://github.com/tsgates/cclookup ~/.emacs.d/cclookup
-cd ~/.emacs.d/cclookup
 sed -i 's/#! \/usr\/bin\/env python/#!\/usr\/bin\/env python2/' cclookup.py
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(setq cclookup-dir (expand-file-name "cclookup" user-emacs-directory))
-(add-to-list 'load-path cclookup-dir)
-
-(setq cclookup-program (concat cclookup-dir "/cclookup.py"))
-(setq cclookup-db-file (concat cclookup-dir "/cclookup.db"))
-
-(autoload 'cclookup-lookup "cclookup"
-  "Lookup SEARCH-TERM in the Python HTML indexes." t)
-(autoload 'cclookup-update "cclookup"
-  "Run cclookup-update and create the database at `cclookup-db-file'." t)
 #+END_SRC
 * Basic Config
 #+BEGIN_SRC emacs-lisp

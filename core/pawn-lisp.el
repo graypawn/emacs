@@ -1,22 +1,15 @@
-#+TITLE:Lisp
-#+OPTIONS: toc:2 num:nil ^:nil
-| packages           |
-|--------------------|
-| rainbox-delimiters |
-| paredit            |
-| elisp-slime-nav    |
-| eldoc              |
-
-#+BEGIN_SRC emacs-lisp
-(require 'ielm)
-
+;;; pawn-lisp.el --- Lisp mode
+;;; Commentary:
+;;; Code:
 (defvar elisp/repl-original-buffer nil
   "Buffer from which we jumped to this REPL.")
+
 (make-variable-buffer-local 'elisp/repl-original-buffer)
 
 (defvar elisp/repl-switch-function 'switch-to-buffer-other-window)
 
 (defun elisp/switch-to-ielm ()
+  "."
   (interactive)
   (let ((orig-buffer (current-buffer)))
     (if (get-buffer "*ielm*")
@@ -29,7 +22,7 @@
   (interactive)
   (if elisp/repl-original-buffer
       (funcall elisp/repl-switch-function elisp/repl-original-buffer)
-    (error "No original buffer.")))
+    (error "No original buffer")))
 
 (use-package lisp-mode
   :mode "\\.sexp\\'"
@@ -40,17 +33,18 @@
              ("C-c C-c" . eval-defun)
              ("C-c C-k" . eval-buffer)))
 
-(with-eval-after-load 'ielm
-  (define-key ielm-map (kbd "C-c C-z") 'elisp/repl-switch-back))
-#+END_SRC
+(use-package ielm
+  :defer t
+  :config
+  (bind-key "C-c C-z" 'elisp/repl-switch-back ielm-map))
 
-#+BEGIN_SRC emacs-lisp
 ;;rainbow delimiters
 (use-package rainbow-delimiters :ensure t)
 (use-package elisp-slime-nav :ensure t :diminish elisp-slime-nav-mode)
 (use-package eldoc :diminish eldoc-mode)
 
 (defun lisp-setup ()
+  "."
   (rainbow-delimiters-mode t)
   (eldoc-mode)
   (define-key
@@ -59,6 +53,7 @@
     'pawn/move-past-close-round))
 
 (defun emacs-lisp-setup ()
+  "."
   (turn-on-elisp-slime-nav-mode))
 
 (defconst elispy-modes
@@ -68,7 +63,7 @@
 (defconst lispy-modes
   (append elispy-modes
   '(lisp-mode inferior-lisp-mode lisp-interaction-mode))
-  "All lisp major modes.")
+  "All LISP major modes.")
 
 (require 'derived)
 
@@ -77,4 +72,6 @@
 
 (dolist (hook (mapcar #'derived-mode-hook-name elispy-modes))
   (add-hook hook 'emacs-lisp-setup))
-#+END_SRC
+
+(provide 'pawn-lisp)
+;;; pawn-lisp.el ends here

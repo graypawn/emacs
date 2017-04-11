@@ -1,31 +1,27 @@
-#+TITLE:Python
-#+OPTIONS: toc:2 num:nil ^:nil
-| precondition | repository |
-|--------------+------------|
-| python-pip   | pacman     |
-| virtualenv   | pip        |
+;;; pawn-python.el --- Python
+;;; Commentary:
 
-| packages              |
-|-----------------------|
-| highlight-indentation |
-| jdei                  |
+;; | precondition | repository |
+;; |--------------+------------|
+;; | python-pip   | pacman     |
+;; | virtualenv   | pip        |
 
-#+BEGIN_SRC emacs-lisp
-;;jedi
-;;require 'M-x jedi:install-server'
+;; | packages              |
+;; |-----------------------|
+;; | highlight-indentation |
+;; | jdei                  |
+
+;;; Code:
+
 (use-package jedi
+  ;;require 'M-x jedi:install-server'
   :ensure t
-  :init
+  :config
   (setq jedi:complete-on-dot t
         jedi:use-shortcuts t))
-#+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-;;highlight indentation
 (use-package highlight-indentation :ensure t)
-#+END_SRC
 
-#+BEGIN_SRC emacs-lisp
 (use-package python-mode
   :defer t
   :init
@@ -41,7 +37,9 @@
              ("C-c C-k" . python-shell-send-buffer)
              ("C-c M-:" . python-shell-send-string)
              ("C-c d" . jedi:show-doc)))
-#+END_SRC
+;; REFERENCE
+;; ==================================================
+;; Emacs で Python 開発環境を構築 - http://futurismo.biz/archives/2680
 
-* Reference
-[[http://futurismo.biz/archives/2680][Emacs で Python 開発環境を構築]]
+(provide 'pawn-python)
+;;; pawn-python.el ends here

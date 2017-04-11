@@ -1,10 +1,7 @@
-#+TITLE:Twittering mode
-#+OPTIONS: toc:2 num:nil ^:nil
-| packages        |
-|-----------------|
-| twittering-mode |
+;;; pawn-tw.el --- Twittering mode
+;;; Commentary:
+;;; Code:
 
-#+BEGIN_SRC emacs-lisp
 (use-package twittering-mode
   :ensure t
   :init
@@ -12,4 +9,6 @@
         twittering-fill-column 70
         ;; 텍스트 가로폭
         twittering-status-format "%i %s, %RT{by %s} %@:\n%FILL[]{%T}\n"))
-#+END_SRC
+
+(provide 'pawn-tw)
+;;; pawn-tw.el ends here

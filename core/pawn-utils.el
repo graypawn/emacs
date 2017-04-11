@@ -1,15 +1,15 @@
-#+TITLE:Utility Functions
-#+AUTHOR: graypawn
-#+EMAIL: choi.pawn@gmail.com
-#+BEGIN_SRC emacs-lisp
+;;; pawn-utils.el --- Utility Functions
+;;; Commentary:
+;;; Code:
+
 (defun pawn/save-buffer ()
-  "Remove trailing whitespace before saving buffer"
+  "Remove trailing whitespace before saving buffer."
   (interactive)
   (delete-trailing-whitespace)
   (save-buffer))
 
 (defun pawn/file-reopen-as-root ()
-  "Use TRAMP to `sudo' the current buffer"
+  "Use TRAMP to `sudo' the current buffer."
   (interactive)
   (when buffer-file-name
     (find-alternate-file
@@ -34,7 +34,7 @@
     (delete-other-windows)))
 
 (defun pawn/delete-current-buffer-file ()
-  "Removes file connected to current buffer and kills buffer."
+  "Delete file connected to current buffer and kill buffer."
   (interactive)
   (let ((filename (buffer-file-name))
         (buffer (current-buffer))
@@ -77,32 +77,29 @@
                         (logand (file-modes buffer-file-name) #o677))
         (message (concat "(Inexecutable) " buffer-file-name))))))
 
-(defun pawn/clone-file (open-p filename)
+(defun pawn/clone-file (filename open-p)
   "Clone the current buffer writing it into FILENAME.
-   And if open-p is false then, open file"
-  (interactive "P\nFClone to file: ")
+And if OPEN-P is false then, open file."
+  (interactive "FClone to file: \nP")
   (save-restriction
     (widen)
     (write-region (point-min) (point-max) filename nil nil nil 'confirm))
   (unless open-p
     (find-file filename)))
 
-(defun pawn/find-file-org-note ()
-  (interactive)
-  (find-file org-default-notes-file))
-
 (defun pawn/reload-init ()
-  "Reload init.el file"
+  "Reload init.el file."
   (interactive)
   (load-file user-init-file))
 
 (defun pawn/recenter-top ()
+  "Move current buffer line to the top."
   (interactive)
   (recenter-top-bottom 0))
 
 (defun pawn/switch-buffer-scratch ()
-  "Switch to the scratch buffer. If the buffer doesn't exist,
-create it and write the initial message into it."
+  "Switch to the scratch buffer.
+If the buffer doesn't exist, create it and write the initial message into it."
   (interactive)
   (let* ((scratch-buffer-name "*scratch*")
          (scratch-buffer (get-buffer scratch-buffer-name)))
@@ -119,7 +116,7 @@ create it and write the initial message into it."
   (switch-to-buffer "*Messages*"))
 
 (defun pawn/toggle-input-method ()
-  "Turn on or off a default input method"
+  "Turn on or off a default input method."
   (interactive)
   (if (string= current-input-method
                default-input-method)
@@ -127,13 +124,16 @@ create it and write the initial message into it."
     (activate-input-method default-input-method)))
 
 (defun pawn/directory-name (directory)
+  "Return DIRECTORY's namestring."
   (file-name-nondirectory
    (directory-file-name directory)))
 
 (defun pawn/default-directory-name ()
+  "Return default directory name."
   (pawn/directory-name default-directory))
 
 (defun pawn/current-lispy-namespace (separator)
+  "SEPARATOR."
   (if (projectile-project-p)
       (let ((project-name (projectile-project-name))
             (project-relative-name
@@ -144,7 +144,7 @@ create it and write the initial message into it."
               ((concat (projectile-project-name)
                        separator
                        (directory-file-name project-relative-name)))))
-    (default-directory-name)))
+    (pawn/default-directory-name)))
 
 (defun pawn/move-past-close-round ()
   "Move past next `)', delete indentation before it."
@@ -154,10 +154,9 @@ create it and write the initial message into it."
   (just-one-space -1)
   (just-one-space 0)
   (forward-char 1))
-#+END_SRC
 
-아래의 *prelude-* 로 시작하는 함수들은 [[https://github.com/bbatsov/prelude][prelude]] 에서 가져왔다.
-#+BEGIN_SRC emacs-lisp
+;; 아래의 `prelude-' 로 시작하는 함수들은 https://github.com/bbatsov/prelude
+;; 에서 가져왔다.
 (defun prelude-search (query-url prompt)
   "Open the search url constructed with the QUERY-URL.
 PROMPT sets the `read-string prompt."
@@ -168,19 +167,28 @@ PROMPT sets the `read-string prompt."
                 (buffer-substring (region-beginning) (region-end))
               (read-string prompt))))))
 
-(defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
-  "Given some information regarding a search engine, install the interactive command to search through them"
+(defmacro prelude-install-search-engine (search-engine-name
+                                         search-engine-url
+                                         search-engine-prompt)
+  "Given some information regarding a search engine, install the interactive command to search through them."
   `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
        ,(format "Search %s with a query or region if any." search-engine-name)
        (interactive)
        (prelude-search ,search-engine-url ,search-engine-prompt)))
 
-(prelude-install-search-engine "google"     "http://www.google.com/search?q="              "Google: ")
-(prelude-install-search-engine "github"     "https://github.com/search?q="                 "Search GitHub: ")
+(prelude-install-search-engine "google"
+                               "http://www.google.com/search?q="
+                               "Google: ")
+(prelude-install-search-engine "github"
+                               "https://github.com/search?q="
+                               "Search GitHub: ")
 
 (defun prelude-visit-term-buffer ()
+  "Switch to the term buffer."
   (interactive)
   (if (not (get-buffer "*ansi-term*"))
       (ansi-term "/bin/bash")
     (switch-to-buffer "*ansi-term*")))
-#+END_SRC
+
+(provide 'pawn-utils)
+;;; pawn-utils.el ends here

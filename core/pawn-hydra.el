@@ -1,97 +1,22 @@
-#+TITLE:Global Keybindings
-#+AUTHOR: graypawn
-#+EMAIL: choi.pawn@gmail.com
-#+OPTIONS: toc:2 num:nil ^:nil
+;;; pawn-hydra.el --- Hydra
+;;; Commentary:
 
-#+BEGIN_SRC emacs-lisp
-;; Disable key.
-(global-unset-key (kbd "C-z"))
-(global-unset-key (kbd "C-x C-z"))
-(global-unset-key (kbd "C-t"))
-(global-unset-key (kbd "C-h C-h"))
+;; * Packages:
+;; * -----------
+;; * hydra
 
-;; Switch to the scratch buffer
-(global-set-key (kbd "C-t s") 'pawn/switch-buffer-scratch)
-;; Switch to the messages buffer
-(global-set-key (kbd "C-t m") 'pawn/switch-buffer-messages)
+;;; Code:
 
-;; open an ansi-term buffer
-(global-set-key (kbd "M-'") 'prelude-visit-term-buffer)
-
-;; Move past next ‘)’, delete indentation before it.
-(global-set-key (kbd "M-)") 'pawn/move-past-close-round)
-
-;; If you want to be able to M-x without meta
-(global-set-key (kbd "C-x C-m") 'execute-extended-command)
-
-;; File finding
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-unset-key (kbd "C-x f"))
-(global-set-key (kbd "C-x f l") 'lgrep)
-(global-set-key (kbd "C-x f r") 'rgrep)
-(global-set-key (kbd "C-x f z") 'zgrep)
-(global-set-key (kbd "C-x f g") 'find-grep-dired)
-(global-set-key (kbd "C-x f n") 'find-name-dired)
-
-;; Start proced in a similar manner to dired
-(global-set-key (kbd "C-x p") 'proced)
-
-;; use hippie-expand instead of dabbrev
-(global-set-key (kbd "M-/") 'hippie-expand)
-
-;; Use my custom function to save buffer.
-(global-set-key (kbd "C-x C-s") 'pawn/save-buffer)
-
-;; Should be able to pawn/eval-and-replace anywhere.
-(global-set-key (kbd "C-x M-e") 'pawn/eval-and-replace)
-
-;; Toggle executable permissions on current file.
-(global-set-key (kbd "C-+") 'pawn/toggle-file-executable)
-
-;; Renames current buffer and file it is visiting.
-(global-set-key (kbd "C-x C-r") 'pawn/rename-current-buffer-file)
-
-;; Removes file connected to current buffer and kills buffer.
-(global-set-key (kbd "C-x C-d") 'pawn/delete-current-buffer-file)
-
-;; Clone current buffer.
-;; And if universal-argument is true then, open file.
-(global-set-key (kbd "C-x c") 'pawn/clone-file)
-
-;; Input Method
-(global-set-key (kbd "C-\\") 'pawn/toggle-input-method)
-
-;; Search
-(global-unset-key (kbd "C-x s"))
-(global-set-key (kbd "C-x s g") 'prelude-google)
-(global-set-key (kbd "C-x s G") 'prelude-github)
-
-;; Replace current buffer text with the text of the visited file on disk
-(global-set-key (kbd "<f5>") 'revert-buffer)
-
-;; Select and activate input method.
-(global-set-key (kbd "C-|") 'set-input-method)
-
-;; Indentation help
-(global-set-key (kbd "C-x ^") 'join-line)
-
-;; Activate occur easily inside isearch
-(define-key isearch-mode-map (kbd "C-o") 'isearch-occur)
-
-(global-set-key (kbd "M-F") 'auto-fill-mode)
-#+END_SRC
-* Hydra
-#+BEGIN_SRC emacs-lisp
 (use-package hydra :ensure t)
-#+END_SRC
-** Hydra Macro
-| Key     | Function                  |
-|---------+---------------------------|
-| C-x (   | kmacro-start-macro        |
-| C-x )   | kmacro-end-macro          |
-| C-x e   | kmacro-end-and-call-macro |
-| C-x C-k | hydra-macro/body          |
-#+BEGIN_SRC emacs-lisp
+
+;; Macro
+;; ==================================================
+;; | Key     | Function                  |
+;; |---------+---------------------------|
+;; | C-x (   | kmacro-start-macro        |
+;; | C-x )   | kmacro-end-macro          |
+;; | C-x e   | kmacro-end-and-call-macro |
+;; | C-x C-k | hydra-macro/body          |
 (defhydra hydra-macro (:hint nil :color pink :pre)
 "
  ^Cycle^     ^Basic^          ^Insert^        ^Save^          ^^Edit^^
@@ -144,15 +69,27 @@
   ("q" nil :color blue))
 
 (defun hydra-macro-selector ()
+  "."
   (interactive)
   (if defining-kbd-macro
       (hydra-macro-defining/body)
     (hydra-macro/body)))
 
 (bind-key "C-x C-k" 'hydra-macro-selector)
-#+END_SRC
-** Hydra Unicode
-#+BEGIN_SRC emacs-lisp
+
+;; Yank Pop
+;; ==================================================
+(defhydra hydra-yank-pop ()
+  "yank"
+  ("C-y" yank nil)
+  ("M-y" yank-pop nil)
+  ("n" (yank-pop 1) "next")
+  ("p" (yank-pop -1) "prev"))
+
+(bind-key (kbd "M-y") 'hydra-yank-pop/yank-pop)
+
+;; Unicode
+;; ==================================================
 (defhydra hydra-greek (:color pink :hint nil)
 "
   [_a_] α [_b_] β [_g_] γ [_d_] δ [_e_] ε [_z_] ζ [_h_] η [_q_] θ [_i_] ι [_k_] κ [_l_] λ [_m_] μ
@@ -239,8 +176,7 @@
   ("*" (insert "╳"))
   ("[" (insert "╱"))
   ("]" (insert "╲"))
-  ("q" nil :color blue)
-)
+  ("q" nil :color blue))
 
 (defhydra hydra-unicode (:color pink :hint nil)
 "
@@ -271,19 +207,9 @@ Arrows: [_<left>_] ← [_<right>_] → [_<up>_] ↑ [_<down>_] ↓
   ("g" hydra-greek/body :color blue)
   ("b" hydra-box-drawing/body :color blue)
   ("RET" insert-char :color blue)
-  ("q" nil :color blue)
-)
+  ("q" nil :color blue))
 
 (bind-key "C-x 8" 'hydra-unicode/body)
-#+END_SRC
-** Hydra Yank Pop
-#+BEGIN_SRC emacs-lisp
-(defhydra hydra-yank-pop ()
-  "yank"
-  ("C-y" yank nil)
-  ("M-y" yank-pop nil)
-  ("n" (yank-pop 1) "next")
-  ("p" (yank-pop -1) "prev"))
 
-(bind-key (kbd "M-y") 'hydra-yank-pop/yank-pop)
-#+END_SRC
+(provide 'pawn-hydra)
+;;; pawn-hydra.el ends here
