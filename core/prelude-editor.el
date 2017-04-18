@@ -100,6 +100,14 @@ The body of the advice is in BODY."
   (add-hook 'focus-out-hook 'prelude-auto-save-command))
 
 
+;; revert buffers automatically when underlying files are changed externally
+(global-auto-revert-mode t)
+(diminish 'auto-revert-mode)
+
+
+(add-hook'text-mode-hook 'auto-fill-mode)
+
+
 (defadvice set-buffer-major-mode (after set-major-mode activate compile)
   "Set buffer major mode according to `auto-mode-alist'."
   (let* ((name (buffer-name buffer))

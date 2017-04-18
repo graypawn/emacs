@@ -48,7 +48,8 @@
   :config
   (setq sml/no-confirm-load-theme t
         ;; delegate theming to the currently active theme
-        sml/theme nil)
+        sml/theme nil
+        sml/show-remote nil)
   (add-hook 'after-init-hook #'sml/setup))
 
 
