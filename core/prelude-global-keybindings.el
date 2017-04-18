@@ -39,6 +39,10 @@
 
 (global-set-key (kbd "C-x f") 'rgrep)
 
+(global-set-key (kbd "C-x C-`") 'previous-error)
+
+(global-set-key (kbd "<f5>") 'revert-buffer)
+
 (require 'crux)
 (global-set-key (kbd "C-a") 'crux-move-beginning-of-line)
 (global-set-key (kbd "M-o") 'crux-smart-open-line)
