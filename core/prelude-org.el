@@ -71,8 +71,13 @@
   :config
   (setq  deft-extensions '("org")
          deft-default-extension "org"
-         deft-directory "~/Dropbox/wiki"
+         deft-directory "~/Dropbox/wiki/"
          deft-use-filename-as-title nil)
+
+  (eval-after-load "smart-mode-line"
+    '(progn
+       (add-to-list 'sml/replacer-regexp-list
+                    `(,(concat "^" deft-directory) ":DEFT:"))))
 
   (defun deft-filter-input-with-korean  (someone)
     "Append the input message to the filter with korean input method."

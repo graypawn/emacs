@@ -74,4 +74,3 @@
 
 (provide 'pawn-snippet)
 ;;; pawn-snippet.el ends here
-
