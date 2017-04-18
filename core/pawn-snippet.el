@@ -2,12 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-;; * Packages:
-;; * ----------
-;; * yasnippet
-
-;; YASNIPPET
-;; ==================================================
 (defun yas-ido-expand ()
   "You select (and expand) a yasnippet keyword."
   (interactive)
@@ -31,7 +25,6 @@
         (yas-expand)))))
 
 (use-package yasnippet
-  :ensure t
   :diminish yas-minor-mode
   :config
   (setq yas-snippet-dirs
@@ -39,12 +32,13 @@
 
   (yas-global-mode 1)
 
-  (unbind-key "<tab>"  yas-minor-mode-map)
-  (unbind-key "TAB" yas-minor-mode-map)
-  (bind-key "<C-tab>" 'yas-ido-expand yas-minor-mode-map))
+  (bind-keys :map yas-minor-mode-map
+             ("<tab>" . nil)
+             ("TAB" . nil)
+             ("<C-tab>" . yas-ido-expand)))
 
+
 ;; AUTO INSERT
-;; ==================================================
 ;; 확장자를 기준으로 새 파일을 열 때, 자동으로 template를 삽입하도록 한다.
 (use-package autoinsert
   :defer t
@@ -80,3 +74,4 @@
 
 (provide 'pawn-snippet)
 ;;; pawn-snippet.el ends here
+

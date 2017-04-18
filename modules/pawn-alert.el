@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 (use-package org-alert
-  :ensure t
   :config
   (require 'org-agenda)
   (setq alert-default-style 'libnotify
