@@ -368,11 +368,6 @@ indent yanked text (with prefix arg don't indent)."
            ("C-c $" . nil))
 
 
-;; revert buffers automatically when underlying files are changed externally
-(global-auto-revert-mode t)
-(diminish 'auto-revert-mode)
-
-
 ;; meaningful names for buffers with the same name
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
