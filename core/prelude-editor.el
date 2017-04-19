@@ -188,15 +188,15 @@ The body of the advice is in BODY."
   (if (<= (- end beg) prelude-yank-indent-threshold)
       (indent-region beg end nil)))
 
-(advise-commands "indent" (yank yank-pop) after
-  "If current mode is one of `prelude-yank-indent-modes',
-indent yanked text (with prefix arg don't indent)."
-  (if (and (not (ad-get-arg 0))
-           (not (member major-mode prelude-indent-sensitive-modes))
-           (or (derived-mode-p 'prog-mode)
-               (member major-mode prelude-yank-indent-modes)))
-      (let ((transient-mark-mode nil))
-        (yank-advised-indent-function (region-beginning) (region-end)))))
+(advise-commands
+ "indent" (yank yank-pop) after
+ "If current mode is one of `prelude-yank-indent-modes', indent yanked text (with prefix arg don't indent)."
+ (if (and (not (ad-get-arg 0))
+          (not (member major-mode prelude-indent-sensitive-modes))
+          (or (derived-mode-p 'prog-mode)
+              (member major-mode prelude-yank-indent-modes)))
+     (let ((transient-mark-mode nil))
+       (yank-advised-indent-function (region-beginning) (region-end)))))
 
 
 ;; saner regex syntax
@@ -249,7 +249,7 @@ indent yanked text (with prefix arg don't indent)."
      "(\\(use-package\\|def\\)\\w*\\s-*\\(\\s_\\|\\w\\|[:?!]\\)*\\([ \\t]*(.*?)\\)?"))
 
   (add-hook 'prog-mode-hook 'origami-mode)
-  (bind-key "C-/" 'origami-cycle origami-mode-map))
+  (bind-key "M-`" 'origami-cycle origami-mode-map))
 
 
 (use-package flycheck
@@ -421,6 +421,12 @@ indent yanked text (with prefix arg don't indent)."
   (global-whitespace-cleanup-mode t))
 
 
+(use-package multiple-cursors
+  :bind (("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C->" . mc/mark-all-like-this)))
+
+
 (use-package undo-tree
   :diminish undo-tree-mode
   :config
@@ -437,14 +443,6 @@ indent yanked text (with prefix arg don't indent)."
   (global-diff-hl-mode +1)
   (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
-
-;; highlight the current line
-(global-hl-line-mode +1)
-
-(use-package volatile-highlights
-  :diminish volatile-highlights-mode
-  :config
-  (volatile-highlights-mode t))
 
 
 (defadvice server-visit-files (before parse-numbers-in-lines (files proc &optional nowait) activate)
@@ -490,6 +488,22 @@ and file 'filename' will be opened and cursor set on line 'linenumber'"
 
 (global-set-key (kbd "C-\\") 'toggle-default-input-method)
 (global-set-key (kbd "C-|") 'set-input-method) ;Select and activate input method.
+
+
+(defun just-one-space-in-rect-line (start end)
+  (save-restriction
+    (save-match-data
+      (narrow-to-region (+ (point) start)
+                        (+ (point) end))
+      (while (re-search-forward "\\s-+" nil t)
+        (replace-match " ")))))
+
+(defun just-one-space-in-rect (start end)
+  "replace all whitespace in the rectangle with single spaces"
+  (interactive "r")
+  (apply-on-rectangle 'just-one-space-in-rect-line start end))
+
+(define-key cua--region-keymap [remap just-one-space] 'just-one-space-in-rect)
 
 
 (add-hook 'prog-mode-hook 'goto-address-prog-mode)

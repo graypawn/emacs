@@ -109,4 +109,3 @@ by Prelude.")
 (message "Prelude is ready to do thy bidding, Master %s!" current-user)
 
 ;;; init.el ends here
-(put 'upcase-region 'disabled nil)
