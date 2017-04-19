@@ -199,10 +199,6 @@ indent yanked text (with prefix arg don't indent)."
         (yank-advised-indent-function (region-beginning) (region-end)))))
 
 
-;; abbrev config
-(add-hook 'text-mode-hook 'abbrev-mode)
-
-
 ;; saner regex syntax
 (require 're-builder)
 (setq reb-re-syntax 'string)
