@@ -432,8 +432,9 @@ The body of the advice is in BODY."
   :config
   ;; autosave the undo-tree history
   (setq undo-tree-history-directory-alist
-        `((".*" . ,temporary-file-directory)))
-  (setq undo-tree-auto-save-history t)
+        `((".*" . ,(concat temporary-file-directory "undo-tree/"))))
+  (setq undo-tree-auto-save-history t
+        undo-tree-visualizer-timestamps t)
 
   (global-undo-tree-mode))
 
