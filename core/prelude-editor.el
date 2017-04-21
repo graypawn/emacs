@@ -105,9 +105,6 @@ The body of the advice is in BODY."
 (diminish 'auto-revert-mode)
 
 
-(add-hook'text-mode-hook 'auto-fill-mode)
-
-
 (defadvice set-buffer-major-mode (after set-major-mode activate compile)
   "Set buffer major mode according to `auto-mode-alist'."
   (let* ((name (buffer-name buffer))
