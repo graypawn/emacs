@@ -406,7 +406,7 @@ The body of the advice is in BODY."
 (setq whitespace-line-column 80)
 (setq whitespace-style '(face tabs trailing empty))
 
-(set-face-attribute 'whitespace-empty nil :background nil)
+(custom-set-faces '(whitespace-empty ((t (:background nil)))))
 
 (use-package whitespace-cleanup-mode
   :diminish whitespace-cleanup-mode
