@@ -402,18 +402,14 @@ The body of the advice is in BODY."
   (global-anzu-mode))
 
 
-(use-package whitespace
-  :diminish global-whitespace-mode
-  :config
-  (global-whitespace-mode t)
-  (add-hook
-   'after-change-major-mode-hook
-   '(lambda ()
-      (if (derived-mode-p 'prog-mode)
-          (setq whitespace-line-column 80
-                whitespace-style '(face tabs trailing lines-tail))
-        (setq whitespace-line-column nil
-              whitespace-style '(face tabs trailing))))))
+(require 'whitespace)
+(global-whitespace-mode t)
+(diminish 'whitespace-mode)
+(diminish 'global-whitespace-mode)
+(setq whitespace-line-column 80)
+(setq whitespace-style '(face tabs trailing empty))
+
+(set-face-attribute 'whitespace-empty nil :background nil)
 
 (use-package whitespace-cleanup-mode
   :diminish whitespace-cleanup-mode
