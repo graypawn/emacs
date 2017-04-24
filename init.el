@@ -8,6 +8,9 @@
 ;; You may delete these explanatory comments.
 ;;(package-initialize)
 
+(setq user-full-name "graypawn")
+(setq user-mail-address (concat "choi.pawn" " @" "gmail.com"))
+
 (defvar current-user
   (getenv
    (if (equal system-type 'windows-nt) "USERNAME" "USER")))
