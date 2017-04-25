@@ -417,7 +417,9 @@ The body of the advice is in BODY."
 (use-package multiple-cursors
   :bind (("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
-         ("C-c C->" . mc/mark-all-like-this)))
+         ("C-c C->" . mc/mark-all-like-this))
+  :config
+  (setq mc/list-file (expand-file-name ".mc-lists.el" prelude-savefile-dir)))
 
 
 (use-package undo-tree
