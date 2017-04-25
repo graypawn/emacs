@@ -72,7 +72,9 @@
   (setq  deft-extensions '("org")
          deft-default-extension "org"
          deft-directory "~/Dropbox/wiki/"
-         deft-use-filename-as-title nil)
+         deft-use-filename-as-title nil
+         deft-auto-save-interval nil
+         )
 
   (eval-after-load "smart-mode-line"
     '(progn
