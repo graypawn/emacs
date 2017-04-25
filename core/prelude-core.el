@@ -99,5 +99,28 @@ If the buffer doesn't exist, create it and write the initial message into it."
                        (directory-file-name project-relative-name)))))
     (pawn/default-directory-name)))
 
+(defun rename-this-file-and-buffer (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "FNew name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (unless filename
+      (error "Buffer '%s' is not visiting a file!" name))
+    (progn
+      (when (file-exists-p filename)
+        (rename-file filename new-name 1))
+      (set-visited-file-name new-name)
+      (rename-buffer new-name))))
+
+(defun clone-this-file (filename open-p)
+  "Clone the current buffer writing it into FILENAME.
+And if OPEN-P is false then, open file."
+  (interactive "FClone to file: \nP")
+  (save-restriction
+    (widen)
+    (write-region (point-min) (point-max) filename nil nil nil 'confirm))
+  (unless open-p
+    (find-file filename)))
+
 (provide 'prelude-core)
 ;;; prelude-core.el ends here

@@ -58,8 +58,9 @@
 (global-set-key (kbd "C-t s") 'pawn/switch-buffer-scratch)
 (global-set-key (kbd "C-t m") 'pawn/switch-buffer-messages)
 
-(global-set-key (kbd "C-x C-r") 'crux-rename-buffer-and-file)
+(global-set-key (kbd "C-x C-r") 'rename-this-file-and-buffer)
 (global-set-key (kbd "C-x C-d") 'crux-delete-file-and-buffer)
+(global-set-key (kbd "C-x c") 'clone-this-file)
 
 (global-set-key (kbd "C-x M-e") 'crux-eval-and-replace)
 (global-set-key (kbd "C-`") 'crux-ispell-word-then-abbrev)
