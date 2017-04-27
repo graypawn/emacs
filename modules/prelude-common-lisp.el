@@ -86,7 +86,7 @@
                 ("C-x M-e" . pawn/slime-eval-and-replace)
                 ("C-c C-t" . projectile-find-test-file)
                 ("C-c t" . projectile-test-project)
-                ("TAB" . slime-indent-and-complete-symbol)
+                ("C-c M-t" . slime-toggle-trace-fdefinition)
                 :map slime-repl-mode-map
                 ("C-c C-z" . pawn/slime-repl-switch-back))
 
