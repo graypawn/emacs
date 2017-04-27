@@ -7,7 +7,10 @@
 (add-to-list 'auto-mode-alist '("\\.org\\’" . org-mode))
 
 (setq org-directory "~/Dropbox/org/"
-      org-default-notes-file "~/Dropbox/org/notes.org")
+      org-default-notes-file "~/Dropbox/org/notes.org"
+      org-startup-truncated nil)
+
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 (defun pawn/find-file-org-note ()
   "."
