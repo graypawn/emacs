@@ -474,6 +474,31 @@ and file 'filename' will be opened and cursor set on line 'linenumber'"
   (global-page-break-lines-mode))
 
 
+(use-package highlight-symbol
+  :diminish highlight-symbol-mode
+  :bind (("C-%" . highlight-symbol-query-replace)
+         :map highlight-symbol-nav-mode-map
+         ("M-N" . highlight-symbol-next)
+         ("M-P" . highlight-symbol-prev)
+         :map isearch-mode-map
+         ("M-o". highlight-symbol-occur))
+  :config
+  (dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
+    (add-hook hook 'highlight-symbol-mode)
+    (add-hook hook 'highlight-symbol-nav-mode))
+
+  (defadvice highlight-symbol-temp-highlight (around
+                                              sanityinc/maybe-suppress
+                                              activate)
+    "Suppress symbol highlighting while isearching."
+    (unless (or isearch-mode
+                (and (boundp 'multiple-cursors-mode) multiple-cursors-mode))
+      ad-do-it)))
+
+(custom-set-faces
+ '(highlight-symbol-face ((t (:background "dim gray")))))
+
+
 (defun toggle-default-input-method ()
   "Turn on or off a default input method."
   (interactive)
