@@ -361,10 +361,11 @@ The body of the advice is in BODY."
 
 (add-hook 'text-mode-hook 'prelude-enable-flyspell)
 
+(setq flyspell-use-meta-tab nil)
+
 (bind-keys :map flyspell-mode-map
            ("C-;" . nil)
-           ("C-M-i" . nil)
-           ("C-," . nil)
+           ("C-." . nil)
            ("C-," . nil)
            ("C-c $" . nil))
 
