@@ -109,14 +109,14 @@ If the buffer doesn't exist, create it and write the initial message into it."
   "SEPARATOR."
   (if (projectile-project-p)
       (let ((project-name (projectile-project-name))
-            (project-relative-name
-             (file-relative-name (file-truename default-directory)
-                                 (projectile-project-root))))
+            (project-relative-name (file-relative-name
+                                    (file-truename default-directory)
+                                    (projectile-project-root))))
         (cond ((string= project-relative-name "./") project-name)
               ((string= project-relative-name "src/") project-name)
-              ((concat (projectile-project-name)
-                       separator
-                       (directory-file-name project-relative-name)))))
+              (t (concat (projectile-project-name)
+                         separator
+                         (directory-file-name project-relative-name)))))
     (pawn-default-directory-name)))
 
 

@@ -24,13 +24,12 @@
           (sp-local-pair mode "`" "'" :when '(sp-in-string-p sp-in-comment-p))
           (sp-local-pair
            mode "`" nil
-           :skip-match (lambda (ms mb me)
-                         (cond
-                          ((equal ms "'")
-                           (or (sp--org-skip-markup ms mb me)
-                               (not (sp-point-in-string-or-comment))))
-                          (t (not (sp-point-in-string-or-comment)))))))
-
+           :skip-match
+           (lambda (ms mb me)
+             (cond
+              ((equal ms "'") (or (sp--org-skip-markup ms mb me)
+                                  (not (sp-point-in-string-or-comment))))
+              (t (not (sp-point-in-string-or-comment)))))))
         sp-lisp-modes))
 
 
