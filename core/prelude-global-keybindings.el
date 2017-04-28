@@ -55,8 +55,8 @@
 (global-unset-key (kbd "C-t"))
 (global-set-key (kbd "C-t i") 'crux-find-user-init-file)
 (global-set-key (kbd "C-t C-s") 'crux-find-shell-init-file)
-(global-set-key (kbd "C-t s") 'pawn/switch-buffer-scratch)
-(global-set-key (kbd "C-t m") 'pawn/switch-buffer-messages)
+(global-set-key (kbd "C-t s") 'pawn-switch-buffer-scratch)
+(global-set-key (kbd "C-t m") 'pawn-switch-buffer-messages)
 
 (global-set-key (kbd "C-x C-r") 'rename-this-file-and-buffer)
 (global-set-key (kbd "C-x C-d") 'crux-delete-file-and-buffer)

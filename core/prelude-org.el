@@ -12,7 +12,7 @@
 
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
-(defun pawn/find-file-org-note ()
+(defun pawn-find-file-org-note ()
   "."
   (interactive)
   (find-file org-default-notes-file))
@@ -30,7 +30,7 @@
       org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t)))
 
-(defun pawn/find-file-org-diary ()
+(defun pawn-find-file-org-diary ()
   "."
   (interactive)
   (find-file (car org-agenda-files)))
@@ -50,8 +50,8 @@
  'org-block-background nil :background "#454545")
 
 
-(global-set-key (kbd "C-t n") 'pawn/find-file-org-note)
-(global-set-key (kbd "C-t d") 'pawn/find-file-org-diary)
+(global-set-key (kbd "C-t n") 'pawn-find-file-org-note)
+(global-set-key (kbd "C-t d") 'pawn-find-file-org-diary)
 (global-set-key (kbd "C-t a") 'org-agenda)
 (global-set-key (kbd "C-t l") 'org-store-link)
 
@@ -98,17 +98,17 @@
 
   (defun deft+ (directory)
     "Run deft in specified directory via argument."
-    (interactive (list (read-directory-name "Deft: "
-                                            (default-value 'deft-directory))))
+    (interactive (->> (default-value 'deft-directory)
+                      (read-directory-name "Deft: ")
+                      (list)))
 
     (make-directory directory t)
 
-    ;; global value for deft+
     (setq mode-line-process
-          (format " in %s"
-                  (directory-file-name
-                   (file-relative-name directory
-                                       (default-value 'deft-directory)))))
+          (->> (default-value 'deft-directory)
+               (file-relative-name directory)
+               (directory-file-name)
+               (format " in %s")))
 
     ;; Run deft.
     (let ((deft-directory directory))

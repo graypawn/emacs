@@ -48,14 +48,14 @@
 
 (auto-insert-mode 1)
 
-(defun pawn/autoinsert-yas-expand ()
+(defun pawn-autoinsert-yas-expand ()
   "Replace text in yasnippet template."
   (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
 (defmacro define-pawn-template (condition template)
-  "If the CONDITION is true, call `pawn/autoinsert-yas-expand' with TEMPLATE."
+  "If the CONDITION is true, call `pawn-autoinsert-yas-expand' with TEMPLATE."
   `(define-auto-insert ,(eval condition)
-     [,(eval template) pawn/autoinsert-yas-expand]))
+     [,(eval template) pawn-autoinsert-yas-expand]))
 
 (defmacro define-pawn-templates (&rest define-list)
   "DEFINE-LIST is a arguments for `define-pawn-template'."

@@ -47,10 +47,9 @@
   "Recompile your elc when saving an elisp file."
   (add-hook 'after-save-hook
             (lambda ()
-              (when (and
-                     (string-prefix-p prelude-dir
-                                      (file-truename buffer-file-name))
-                     (file-exists-p (byte-compile-dest-file buffer-file-name)))
+              (when (and (->> (file-truename buffer-file-name)
+                              (string-prefix-p prelude-dir))
+                         (file-exists-p (byte-compile-dest-file buffer-file-name)))
                 (emacs-lisp-byte-compile)))
             nil
             t))
@@ -58,7 +57,8 @@
 (defun prelude-conditional-emacs-lisp-checker ()
   "Don't check doc style in Emacs Lisp test files."
   (let ((file-name (buffer-file-name)))
-    (when (and file-name (string-match-p ".*-tests?\\.el\\'" file-name))
+    (when (and file-name
+               (string-match-p ".*-tests?\\.el\\'" file-name))
       (setq-local flycheck-checkers '(emacs-lisp)))))
 
 (defun prelude-emacs-lisp-mode-defaults ()
@@ -72,8 +72,8 @@
 
 (setq prelude-emacs-lisp-mode-hook 'prelude-emacs-lisp-mode-defaults)
 
-(add-hook 'emacs-lisp-mode-hook (lambda ()
-                                  (run-hooks 'prelude-emacs-lisp-mode-hook)))
+(add-hook 'emacs-lisp-mode-hook
+          (lambda () (run-hooks 'prelude-emacs-lisp-mode-hook)))
 
 (add-to-list 'auto-mode-alist '("Cask\\'" . emacs-lisp-mode))
 

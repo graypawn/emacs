@@ -2,6 +2,6 @@
 # name: defpackage
 # key: defp
 # --
-(defpackage #:${1:`(pawn/current-lispy-namespace ".")`}$2
+(defpackage #:${1:`(pawn-current-lispy-namespace ".")`}$2
   (:use #:cl)
   (:export :$0))

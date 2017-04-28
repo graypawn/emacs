@@ -270,7 +270,7 @@ The body of the advice is in BODY."
         projectile-switch-project-action 'projectile-dired)
   (projectile-global-mode)
 
-  (defun pawn/projectile-test-prefix (project-type)
+  (defun pawn-projectile-test-prefix (project-type)
     "Find default test files prefix based on PROJECT-TYPE."
     (cond
      ((member project-type '(django python-pip python-pkg python-tox)) "test_")
@@ -278,7 +278,7 @@ The body of the advice is in BODY."
      ((member project-type '(lein-midje)) "t_")
      ((member project-type '(common-lisp)) "t-")))
 
-  (setq projectile-test-prefix-function 'pawn/projectile-test-prefix))
+  (setq projectile-test-prefix-function 'pawn-projectile-test-prefix))
 
 
 (use-package magit
@@ -364,7 +364,8 @@ The body of the advice is in BODY."
 
 (defun prelude-enable-flyspell ()
   "Enable command `flyspell-mode' if `prelude-flyspell' is not nil."
-  (when (and prelude-flyspell (executable-find ispell-program-name))
+  (when (and prelude-flyspell
+             (executable-find ispell-program-name))
     (flyspell-mode +1)))
 
 (add-hook 'text-mode-hook 'prelude-enable-flyspell)

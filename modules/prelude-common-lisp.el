@@ -42,28 +42,28 @@
                                   (whitespace-mode -1)))
 
 
-(defvar pawn/slime-repl-original-buffer nil
+(defvar pawn-slime-repl-original-buffer nil
   "Buffer from which we jumped to this REPL.")
 
-(defvar pawn/slime-repl-switch-function 'switch-to-buffer-other-window)
+(defvar pawn-slime-repl-switch-function 'switch-to-buffer-other-window)
 
-(defun pawn/slime-switch-to-output-buffer ()
+(defun pawn-slime-switch-to-output-buffer ()
   "Switch to the slime buffer."
   (interactive)
-  (setq pawn/slime-repl-original-buffer (current-buffer))
+  (setq pawn-slime-repl-original-buffer (current-buffer))
   (if (slime-connected-p)
       (slime-switch-to-output-buffer)
     (slime)))
 
-(defun pawn/slime-repl-switch-back ()
+(defun pawn-slime-repl-switch-back ()
   "Switch back to the buffer from witch we reached this REPL."
   (interactive)
-  (if pawn/slime-repl-original-buffer
-      (funcall pawn/slime-repl-switch-function
-               pawn/slime-repl-original-buffer)
+  (if pawn-slime-repl-original-buffer
+      (funcall pawn-slime-repl-switch-function
+               pawn-slime-repl-original-buffer)
     (error "No original buffer")))
 
-(defun pawn/slime-eval-and-replace ()
+(defun pawn-slime-eval-and-replace ()
   "Replace the preceding sexp with its value."
   (interactive)
   (slime-eval-async `(swank:eval-and-grab-output ,(slime-last-expression))
@@ -82,13 +82,13 @@
            slime-auto-start 'always)
 
      (bind-keys :map slime-mode-map
-                ("C-c C-z" . pawn/slime-switch-to-output-buffer)
-                ("C-x M-e" . pawn/slime-eval-and-replace)
+                ("C-c C-z" . pawn-slime-switch-to-output-buffer)
+                ("C-x M-e" . pawn-slime-eval-and-replace)
                 ("C-c C-t" . projectile-find-test-file)
                 ("C-c t" . projectile-test-project)
                 ("C-c M-t" . slime-toggle-trace-fdefinition)
                 :map slime-repl-mode-map
-                ("C-c C-z" . pawn/slime-repl-switch-back))
+                ("C-c C-z" . pawn-slime-repl-switch-back))
 
      (defun projectile-cl ()
        "Identifies a project as being common lisp by the presence of
@@ -100,7 +100,7 @@ files with .asd extensions"
      (defun projectile-cl-test-function ()
        "Calls into slime to run the current project's tests with asdf."
        (message "Testing %s in slime..." (projectile-project-name))
-       (pawn/slime-switch-to-output-buffer)
+       (pawn-slime-switch-to-output-buffer)
        (slime-eval-async
            `(asdf:test-system ,(projectile-project-name))
          (lambda (result) (message "Tests finished with result %s" result))

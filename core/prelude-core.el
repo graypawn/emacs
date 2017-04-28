@@ -6,6 +6,20 @@
 (require 'dash)
 (require 'ov)
 
+(defmacro -> (&rest body)
+  "Threads the expr through the BODY.  It's like clojure."
+  (let ((result (pop body)))
+    (dolist (form body result)
+      (setq result (append (list (car form) result)
+                           (cdr form))))))
+
+(defmacro ->> (&rest body)
+  "Threads the expr through the BODY.  It's like clojure."
+  (let ((result (pop body)))
+    (dolist (form body result)
+      (setq result (append form (list result))))))
+
+
 (defun prelude-buffer-mode (buffer-or-name)
   "Retrieve the `major-mode' of BUFFER-OR-NAME."
   (with-current-buffer buffer-or-name
@@ -63,7 +77,7 @@ PROMPT sets the `read-string prompt."
       (eval form))))
 
 
-(defun pawn/switch-buffer-scratch ()
+(defun pawn-switch-buffer-scratch ()
   "Switch to the scratch buffer.
 If the buffer doesn't exist, create it and write the initial message into it."
   (interactive)
@@ -76,22 +90,22 @@ If the buffer doesn't exist, create it and write the initial message into it."
         (insert initial-scratch-message)))
     (switch-to-buffer scratch-buffer)))
 
-(defun pawn/switch-buffer-messages ()
+(defun pawn-switch-buffer-messages ()
   "Switch to the messages buffer."
   (interactive)
   (switch-to-buffer "*Messages*"))
 
 
-(defun pawn/directory-name (directory)
+(defun pawn-directory-name (directory)
   "Return DIRECTORY's namestring."
   (file-name-nondirectory
    (directory-file-name directory)))
 
-(defun pawn/default-directory-name ()
+(defun pawn-default-directory-name ()
   "Return default directory name."
-  (pawn/directory-name default-directory))
+  (pawn-directory-name default-directory))
 
-(defun pawn/current-lispy-namespace (separator)
+(defun pawn-current-lispy-namespace (separator)
   "SEPARATOR."
   (if (projectile-project-p)
       (let ((project-name (projectile-project-name))
@@ -103,7 +117,7 @@ If the buffer doesn't exist, create it and write the initial message into it."
               ((concat (projectile-project-name)
                        separator
                        (directory-file-name project-relative-name)))))
-    (pawn/default-directory-name)))
+    (pawn-default-directory-name)))
 
 
 (defun rename-this-file-and-buffer (new-name)
@@ -113,11 +127,9 @@ If the buffer doesn't exist, create it and write the initial message into it."
         (filename (buffer-file-name)))
     (unless filename
       (error "Buffer '%s' is not visiting a file!" name))
-    (progn
-      (when (file-exists-p filename)
-        (rename-file filename new-name 1))
-      (set-visited-file-name new-name)
-      (rename-buffer new-name))))
+    (when (file-exists-p filename)
+      (rename-file filename new-name 1))
+    (set-visited-file-name new-name)))
 
 (defun clone-this-file (filename open-p)
   "Clone the current buffer writing it into FILENAME.
@@ -128,20 +140,6 @@ And if OPEN-P is false then, open file."
     (write-region (point-min) (point-max) filename nil nil nil 'confirm))
   (unless open-p
     (find-file filename)))
-
-
-(defmacro -> (&rest body)
-  "Threads the expr through the BODY.  It's like clojure."
-  (let ((result (pop body)))
-    (dolist (form body result)
-      (setq result (append (list (car form) result)
-                           (cdr form))))))
-
-(defmacro ->> (&rest body)
-  "Threads the expr through the BODY.  It's like clojure."
-  (let ((result (pop body)))
-    (dolist (form body result)
-      (setq result (append form (list result))))))
 
 (provide 'prelude-core)
 ;;; prelude-core.el ends here
