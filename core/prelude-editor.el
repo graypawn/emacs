@@ -19,8 +19,8 @@
 (prefer-coding-system 'utf-8)
 
 ;;; Tab
-(setq-default indent-tabs-mode nil)   ;; don't use tabs to indent
-(setq-default tab-width 4)            ;; but maintain correct appearance
+(setq-default indent-tabs-mode nil)   ; don't use tabs to indent
+(setq-default tab-width 4)            ; but maintain correct appearance
 
 ;; Newline at end of file
 (setq require-final-newline t)
@@ -32,16 +32,17 @@
 (delete-selection-mode t)
 
 ;; hippie expand is dabbrev expand on steroids
-(setq hippie-expand-try-functions-list '(try-expand-dabbrev
-                                         try-expand-dabbrev-all-buffers
-                                         try-expand-dabbrev-from-kill
-                                         try-complete-file-name-partially
-                                         try-complete-file-name
-                                         try-expand-all-abbrevs
-                                         try-expand-list
-                                         try-expand-line
-                                         try-complete-lisp-symbol-partially
-                                         try-complete-lisp-symbol))
+(setq hippie-expand-try-functions-list
+      '(try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-all-abbrevs
+        try-expand-list
+        try-expand-line
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
 
 ;; smart tab behavior - indent or complete
 (setq tab-always-indent 'complete)
@@ -84,7 +85,10 @@
 The body of the advice is in BODY."
   `(progn
      ,@(mapcar (lambda (command)
-                 `(defadvice ,command (,class ,(intern (concat (symbol-name command) "-" advice-name)) activate)
+                 `(defadvice ,command
+                      (,class
+                       ,(intern (concat (symbol-name command) "-" advice-name))
+                       activate)
                     ,@body))
                commands)))
 
@@ -214,12 +218,14 @@ The body of the advice is in BODY."
       (ansi-color-apply-on-region (point-min) (point-max)))))
 
 (require 'compile)
-(setq compilation-ask-about-save nil  ; Just save before compiling
-      compilation-always-kill t       ; Just kill old compile processes before
-                                        ; starting the new one
-      compilation-scroll-output 'first-error ; Automatically scroll to first
-                                        ; error
-      )
+(setq
+ ;; Just save before compiling
+ compilation-ask-about-save nil
+ ;; Just kill old compile processes before starting the new one
+ compilation-always-kill t
+ ;; Automatically scroll to first error
+ compilation-scroll-output 'first-error
+ )
 
 
 ;; Colorize output of Compilation Mode, see
@@ -316,7 +322,7 @@ The body of the advice is in BODY."
 (add-to-list 'auto-mode-alist '("\\.zsh\\'" . shell-script-mode))
 
 
-;; navigate
+;; NAVIGATE
 (use-package avy
   :bind (("C-:" . avy-goto-word-or-subword-1)
          ("M-g" . avy-goto-line)
@@ -374,8 +380,7 @@ The body of the advice is in BODY."
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 (setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t)    ;
-;; rename after killing uniquified
+(setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
 (setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
 
@@ -445,7 +450,10 @@ The body of the advice is in BODY."
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
 
-(defadvice server-visit-files (before parse-numbers-in-lines (files proc &optional nowait) activate)
+(defadvice server-visit-files (before
+                               parse-numbers-in-lines
+                               (files proc &optional nowait)
+                               activate)
   "Open file with emacsclient with cursors positioned on requested line.
 Most of console-based utilities prints filename in format
 'filename:linenumber'.  So you may wish to open filename in that format.
@@ -454,15 +462,18 @@ Just call:
   emacsclient filename:linenumber
 
 and file 'filename' will be opened and cursor set on line 'linenumber'"
-  (ad-set-arg 0
-              (mapcar (lambda (fn)
-                        (let ((name (car fn)))
-                          (if (string-match "^\\(.*?\\):\\([0-9]+\\)\\(?::\\([0-9]+\\)\\)?$" name)
-                              (cons
-                               (match-string 1 name)
-                               (cons (string-to-number (match-string 2 name))
-                                     (string-to-number (or (match-string 3 name) ""))))
-                            fn))) files)))
+  (ad-set-arg
+   0
+   (mapcar (lambda (fn)
+             (let ((name (car fn)))
+               (if (string-match "^\\(.*?\\):\\([0-9]+\\)\\(?::\\([0-9]+\\)\\)?$"
+                                 name)
+                   (cons
+                    (match-string 1 name)
+                    (cons (string-to-number (match-string 2 name))
+                          (string-to-number (or (match-string 3 name) ""))))
+                 fn)))
+           files)))
 
 
 ;; use settings from .editorconfig file when present

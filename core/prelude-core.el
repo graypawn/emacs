@@ -11,6 +11,7 @@
   (with-current-buffer buffer-or-name
     major-mode))
 
+
 (defun prelude-search (query-url prompt)
   "Open the search url constructed with the QUERY-URL.
 PROMPT sets the `read-string prompt."
@@ -21,16 +22,19 @@ PROMPT sets the `read-string prompt."
                 (buffer-substring (region-beginning) (region-end))
               (read-string prompt))))))
 
-(defmacro prelude-install-search-engine (search-engine-name search-engine-url search-engine-prompt)
+(defmacro prelude-install-search-engine (search-engine-name
+                                         search-engine-url
+                                         search-engine-prompt)
   "Given some information regarding a search engine, install the interactive command to search through them"
   `(defun ,(intern (format "prelude-%s" search-engine-name)) ()
-       ,(format "Search %s with a query or region if any." search-engine-name)
-       (interactive)
-       (prelude-search ,search-engine-url ,search-engine-prompt)))
+     ,(format "Search %s with a query or region if any." search-engine-name)
+     (interactive)
+     (prelude-search ,search-engine-url ,search-engine-prompt)))
 
 (prelude-install-search-engine "google" "http://www.google.com/search?q=" "Google: ")
 (prelude-install-search-engine "github" "https://github.com/search?q=" "Search GitHub: ")
 
+
 (defun prelude-todo-ov-evaporate (_ov _after _beg _end &optional _length)
   (let ((inhibit-modification-hooks t))
     (if _after (ov-reset _ov))))
@@ -58,6 +62,7 @@ PROMPT sets the `read-string prompt."
     (when after-init-time
       (eval form))))
 
+
 (defun pawn/switch-buffer-scratch ()
   "Switch to the scratch buffer.
 If the buffer doesn't exist, create it and write the initial message into it."
@@ -76,6 +81,7 @@ If the buffer doesn't exist, create it and write the initial message into it."
   (interactive)
   (switch-to-buffer "*Messages*"))
 
+
 (defun pawn/directory-name (directory)
   "Return DIRECTORY's namestring."
   (file-name-nondirectory
@@ -99,6 +105,7 @@ If the buffer doesn't exist, create it and write the initial message into it."
                        (directory-file-name project-relative-name)))))
     (pawn/default-directory-name)))
 
+
 (defun rename-this-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive "FNew name: ")

@@ -22,12 +22,13 @@
 
 (eval-after-load "org-agenda"
   '(progn
-     (setq ;; start agenda from the current day.
-           org-agenda-start-on-weekday nil
-           ;; don't show scheduled or deadline items in agenda when
-           ;; they are done.
-           org-agenda-skip-scheduled-if-done t
-           org-agenda-skip-deadline-if-done t)))
+     (setq
+      ;; start agenda from the current day.
+      org-agenda-start-on-weekday nil
+      ;; don't show scheduled or deadline items in agenda when
+      ;; they are done.
+      org-agenda-skip-scheduled-if-done t
+      org-agenda-skip-deadline-if-done t)))
 
 (defun pawn/find-file-org-diary ()
   "."
