@@ -393,8 +393,11 @@ The body of the advice is in BODY."
 ;; and current match position
 (use-package anzu
   :diminish anzu-mode
-  :bind (("M-%" . anzu-query-replace)
-         ("C-M-%" . anzu-query-replace-regexp))
+  :bind (([remap query-replace] . anzu-query-replace)
+         ([remap query-replace-regexp] . anzu-query-replace-regexp)
+         :map isearch-mode-map
+         ([remap isearch-query-replace] . anzu-isearch-query-replace)
+         ([remap isearch-query-replace-regexp] . anzu-isearch-query-replace-regexp))
   :config
   (global-anzu-mode))
 
@@ -482,11 +485,11 @@ and file 'filename' will be opened and cursor set on line 'linenumber'"
          ("M-P" . highlight-symbol-prev)
          :map isearch-mode-map
          ("M-o". highlight-symbol-occur))
-  :config
+  :init
   (dolist (hook '(prog-mode-hook html-mode-hook css-mode-hook))
     (add-hook hook 'highlight-symbol-mode)
     (add-hook hook 'highlight-symbol-nav-mode))
-
+  :config
   (defadvice highlight-symbol-temp-highlight (around
                                               sanityinc/maybe-suppress
                                               activate)
@@ -496,7 +499,7 @@ and file 'filename' will be opened and cursor set on line 'linenumber'"
       ad-do-it)))
 
 (custom-set-faces
- '(highlight-symbol-face ((t (:background "dim gray")))))
+ '(highlight-symbol-face ((t (:background "#545454")))))
 
 
 (defun toggle-default-input-method ()

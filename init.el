@@ -82,7 +82,7 @@ by Prelude.")
 (require 'prelude-custom)  ;; Needs to be loaded before core, editor and ui
 (require 'pawn-fonts)
 (require 'prelude-ui)
-(require 'prelude-core)?
+(require 'prelude-core)
 (require 'prelude-editor)
 (require 'pawn-parens)
 (require 'pawn-snippet)
