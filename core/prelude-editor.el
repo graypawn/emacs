@@ -291,9 +291,11 @@ The body of the advice is in BODY."
 (require 'em-prompt)
 (setq eshell-prompt-function
       (lambda ()
-        (concat
-         (car (last (split-string (pwd) "/")))
-         " $ ")))
+        (-> (eshell/pwd)
+            (split-string "/")
+            (last)
+            (car)
+            (concat " $ "))))
 
 (use-package shell-switcher
   :config
