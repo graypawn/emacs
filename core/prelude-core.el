@@ -129,5 +129,19 @@ And if OPEN-P is false then, open file."
   (unless open-p
     (find-file filename)))
 
+
+(defmacro -> (&rest body)
+  "Threads the expr through the BODY.  It's like clojure."
+  (let ((result (pop body)))
+    (dolist (form body result)
+      (setq result (append (list (car form) result)
+                           (cdr form))))))
+
+(defmacro ->> (&rest body)
+  "Threads the expr through the BODY.  It's like clojure."
+  (let ((result (pop body)))
+    (dolist (form body result)
+      (setq result (append form (list result))))))
+
 (provide 'prelude-core)
 ;;; prelude-core.el ends here
