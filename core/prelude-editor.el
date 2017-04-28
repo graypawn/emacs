@@ -481,6 +481,8 @@ and file 'filename' will be opened and cursor set on line 'linenumber'"
   :diminish highlight-symbol-mode
   :bind (("C-%" . highlight-symbol-query-replace)
          :map highlight-symbol-nav-mode-map
+         ("M-n" . nil)
+         ("M-p" . nil)
          ("M-N" . highlight-symbol-next)
          ("M-P" . highlight-symbol-prev)
          :map isearch-mode-map
