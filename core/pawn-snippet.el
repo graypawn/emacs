@@ -41,36 +41,35 @@
 ;; AUTO INSERT
 ;; 확장자를 기준으로 새 파일을 열 때, 자동으로 template를 삽입하도록 한다.
 (use-package autoinsert
-  :defer t
   :config
   (setq auto-insert-directory "~/.emacs.d/auto-insert/"
-        auto-insert-query nil))
+        auto-insert-query nil)
 
-(auto-insert-mode 1)
+  (auto-insert-mode 1))
 
-(defun pawn-autoinsert-yas-expand ()
-  "Replace text in yasnippet template."
-  (yas-expand-snippet (buffer-string) (point-min) (point-max)))
+(define-auto-insert "\\.\\(c\\|cc\\|cpp\\)$" "template.c")
+(define-auto-insert "\\.\\(h\\|hh\\|hpp\\)$" "template.h")
+(define-auto-insert "\\.java$" "template.java")
+(define-auto-insert "\\.el$" "template.el")
+(define-auto-insert "\\.py$" "template.py")
+(define-auto-insert "\\.sh$" "template.sh")
+(define-auto-insert "\\.desktop$" "template.desktop")
+(define-auto-insert "\\.lisp$" "template.lisp")
 
-(defmacro define-pawn-template (condition template)
-  "If the CONDITION is true, call `pawn-autoinsert-yas-expand' with TEMPLATE."
-  `(define-auto-insert ,(eval condition)
-     [,(eval template) pawn-autoinsert-yas-expand]))
-
-(defmacro define-pawn-templates (&rest define-list)
-  "DEFINE-LIST is a arguments for `define-pawn-template'."
-  `(progn ,@(mapcar (lambda (x) (list 'define-pawn-template (car x) (cdr x)))
-                    define-list)))
-
-(define-pawn-templates
-  ("\\.\\(c\\|cc\\|cpp\\)$" . "template.c")
-  ("\\.\\(h\\|hh\\|hpp\\)$" . "template.h")
-  ("\\.java$" . "template.java")
-  ("\\.py$" . "template.py")
-  ("\\.sh$" . "template.sh")
-  ("\\.el$" . "template.el")
-  ("\\.desktop$" . "template.desktop")
-  ("\\.lisp$" . "template.lisp"))
+(defadvice auto-insert  (around yasnippet-expand-after-auto-insert activate)
+  "Expand auto-inserted content as yasnippet templete, \
+so that we could use yasnippet in autoinsert mode"
+  (let ((is-new-file (and (not buffer-read-only)
+                          (or (eq this-command 'auto-insert)
+                              (and auto-insert (bobp) (eobp))))))
+    ad-do-it
+    (let ((old-point-max (point-max))
+          (yas-indent-line nil))
+      (when is-new-file
+        (goto-char old-point-max)
+        (yas-expand-snippet (buffer-substring-no-properties
+                             (point-min) (point-max)))
+        (delete-region (point-min) old-point-max)))))
 
 (provide 'pawn-snippet)
 ;;; pawn-snippet.el ends here

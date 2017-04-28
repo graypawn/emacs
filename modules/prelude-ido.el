@@ -65,7 +65,7 @@
 
 ;;; smex, remember recently and most frequently used commands
 (use-package smex
-  :bind (("M-x" . smex)
+  :bind (([remap execute-extended-command] . smex)
          ("M-X" . smex-major-mode-commands))
   :config
   (setq smex-save-file (expand-file-name ".smex-items" prelude-savefile-dir))

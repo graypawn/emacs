@@ -67,6 +67,39 @@
            )))
 
 
+(defun deft-filter-input-with-korean  (someone)
+  "Append the string SOMEONE to the filter with korean input method."
+  (interactive
+   (list
+    ((lambda ()
+       (activate-input-method "korean-hangul")
+       (read-string "Input message: " "" nil "" t)))))
+  (deft-filter
+    (concat (deft-whole-filter-regexp) someone) t)
+  (deactivate-input-method))
+
+(defun deft+ (directory)
+  "Run deft in specified DIRECTORY via argument."
+  (interactive (->> (default-value 'deft-directory)
+                    (read-directory-name "Deft: ")
+                    (list)))
+
+  (make-directory directory t)
+
+  (setq mode-line-process
+        (->> (default-value 'deft-directory)
+             (file-relative-name directory)
+             (directory-file-name)
+             (format " in %s")))
+
+  ;; Run deft.
+  (let ((deft-directory directory))
+    (deft))
+
+  ;; Setting local value in deft buffer. And refresh.
+  (set (make-local-variable 'deft-directory) directory)
+  (deft-refresh))
+
 (use-package deft
   :bind (("<f12>" . deft)
          :map deft-mode-map
@@ -77,46 +110,12 @@
          deft-default-extension "org"
          deft-directory "~/Dropbox/wiki/"
          deft-use-filename-as-title nil
-         deft-auto-save-interval nil
-         )
+         deft-auto-save-interval nil)
 
   (eval-after-load "smart-mode-line"
     '(progn
        (add-to-list 'sml/replacer-regexp-list
-                    `(,(concat "^" deft-directory) ":DEFT:"))))
-
-  (defun deft-filter-input-with-korean  (someone)
-    "Append the input message to the filter with korean input method."
-    (interactive
-     (list
-      ((lambda ()
-         (activate-input-method "korean-hangul")
-         (read-string "Input message: " "" nil "" t)))))
-    (deft-filter
-      (concat (deft-whole-filter-regexp) someone) t)
-    (deactivate-input-method))
-
-  (defun deft+ (directory)
-    "Run deft in specified directory via argument."
-    (interactive (->> (default-value 'deft-directory)
-                      (read-directory-name "Deft: ")
-                      (list)))
-
-    (make-directory directory t)
-
-    (setq mode-line-process
-          (->> (default-value 'deft-directory)
-               (file-relative-name directory)
-               (directory-file-name)
-               (format " in %s")))
-
-    ;; Run deft.
-    (let ((deft-directory directory))
-      (deft))
-
-    ;; Setting local value in deft buffer. And refresh.
-    (set (make-local-variable 'deft-directory) directory)
-    (deft-refresh)))
+                    `(,(concat "^" deft-directory) ":DEFT:")))))
 
 
 (provide 'prelude-org)
