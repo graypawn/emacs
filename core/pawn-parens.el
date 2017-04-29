@@ -12,8 +12,15 @@
   (show-smartparens-global-mode t)
   (sp-use-paredit-bindings)
 
-  (sp-local-pair 'org-mode "'" nil :actions nil)
-  (sp-local-pair 'org-mode "`" nil :actions nil)
+  (sp-with-modes '(org-mode)
+    (sp-local-pair "'" nil :actions nil)
+    (sp-local-pair "`" nil :actions nil)
+    (sp-local-pair "*" "*" :actions '(wrap))
+    (sp-local-pair "/" "/" :actions '(wrap))
+    (sp-local-pair "_" "_" :actions '(wrap))
+    (sp-local-pair "=" "=" :actions '(wrap))
+    (sp-local-pair "~" "~" :actions '(wrap))
+    (sp-local-pair "+" "+" :actions '(wrap)))
 
   ;; For lisp modes
   (mapc (lambda (mode)
