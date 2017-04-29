@@ -118,6 +118,14 @@ The body of the advice is in BODY."
     (with-current-buffer buffer (if mode (funcall mode)))))
 
 
+;; enable case region command
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+
+(global-unset-key (kbd "C-x C-l"))
+(global-unset-key (kbd "C-x C-u"))
+
+
 ;; note - this should be after volatile-highlights is required
 ;; add the ability to cut the current line, without marking it
 (require 'rect)
