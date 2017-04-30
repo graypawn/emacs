@@ -454,7 +454,7 @@ The body of the advice is in BODY."
   :bind (("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
          ("C-c C->" . mc/mark-all-like-this))
-  :config
+  :init
   (setq mc/list-file (expand-file-name ".mc-lists.el" prelude-savefile-dir)))
 
 
