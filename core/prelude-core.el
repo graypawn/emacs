@@ -6,21 +6,6 @@
 (require 'dash)
 (require 'ov)
 
-(defmacro -> (&rest body)
-  "Threads the expr through the BODY.  It's like clojure."
-  (let ((result (pop body)))
-    (dolist (form body result)
-      (setq result (append (list (car form) result)
-                           (cdr form))))))
-
-(defmacro ->> (&rest body)
-  "Threads the expr through the BODY.  It's like clojure."
-  (let ((result (pop body)))
-    (dolist (form body result)
-      (setq result (append form (list result))))))
-
-
-
 (defun prelude-buffer-mode (buffer-or-name)
   "Retrieve the `major-mode' of BUFFER-OR-NAME."
   (with-current-buffer buffer-or-name
