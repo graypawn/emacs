@@ -6,10 +6,11 @@
   "You select (and expand) a yasnippet keyword."
   (interactive)
   (let ((original-point (point)))
-    (while (and
-            (not (= (point) (point-min) ))
-            (not
-             (string-match "[[:space:]\n]" (char-to-string (char-before)))))
+    (while (and (not (= (point) (point-min) ))
+                (->> (char-before)
+                     (char-to-string)
+                     (string-match "[[:space:]\n]")
+                     (not)))
       (backward-word 1))
     (let* ((init-word (point))
            (word (buffer-substring init-word original-point))

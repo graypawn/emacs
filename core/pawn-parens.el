@@ -14,13 +14,10 @@
 
   (sp-with-modes '(org-mode)
     (sp-local-pair "'" nil :actions nil)
-    (sp-local-pair "`" nil :actions nil)
-    (sp-local-pair "*" "*" :actions '(wrap))
-    (sp-local-pair "/" "/" :actions '(wrap))
-    (sp-local-pair "_" "_" :actions '(wrap))
-    (sp-local-pair "=" "=" :actions '(wrap))
-    (sp-local-pair "~" "~" :actions '(wrap))
-    (sp-local-pair "+" "+" :actions '(wrap)))
+    (sp-local-pair "`" nil :actions nil))
+
+  (dolist (half'("*" "/" "_" "=" "~" "+"))
+    (sp-local-pair 'org-mode half half :actions '(wrap)))
 
   ;; For lisp modes
   (mapc (lambda (mode)
@@ -48,25 +45,24 @@
   (while (save-excursion                ; this is my contribution
            (let ((before-paren (point)))
              (back-to-indentation)
-             (and (= (point) before-paren)
-                  (progn
-                    ;; Move to end of previous line.
-                    (beginning-of-line)
-                    (forward-char -1)
-                    ;; Verify it doesn't end within a string or comment.
-                    (let ((end (point))
-                          state)
-                      (beginning-of-line)
-                      ;; Get state at start of line.
-                      (setq state  (list 0 nil nil
-                                         (null (calculate-lisp-indent))
-                                         nil nil nil nil
-                                         nil))
-                      ;; Parse state across the line to get state at end.
-                      (setq state (parse-partial-sexp (point) end nil nil
-                                                      state))
-                      ;; Check not in string or comment.
-                      (and (not (elt state 3)) (not (elt state 4))))))))
+             (when (= (point) before-paren)
+               ;; Move to end of previous line.
+               (beginning-of-line)
+               (forward-char -1)
+               ;; Verify it doesn't end within a string or comment.
+               (let ((end (point))
+                     state)
+                 (beginning-of-line)
+                 ;; Get state at start of line.
+                 (setq state  (list 0 nil nil
+                                    (null (calculate-lisp-indent))
+                                    nil nil nil nil
+                                    nil))
+                 ;; Parse state across the line to get state at end.
+                 (setq state (parse-partial-sexp (point) end nil nil
+                                                 state))
+                 ;; Check not in string or comment.
+                 (and (not (elt state 3)) (not (elt state 4)))))))
     (delete-indentation))
   (just-one-space 0)
   (forward-char 1))

@@ -24,9 +24,8 @@
                     'japanese-jisx0208
                     '("VL Gothic" . "unicode-bmp")))
 
-(cond
- ((daemonp) (linux-daemon-config))
- ((eq system-type 'gnu/linux) (linux-config)))
+(cond ((daemonp) (linux-daemon-config))
+      ((eq system-type 'gnu/linux) (linux-config)))
 
 (provide 'pawn-fonts)
 ;;; pawn-fonts.el ends here

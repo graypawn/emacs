@@ -44,8 +44,7 @@ This functions should be added to the hooks of major modes for programming."
 
 (setq prelude-prog-mode-hook 'prelude-prog-mode-defaults)
 
-(add-hook 'prog-mode-hook (lambda ()
-                            (run-hooks 'prelude-prog-mode-hook)))
+(add-hook 'prog-mode-hook (lambda () (run-hooks 'prelude-prog-mode-hook)))
 
 ;; enable on-the-fly syntax checking
 (if (fboundp 'global-flycheck-mode)

@@ -74,8 +74,9 @@
     ((lambda ()
        (activate-input-method "korean-hangul")
        (read-string "Input message: " "" nil "" t)))))
-  (deft-filter
-    (concat (deft-whole-filter-regexp) someone) t)
+  (-> (deft-whole-filter-regexp)
+      (concat  someone)
+      (deft-filter t))
   (deactivate-input-method))
 
 (defun deft+ (directory)

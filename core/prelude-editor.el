@@ -194,8 +194,8 @@ The body of the advice is in BODY."
 ;; automatically indenting yanked text if in programming-modes
 (defun yank-advised-indent-function (beg end)
   "Do indentation, as long as the region isn't too large."
-  (if (<= (- end beg) prelude-yank-indent-threshold)
-      (indent-region beg end nil)))
+  (when (<= (- end beg) prelude-yank-indent-threshold)
+    (indent-region beg end nil)))
 
 (advise-commands
  "indent" (yank yank-pop) after
