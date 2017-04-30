@@ -74,23 +74,5 @@
 ;; use icomplete in minibuffer
 (icomplete-mode t)
 
-
-(add-hook 'ibuffer-hook
-          (lambda ()
-            (ibuffer-vc-set-filter-groups-by-vc-root)
-            (unless (eq ibuffer-sorting-mode 'alphabetic)
-              (ibuffer-do-sort-by-alphabetic))))
-
-(eval-after-load 'ibuffer
-  (use-package ibuffer-vc))
-
-(setq ibuffer-formats
-      '((mark modified read-only vc-status-mini " "
-              (name 18 18 :left :elide)
-              " "
-              (mode 16 16 :left :elide)
-              " "
-              filename-and-process)))
-
 (provide 'prelude-ido)
 ;;; prelude-ido.el ends here
