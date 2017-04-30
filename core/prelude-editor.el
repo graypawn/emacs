@@ -278,6 +278,22 @@ The body of the advice is in BODY."
         projectile-switch-project-action 'projectile-dired)
   (projectile-global-mode)
 
+  ;; projectile가 root를 찾는 루틴
+  ;; `projectile-project-root-files-functions' 에 정의된 순서대로 함수를 실행한다.
+  ;; 1. `projectile-root-local' 신경쓰지 말자.
+  ;; 2. `projectile-root-bottom-up'
+  ;;     projectile-project-root-files-bottom-up 에 정의된 파일을 찾는다.
+  ;;     상위로 올라가며 가장 먼저 발견하는 곳이 root다.
+  ;;     (ex: .projectile .git)
+  ;; 3. `projectile-root-top-down'
+  ;;     projectile-project-root-files 에 정의된 파일을 찾는다.
+  ;;     상위로 올라가며 가장 먼저 발견하는 곳이 root다.
+  ;;     (ex: .GTAGS setup.py project.clj)
+  ;; 4. `projectile-root-top-down-recurring'
+  ;;     가장 최상위에 존재하는 projectile-project-root-files-top-down-recurring
+  ;;     에 정의된 파일을 찾는다.
+  ;;     (ex: Makefile)
+
   (defun pawn-projectile-test-prefix (project-type)
     "Find default test files prefix based on PROJECT-TYPE."
     (cond
