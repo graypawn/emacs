@@ -20,15 +20,17 @@
 
 (setq org-agenda-files '("~/Dropbox/org/diary.org"))
 
-(eval-after-load "org-agenda"
-  '(progn
-     (setq
-      ;; start agenda from the current day.
-      org-agenda-start-on-weekday nil
-      ;; don't show scheduled or deadline items in agenda when
-      ;; they are done.
-      org-agenda-skip-scheduled-if-done t
-      org-agenda-skip-deadline-if-done t)))
+(use-package org-agenda
+  :ensure nil
+  :defer t
+  :config
+  (setq
+   ;; start agenda from the current day.
+   org-agenda-start-on-weekday nil
+   ;; don't show scheduled or deadline items in agenda when
+   ;; they are done.
+   org-agenda-skip-scheduled-if-done t
+   org-agenda-skip-deadline-if-done t))
 
 (defun pawn-find-file-org-diary ()
   "."
@@ -59,12 +61,14 @@
 
 
 ;; For exporting
-(eval-after-load "ox-html"
-  '(progn
-     (setq org-html-postamble nil              ; html-postamble:nil
-           org-export-with-toc nil             ; toc:nil
-           org-export-with-section-numbers nil ; num:nil
-           )))
+(use-package ox-html
+  :ensure nil
+  :defer t
+  :config
+  (setq org-html-postamble nil                ; html-postamble:nil
+        org-export-with-toc nil               ; toc:nil
+        org-export-with-section-numbers nil   ; num:nil
+        ))
 
 
 (defun deft-filter-input-with-korean  (someone)
@@ -113,10 +117,12 @@
          deft-use-filename-as-title nil
          deft-auto-save-interval nil)
 
-  (eval-after-load "smart-mode-line"
-    '(progn
-       (add-to-list 'sml/replacer-regexp-list
-                    `(,(concat "^" deft-directory) ":DEFT:")))))
+  (use-package smart-mode-line
+    :ensure nil
+    :defer t
+    :config
+    (add-to-list 'sml/replacer-regexp-list
+                 `(,(concat "^" deft-directory) ":DEFT:"))))
 
 
 (provide 'prelude-org)

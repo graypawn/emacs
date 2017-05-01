@@ -273,7 +273,7 @@ The body of the advice is in BODY."
   (setq projectile-cache-file
         (expand-file-name  "projectile.cache" prelude-savefile-dir)
         projectile-switch-project-action 'projectile-dired)
-  (projectile-global-mode)
+  (projectile-mode)
 
   ;; projectile가 root를 찾는 루틴
   ;; `projectile-project-root-files-functions' 에 정의된 순서대로 함수를 실행한다.
