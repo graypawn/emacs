@@ -44,9 +44,6 @@
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 
-;; smart tab behavior - indent or complete
-(setq tab-always-indent 'complete)
-
 
 ;; saveplace remembers your location in a file when saving files
 (setq save-place-file (expand-file-name "saveplace" prelude-savefile-dir))
@@ -400,6 +397,7 @@ The body of the advice is in BODY."
            ("C-;" . nil)
            ("C-." . nil)
            ("C-," . nil)
+           ("C-M-i" . nil)
            ("C-c $" . nil))
 
 
