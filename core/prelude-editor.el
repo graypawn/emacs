@@ -571,6 +571,15 @@ and file 'filename' will be opened and cursor set on line 'linenumber'"
      (point))))
 
 (define-key isearch-mode-map (kbd "M-w") 'isearch-yank-symbol)
+
+(defun mark-symbol ()
+  "Put mark at end of this symbol, point at beginning."
+  (interactive)
+  (end-of-thing 'symbol)
+  (set-mark (point))
+  (beginning-of-thing 'symbol))
+
+(global-set-key (kbd "C-*") 'mark-symbol)
 
 
 (defun toggle-default-input-method ()
