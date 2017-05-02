@@ -541,6 +541,38 @@ and file 'filename' will be opened and cursor set on line 'linenumber'"
  '(highlight-symbol-face ((t (:background "#545454")))))
 
 
+;; ISearch Yank
+(require 'thingatpt)
+
+(defun isearch-yank-word-or-char-from-beginning ()
+  "Move to beginning of word before yanking word in `isearch-mode'."
+  (interactive)
+  (if (= 0 (length isearch-string))
+      (beginning-of-thing 'word))
+  (isearch-yank-word-or-char)
+  (substitute-key-definition 'isearch-yank-word-or-char-from-beginning
+                             'isearch-yank-word-or-char
+                             isearch-mode-map))
+
+(add-hook 'isearch-mode-hook
+          (lambda ()
+            "Activate my customized Isearch word yank command."
+            (substitute-key-definition 'isearch-yank-word-or-char
+                                       'isearch-yank-word-or-char-from-beginning
+                                       isearch-mode-map)))
+
+(defun isearch-yank-symbol ()
+  "Pull symbol from point."
+  (interactive)
+  (beginning-of-thing 'symbol)
+  (isearch-yank-internal
+   (lambda ()
+     (end-of-thing 'symbol)
+     (point))))
+
+(define-key isearch-mode-map (kbd "M-w") 'isearch-yank-symbol)
+
+
 (defun toggle-default-input-method ()
   "Turn on or off a default input method."
   (interactive)
