@@ -49,6 +49,7 @@
 (global-set-key (kbd "C-^") 'crux-top-join-line)
 (global-set-key [remap just-one-space] 'cycle-spacing)
 (global-set-key (kbd "C-M-\\") 'crux-cleanup-buffer-or-region)
+(global-set-key (kbd "M-\\") 'whitespace-cleanup)
 
 (global-set-key (kbd "C-x C-u") 'browse-url-at-point)
 (global-set-key (kbd "M-'") 'crux-visit-term-buffer)
