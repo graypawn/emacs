@@ -111,11 +111,11 @@ If the buffer doesn't exist, create it and write the initial message into it."
   (interactive "FNew name: ")
   (let ((name (buffer-name))
         (filename (buffer-file-name)))
-    (unless filename
-      (error "Buffer '%s' is not visiting a file!" name))
-    (when (file-exists-p filename)
-      (rename-file filename new-name 1))
-    (set-visited-file-name new-name)))
+    (if (and filename (file-exists-p new-name))
+        (error "File '%s' already exists!" new-name)
+      (when (file-exists-p filename)
+        (rename-file filename new-name 1))
+      (set-visited-file-name new-name))))
 
 (defun clone-this-file (filename open-p)
   "Clone the current buffer writing it into FILENAME.
