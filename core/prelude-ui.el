@@ -30,15 +30,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 
-;; more useful frame title, that show either a file or a
-;; buffer name (if the buffer isn't visiting a file)
-(setq frame-title-format
-      '("" invocation-name " - "
-        (:eval (if (buffer-file-name)
-                   (abbreviate-file-name (buffer-file-name))
-                 "%b"))))
-
-
 ;; use zenburn as the default theme
 (when prelude-theme
   (load-theme prelude-theme t))
@@ -50,7 +41,20 @@
         ;; delegate theming to the currently active theme
         sml/theme nil
         sml/show-remote nil)
-  (add-hook 'after-init-hook #'sml/setup))
+  (add-hook 'after-init-hook #'sml/setup)
+  ;; window size 80 -> sml/name-with 44
+  ;; window size 120 -> sml/name-with 64
+  (add-hook 'window-configuration-change-hook
+            (lambda ()
+              (setq sml/name-width (+ (/ (- (window-total-width) 80) 2) 44))))
+
+  ;; more useful frame title, that show either a file or a
+  ;; buffer name (if the buffer isn't visiting a file)
+  (setq frame-title-format
+        '("" invocation-name " - "
+          (:eval (if (buffer-file-name)
+                     (sml/generate-buffer-identification)
+                   "%b")))))
 
 
 ;; show the cursor when moving after big movements in the window
