@@ -83,32 +83,29 @@
       (deft-filter t))
   (deactivate-input-method))
 
-(defun deft+ (directory)
-  "Run deft in specified DIRECTORY via argument."
-  (interactive (->> (default-value 'deft-directory)
-                    (read-directory-name "Deft: ")
-                    (list)))
-
-  (make-directory directory t)
-
-  (setq mode-line-process
-        (->> (default-value 'deft-directory)
-             (file-relative-name directory)
-             (directory-file-name)
-             (format " in %s")))
-
-  ;; Run deft.
-  (let ((deft-directory directory))
+(defun deft+ ()
+  "Run deft in specified directory."
+  (interactive)
+  (if (derived-mode-p 'deft-mode)
+      (let ((directory (->> (default-value 'deft-directory)
+                            (read-directory-name "Deft: "))))
+        (make-directory directory t)
+        (setq mode-line-process
+              (->> (default-value 'deft-directory)
+                   (file-relative-name directory)
+                   (directory-file-name)
+                   (format " in %s")))
+        ;; Run deft.
+        (let ((deft-directory directory))
+          (deft))
+        ;; Setting local value in deft buffer. And refresh.
+        (set (make-local-variable 'deft-directory) directory))
     (deft))
-
-  ;; Setting local value in deft buffer. And refresh.
-  (set (make-local-variable 'deft-directory) directory)
-  (deft-refresh))
+ (deft-refresh))
 
 (use-package deft
-  :bind (("<f12>" . deft)
+  :bind (("<f12>" . deft+)
          :map deft-mode-map
-         ("<f12>" . deft+)
          ("S-SPC" . deft-filter-input-with-korean))
   :config
   (setq  deft-extensions '("org")
