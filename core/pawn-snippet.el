@@ -56,6 +56,7 @@
 (define-auto-insert "\\.sh$" "template.sh")
 (define-auto-insert "\\.desktop$" "template.desktop")
 (define-auto-insert "\\.lisp$" "template.lisp")
+(define-auto-insert "\\.org$" "template.org")
 
 (defadvice auto-insert  (around yasnippet-expand-after-auto-insert activate)
   "Expand auto-inserted content as yasnippet templete, \

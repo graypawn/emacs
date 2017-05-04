@@ -103,9 +103,35 @@
     (deft))
  (deft-refresh))
 
+(defvar deft+-filter-regexp nil)
+
+(defun deft+-new-file-named (slug)
+  "Create a new file named SLUG.
+SLUG is the short file name, without a path or a file extension."
+  (interactive "sNew filename (without extension): ")
+  (let ((file (deft-absolute-filename slug)))
+    (if (file-exists-p file)
+        (message "Aborting, file already exists: %s" file)
+      (deft-cache-update-file file)
+      (deft-refresh-filter)
+      (let ((deft+-filter-regexp deft-filter-regexp)
+            (deft-filter-regexp nil))
+        (deft-open-file file)))))
+
+(defun deft+-filter-regexp-as-regexp ()
+  (let ((deft-filter-regexp deft+-filter-regexp))
+    (deft-filter-regexp-as-regexp)))
+
+(defun deft+-new-file ()
+  "Create a new file quickly."
+  (interactive)
+  (let ((slug (deft-unused-slug)))
+    (deft+-new-file-named slug)))
+
 (use-package deft
   :bind (("<f12>" . deft+)
          :map deft-mode-map
+         ("C-c C-n" . deft+-new-file)
          ("S-SPC" . deft-filter-input-with-korean))
   :config
   (setq  deft-extensions '("org")
