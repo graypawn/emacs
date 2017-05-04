@@ -17,6 +17,7 @@
 (set-language-environment "Korean")
 (prefer-coding-system 'japanese-shift-jis-dos)
 (prefer-coding-system 'utf-8)
+(setq default-input-method 'japanese)
 
 ;;; Tab
 (setq-default indent-tabs-mode nil)   ; don't use tabs to indent
