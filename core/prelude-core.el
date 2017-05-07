@@ -127,5 +127,16 @@ And if OPEN-P is false then, open file."
   (unless open-p
     (find-file filename)))
 
+
+(defun join-region (beg end)
+  "Apply join-line over region."
+  (interactive "r")
+  (if mark-active
+      (let ((beg (region-beginning))
+            (end (copy-marker (region-end))))
+        (goto-char beg)
+        (while (< (point) end)
+          (join-line 1)))))
+
 (provide 'prelude-core)
 ;;; prelude-core.el ends here
