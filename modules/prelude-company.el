@@ -11,7 +11,9 @@
   ;; is displayed on top (happens near the bottom of windows)
   (setq company-tooltip-flip-when-above t)
 
-  (global-company-mode 1))
+  (global-company-mode 1)
+  (add-hook 'org-mode-hook (lambda ()
+                             (company-mode -1))))
 
 (provide 'prelude-company)
 ;;; prelude-company.el ends here
