@@ -118,9 +118,9 @@ SLUG is the short file name, without a path or a file extension."
             (deft-filter-regexp nil))
         (deft-open-file file)))))
 
-(defun deft+-filter-regexp-as-regexp ()
-  (let ((deft-filter-regexp deft+-filter-regexp))
-    (deft-filter-regexp-as-regexp)))
+(defun deft+-whole-filter-regexp ()
+  "Join incremental filters into one."
+  (mapconcat 'identity (reverse deft+-filter-regexp) " "))
 
 (defun deft+-new-file ()
   "Create a new file quickly."
