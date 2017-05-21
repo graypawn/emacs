@@ -88,6 +88,7 @@ by Prelude.")
 (require 'pawn-snippet)
 (require 'prelude-global-keybindings)
 (require 'prelude-org)
+(require 'pawn-deft)
 
 ;; OSX specific settings
 (when (eq system-type 'darwin)
