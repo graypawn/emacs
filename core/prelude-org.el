@@ -40,6 +40,7 @@
 
 ;; Babel
 (setq org-src-fontify-natively t
+      org-src-tab-acts-natively t
       org-edit-src-content-indentation 0)
 
 (org-babel-do-load-languages
