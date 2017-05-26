@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: user
+# key: user_
+# --
+#+HEADER: :var USER=${1:root}$0

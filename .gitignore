@@ -17,7 +17,6 @@ custom.el
 places
 .smex-items
 savefile/
-snippets/
 auto-insert/
 /prelude-modules.el
 projectile-bookmarks.eld

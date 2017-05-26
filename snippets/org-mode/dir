@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: dir
+# key: dir_
+# --
+#+HEADER: :dir $0
+emacs
