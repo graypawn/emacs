@@ -5,8 +5,16 @@
 (require 'prelude-programming)
 
 (defun prelude-c-mode-common-defaults ()
-  (setq c-default-style "k&r"
-        c-basic-offset 4)
+  (setq c-default-style '((java-mode . "java")
+                          (awk-mode . "awk")
+                          (c-mode . "k&r")
+                          (c++-mode . "stroustrup")
+                          (other . "linux"))
+        c-basic-offset 4
+        comment-style 'extra-line
+        comment-start "/* "
+        comment-end " */"
+        c-block-comment-prefix "* ")
   (c-set-offset 'substatement-open 0))
 
 (setq prelude-c-mode-common-hook 'prelude-c-mode-common-defaults)
