@@ -595,6 +595,13 @@ and file 'filename' will be opened and cursor set on line 'linenumber'"
 (global-set-key (kbd "C-|") 'set-input-method) ;Select and activate input method.
 
 
+(defun y-or-n-p-deactivate-input-method (orig-func &rest args)
+  (deactivate-input-method)
+  (apply orig-func args))
+
+(advice-add 'y-or-n-p :around #'y-or-n-p-deactivate-input-method)
+
+
 (defun just-one-space-in-rect-line (start end)
   (save-restriction
     (save-match-data

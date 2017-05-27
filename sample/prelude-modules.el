@@ -11,6 +11,7 @@
 
 ;;; Programming languages support
 (require 'prelude-c)
+;; (require 'pawn-arduino)
 ;; (require 'prelude-clojure)
 (require 'prelude-common-lisp)
 ;; (require 'prelude-css)
