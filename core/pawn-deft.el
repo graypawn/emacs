@@ -32,7 +32,8 @@
         ;; Setting local value in deft buffer. And refresh.
         (set (make-local-variable 'deft-directory) directory))
     (deft))
- (deft-refresh))
+  (deft-filter-clear)
+  (deft-refresh))
 
 (use-package deft
   :bind (("<f12>" . deft+)
