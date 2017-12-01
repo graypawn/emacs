@@ -71,5 +71,20 @@
         org-export-with-section-numbers nil   ; num:nil
         ))
 
+
+;; Execute the source code block named 'theme'
+
+(defun org-babel-src-theme-execute (save-arg)
+  "Execute the source code block named 'theme'"
+  (interactive "P")
+  (if save-arg
+      (save-excursion
+        (org-babel-goto-named-src-block "theme")
+        (org-babel-execute-src-block))
+    (org-babel-goto-named-src-block "theme")
+    (org-babel-execute-src-block)))
+
+(bind-key "<f7>" 'org-babel-src-theme-execute org-mode-map)
+
 (provide 'prelude-org)
 ;;; prelude-org.el ends here
